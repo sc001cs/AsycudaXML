@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import logic.ExcelPoi;
@@ -92,8 +93,7 @@ import enitity.asycuda.valuation_childs.Weight;
 
 public class GeneralInfoExcel {
 
-	private static int costumTransDoc_OFFICESEGM_IDENT = 3;
-	private static int costumClearaOffName_OFFICESEGM_IDENT = 4;
+
 	
 	private static int expoName_EXPO_TRADERS = 5;
 	
@@ -163,9 +163,9 @@ public class GeneralInfoExcel {
 	 * @param byteExcel
 	 * @return Asycuda populated first sheet
 	 */
-	public Asycuda writeValueFromGeneralInfoExcel(byte[] byteExcel) {
+	public Asycuda writeValueFromGeneralInfoExcel(byte[] byteExcel, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 		
-		GeneralInfoElaborate elabGenerInfo = new GeneralInfoElaborate();
+		GeneralInfoElaborate genInfoElab = new GeneralInfoElaborate();
 		GetCurrency currency = new GetCurrency();
 		String currencyExchange = currency.getCurrencyExchange();
 		
@@ -180,8 +180,7 @@ public class GeneralInfoExcel {
 		
 		Row row = sheet.getRow(ROW);
 		
-		String costumTransDoc_OFFICESEGM_IDENT_String = ExcelPoi.getString(row, costumTransDoc_OFFICESEGM_IDENT);
-		String costumClearaOffName_OFFICESEGM_IDENT_String = ExcelPoi.getString(row, costumClearaOffName_OFFICESEGM_IDENT);
+		
 
 		String expoName_EXPO_TRADERS_String = ExcelPoi.getString(row, expoName_EXPO_TRADERS);
 
@@ -299,9 +298,13 @@ public class GeneralInfoExcel {
 		
 		Identification ident = new Identification();
 		
-		OfficeSegment offSegm = new OfficeSegment();
-		offSegm.setCustoms_clearance_office_code(costumTransDoc_OFFICESEGM_IDENT_String);
-		offSegm.setCustoms_Clearance_office_name(costumClearaOffName_OFFICESEGM_IDENT_String);
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 3, 4
+		 * - costumTransDoc_OFFICESEGM_IDENT (mandatory)
+		 * - costumClearaOffName_OFFICESEGM_IDENT (mandatory)
+		 * */
+		OfficeSegment offSegm = genInfoElab.getOfficeSegmentIdentificationChilds(row, hmGenInfoColsNameAndPosit);
 		
 		ident.setOffice_segment(offSegm);
 		
@@ -312,7 +315,7 @@ public class GeneralInfoExcel {
 		 * - declarGenProcCode_TYPE_IDENT (mandatory)
 		 * - typeTransDoc_TYPE_IDENT
 		 * */
-		Type type = elabGenerInfo.getTypeIdentificationChilds(row);
+		Type type = genInfoElab.getTypeIdentificationChilds(row, hmGenInfoColsNameAndPosit);
 		
 		ident.setType(type);
 		

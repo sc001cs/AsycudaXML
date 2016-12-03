@@ -21,6 +21,8 @@ import configuration.ConvertObjectToXMLString;
 import enitity.Asycuda;
 import enitity.asycuda.Item;
 import enitity.asycuda.item_childs.Tarification;
+import logic.elaboration.GeneralInfoPositionCell;
+import logic.elaboration.GeneralInfoValidation;
 import multi_item.GeneralInfoExcel;
 
 public class GenerateXMLFirstSheet {
@@ -30,14 +32,17 @@ public class GenerateXMLFirstSheet {
 		ConfigFileExcel configFileExcel = new ConfigFileExcel();
 		GeneralInfoExcel genInfoExcel = new GeneralInfoExcel();
 		ConvertObjectToXMLString objToXMLString = new ConvertObjectToXMLString();
+		GeneralInfoPositionCell genInfoPosCell = new GeneralInfoPositionCell();
 		Asycuda ASYCUDA = new Asycuda();
 		String utf8 = "UTF-8";
 		String nameFile = "E:\\TemplateAsycudaTempMulti.xlsx";
 		String fileOutput = "E:\\asycuda_first_sheet.xml";
 		String finalXML = "";
-
+		HashMap<Integer, String> hmGenInfoColsNameAndPosit = genInfoPosCell.hmGenInfoColsName();
+		
 		byte[] byteExcel = configFileExcel.getByteFromFile(nameFile);
-		ASYCUDA = genInfoExcel.writeValueFromGeneralInfoExcel(byteExcel);
+		
+		ASYCUDA = genInfoExcel.writeValueFromGeneralInfoExcel(byteExcel, hmGenInfoColsNameAndPosit);
 
 		/* --------------------------------------
 		 * CONSOLE: PRINT OUT THE ASYCUDA OBJECT

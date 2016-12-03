@@ -1,5 +1,6 @@
 package logic.elaboration;
 
+import enitity.asycuda.identification_childs.OfficeSegment;
 import enitity.asycuda.identification_childs.Type;
 
 public class GeneralInfoValidation {
@@ -18,6 +19,24 @@ public class GeneralInfoValidation {
 
 			System.err.println("***** ERROR *****\n "
 					+ "Please fill out: declarGenProcCode_TYPE_IDENT -- Sheet1 Cell 1");
+		}
+
+	}
+	
+	public void validationCellsOfficeSegmentIdentificationChilds(OfficeSegment offSegm) {
+
+		if(offSegm.getCustoms_clearance_office_code() == null || 
+				offSegm.getCustoms_clearance_office_code().equals("")) {
+
+			System.err.println("***** ERROR *****\n "
+					+ "Please fill out: typeDeclaration_TYPE_IDENT -- Sheet1 Cell 3");
+		}
+
+		if(offSegm.getCustoms_Clearance_office_name() == null && 
+				offSegm.getCustoms_Clearance_office_name().equals("")) {
+
+			System.err.println("***** ERROR *****\n "
+					+ "Please fill out: declarGenProcCode_TYPE_IDENT -- Sheet1 Cell 4");
 		}
 
 	}
