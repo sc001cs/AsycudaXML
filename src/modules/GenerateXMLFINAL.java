@@ -23,27 +23,40 @@ import enitity.asycuda.Item;
 import enitity.asycuda.item_childs.Tarification;
 import logic.elaboration.GeneralInfoPositionCell;
 import logic.elaboration.GeneralInfoValidation;
+import logic.elaboration.ListItemsPositionCell;
 import multi_item.GeneralInfoExcel;
+import multi_item.ListItemsExcel;
 
-public class GenerateXMLFirstSheet {
+public class GenerateXMLFINAL {
 
 	public static void main(String[] args) {
 
 		ConfigFileExcel configFileExcel = new ConfigFileExcel();
 		GeneralInfoExcel genInfoExcel = new GeneralInfoExcel();
+		ListItemsExcel listItemsExcel = new ListItemsExcel();
 		ConvertObjectToXMLString objToXMLString = new ConvertObjectToXMLString();
 		GeneralInfoPositionCell genInfoPosCell = new GeneralInfoPositionCell();
+		ListItemsPositionCell listItemsPosCell = new ListItemsPositionCell();
 		Asycuda ASYCUDA = new Asycuda();
 		String utf8 = "UTF-8";
 		String nameFile = "E:\\TemplateAsycudaTempMulti.xlsx";
-		String fileOutput = "E:\\asycuda_first_sheet.xml";
+		String fileOutput = "E:\\asycuda_generated.xml";
 		String finalXML = "";
 		HashMap<Integer, String> hmGenInfoColsNameAndPosit = genInfoPosCell.hmGenInfoColsName();
+		HashMap<Integer, String> hmListItemsColsNameAndPosit = listItemsPosCell.hmListItemsColsName();
 		
 		byte[] byteExcel = configFileExcel.getByteFromFile(nameFile);
 		
+		/* ----------------------------------------
+		 * ASYCUDA: THE FIRST SHEET -> GENERAL INFO
+		 * ----------------------------------------*/
 		ASYCUDA = genInfoExcel.writeValueFromGeneralInfoExcel(byteExcel, hmGenInfoColsNameAndPosit);
 
+		/* ----------------------------------------
+		 * ASYCUDA: THE SECOND SHEET -> LIST ITEMS
+		 * ----------------------------------------*/
+		ASYCUDA = listItemsExcel.writeValueListItems(byteExcel, ASYCUDA, hmListItemsColsNameAndPosit);
+		
 		/* --------------------------------------
 		 * CONSOLE: PRINT OUT THE ASYCUDA OBJECT
 		 * --------------------------------------*/

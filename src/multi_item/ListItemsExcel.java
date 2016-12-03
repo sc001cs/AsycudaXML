@@ -6,10 +6,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import logic.ExcelPoi;
-import modules.GetCurrencyAndAmount;
+import logic.GetCurrencyAndAmount;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -73,24 +74,7 @@ public class ListItemsExcel {
 
 	private static int ROW = 3;
 
-	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-
-		byte[] byteExcel = getByteFromFile("C:\\TemplateAsycudaTempMulti.xlsx");
-
-		readValueFormExcel(byteExcel);
-	}
-
-	public static byte[] getByteFromFile(String pathExcel) throws IOException {
-
-		Path path = Paths.get(pathExcel);
-		byte[] data = Files.readAllBytes(path);
-
-		return data;
-	}
-
-
-	public static Asycuda readValueFormExcel(byte[] byteExcel) throws IOException {
+	public Asycuda writeValueListItems(byte[] byteExcel, Asycuda ASYCUDA, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
 		GetCurrencyAndAmount currency = new GetCurrencyAndAmount();
 		String currencyExchange = currency.getCurrencyExchange();
@@ -98,7 +82,7 @@ public class ListItemsExcel {
 		Sheet sheet = null;
 		try {
 			Workbook wb = WorkbookFactory.create(new ByteArrayInputStream(byteExcel));
-			sheet = wb.getSheetAt(0);
+			sheet = wb.getSheetAt(1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -137,8 +121,6 @@ public class ListItemsExcel {
 		String valItm_TARIF_ITEM_String = ExcelPoi.getString(row, valItm_TARIF_ITEM);
 
 		String prevDocRef_PREVDOC_ITEM_String = ExcelPoi.getString(row, prevDocRef_PREVDOC_ITEM);
-
-		Asycuda ASYCUDA = new Asycuda();
 
 		Item item = new Item();
 

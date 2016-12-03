@@ -26,7 +26,7 @@ import enitity.asycuda.transport_childs.meansOfTransport_childs.BorderInformatio
 import enitity.asycuda.transport_childs.meansOfTransport_childs.DepartureArrivalInformation;
 import enitity.asycuda.valuation_childs.GsInvoice;
 import logic.ExcelPoi;
-import modules.GetCurrencyAndAmount;
+import logic.GetCurrencyAndAmount;
 
 public class GeneralInfoElaborate {
 

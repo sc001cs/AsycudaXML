@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import logic.ExcelPoi;
+import logic.GetCurrencyAndAmount;
 import logic.elaboration.GeneralInfoElaborate;
-import modules.GetCurrencyAndAmount;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
