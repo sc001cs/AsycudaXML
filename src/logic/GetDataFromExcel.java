@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import modules.GetCurrency;
+import modules.GetCurrencyAndAmount;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -213,7 +213,7 @@ public class GetDataFromExcel {
 	
 	public static Asycuda readValueFormExcel(byte[] byteExcel) throws IOException {
 		
-		GetCurrency currency = new GetCurrency();
+		GetCurrencyAndAmount currency = new GetCurrencyAndAmount();
 		String currencyExchange = currency.getCurrencyExchange();
 		
 		Sheet sheet = null;
@@ -362,10 +362,7 @@ public class GetDataFromExcel {
 		
 		Nbers nbers = new Nbers();
 
-		List<String> numbLoadLists = new ArrayList<String>();
-		numbLoadLists.add(numbLoadLists_NBERS_PROPERT_String);
-		nbers.setNumber_of_loading_lists(numbLoadLists);
-		
+		nbers.setNumber_of_loading_lists(numbLoadLists_NBERS_PROPERT_String);
 		nbers.setTotal_number_of_items(totNumbItems_NBERS_PROPERT_String);
 		nbers.setTotal_number_of_packages(totNumbPackages_NBERS_PROPERT_String);
 		
@@ -607,36 +604,28 @@ public class GetDataFromExcel {
 		gsExtFrei.setAmount_foreign_currency("0");
 		gsExtFrei.setCurrency_name("Ska monedhe te huaj");
 		gsExtFrei.setCurrency_rate("0.0");
-		List<GsExternalFreight> listGsExtFr = new ArrayList<GsExternalFreight>();
-		listGsExtFr.add(gsExtFrei);
-		val.setGs_external_freight(listGsExtFr);
+		val.setGs_external_freight(gsExtFrei);
 		
 		GsInsurance gsIns = new GsInsurance();
 		gsIns.setAmount_national_currency("0.0");
 		gsIns.setAmount_foreign_currency("0");
 		gsIns.setCurrency_name("Ska monedhe te huaj");
 		gsIns.setCurrency_rate("0.0");
-		List<GsInsurance> listGsIns = new ArrayList<GsInsurance>();
-		listGsIns.add(gsIns);
-		val.setGs_insurance(listGsIns);
+		val.setGs_insurance(gsIns);
 		
 		GsOtherCost gsOtherCost = new GsOtherCost();
 		gsOtherCost.setAmount_national_currency("0.0");
 		gsOtherCost.setAmount_foreign_currency("0");
 		gsOtherCost.setCurrency_name("Ska monedhe te huaj");
 		gsOtherCost.setCurrency_rate("0.0");
-		List<GsOtherCost> listGsOtherCost = new ArrayList<GsOtherCost>();
-		listGsOtherCost.add(gsOtherCost);
-		val.setGs_other_cost(listGsOtherCost);
+		val.setGs_other_cost(gsOtherCost);
 		
 		GsDeduction gsDed = new GsDeduction();
 		gsDed.setAmount_national_currency("0.0");
 		gsDed.setAmount_foreign_currency("0");
 		gsDed.setCurrency_name("Ska monedhe te huaj");
 		gsDed.setCurrency_rate("0.0");
-		List<GsDeduction> listGsDeduction = new ArrayList<GsDeduction>();
-		listGsDeduction.add(gsDed);
-		val.setGs_deduction(listGsDeduction);
+		val.setGs_deduction(gsDed);
 		
 		Total tot = new Total();
 		// vete
@@ -815,7 +804,7 @@ public class GetDataFromExcel {
 		
 		if(currCode.equalsIgnoreCase("EUR")) {
 
-			GetCurrency currency = new GetCurrency();
+			GetCurrencyAndAmount currency = new GetCurrencyAndAmount();
 			String currencyExchange = currency.getCurrencyExchange();
 			
 			currString = currency.getCurrency(currCode, currencyExchange);

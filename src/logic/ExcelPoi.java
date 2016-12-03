@@ -26,11 +26,11 @@ public class ExcelPoi {
 		}
 		return null;
 	}
-	
+
 	private static String covertCellNumericToString(Cell cc) {
-		
+
 		cc.setCellType(Cell.CELL_TYPE_STRING);
 		return cc.getRichStringCellValue().getString();
 	}
-	
+
 }

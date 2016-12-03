@@ -1,19 +1,13 @@
 package multi_item;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import logic.ExcelPoi;
 import logic.elaboration.GeneralInfoElaborate;
-import modules.GetCurrency;
+import modules.GetCurrencyAndAmount;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -27,17 +21,12 @@ import enitity.asycuda.ExportRelease;
 import enitity.asycuda.Financial;
 import enitity.asycuda.GeneralInformation;
 import enitity.asycuda.GlobalTaxes;
-import enitity.asycuda.GoodsDescription;
 import enitity.asycuda.Identification;
-import enitity.asycuda.Item;
-import enitity.asycuda.PreviousDoc;
 import enitity.asycuda.Property;
-import enitity.asycuda.Taxation;
 import enitity.asycuda.Traders;
 import enitity.asycuda.Transit;
 import enitity.asycuda.Transport;
 import enitity.asycuda.Valuation;
-import enitity.asycuda.ValuationItem;
 import enitity.asycuda.Warehouse;
 import enitity.asycuda.declarant_childs.Reference;
 import enitity.asycuda.financial_childs.Amounts;
@@ -54,16 +43,8 @@ import enitity.asycuda.identification_childs.OfficeSegment;
 import enitity.asycuda.identification_childs.Receipt;
 import enitity.asycuda.identification_childs.Registration;
 import enitity.asycuda.identification_childs.Type;
-import enitity.asycuda.item_childs.IncoTerms;
-import enitity.asycuda.item_childs.Packages;
-import enitity.asycuda.item_childs.Tarification;
-import enitity.asycuda.item_childs.tarification_childs.HScode;
-import enitity.asycuda.item_childs.tarification_childs.Quota;
-import enitity.asycuda.item_childs.tarification_childs.SupplementaryUnit;
-import enitity.asycuda.item_childs.tarification_childs.quota_childs.QuotaItem;
 import enitity.asycuda.property_childs.Forms;
 import enitity.asycuda.property_childs.Nbers;
-import enitity.asycuda.taxation_childs.TaxationLine;
 import enitity.asycuda.traders_childs.Consignee;
 import enitity.asycuda.traders_childs.Exporter;
 import enitity.asycuda.traders_childs.Financial2;
@@ -77,11 +58,6 @@ import enitity.asycuda.transport_childs.MeansOfTransport;
 import enitity.asycuda.transport_childs.PlaceOfLoading;
 import enitity.asycuda.transport_childs.meansOfTransport_childs.BorderInformation;
 import enitity.asycuda.transport_childs.meansOfTransport_childs.DepartureArrivalInformation;
-import enitity.asycuda.valuationItem_childs.ItemExternalFreight;
-import enitity.asycuda.valuationItem_childs.ItemInvoice;
-import enitity.asycuda.valuationItem_childs.ItemOtherCost;
-import enitity.asycuda.valuationItem_childs.MarketValuer;
-import enitity.asycuda.valuationItem_childs.WeightItm;
 import enitity.asycuda.valuation_childs.GsDeduction;
 import enitity.asycuda.valuation_childs.GsExternalFreight;
 import enitity.asycuda.valuation_childs.GsInsurance;
@@ -92,70 +68,21 @@ import enitity.asycuda.valuation_childs.Weight;
 
 
 public class GeneralInfoExcel {
-
-
 	
-	private static int expoName_EXPO_TRADERS = 5;
-	
-	private static int numbForm_FORMS_PROPERT = 6;
-	private static int totNumbForm_FORMS_PROPERT = 7;
-	
-	private static int numbLoadLists_NBERS_PROPERT = 8;
-	private static int totNumbItems_NBERS_PROPERT = 9;
-	private static int totNumbPackages_NBERS_PROPERT = 10;
-	
-	private static int number_REFER_DECLAR = 11;
-	
-	private static int consignName_CONSI_TRADERS = 12;
-	private static int consignCode_CONSI_TRADERS = 13;
-	
-	private static int countrFirstDest_COUNTR_GENERINFO = 15;
-	private static int tradingCountr_COUNTR_GENERINFO = 16;
-	
-	private static int valueDetails_GENERINFO = 17;
-	
-	private static int declarName_DECLAR = 19;
-	private static int declarCode_DECLAR = 20;
-	
-	private static int expoCountrName_EXPO_COUNTR_GENERINFO = 21;
-	private static int expoCountrCode_EXPO_COUNTR_GENERINFO = 22;
-	
-	private static int countrOrigName_COUNTR_GENERINFO = 23;
-	
-	private static int destCountrName_DEST_COUNTR_GENERINFO = 24;
-	
+	/**
+	 * FUSHA PA SPECIFIKIM TE QARTE NE XML DHE EXCEL
+	 * PER VERIFIKIM
 	private static int identity_MEANTRANSP_TRANSP = 25;
 	private static int nationality_MEANTRANSP_TRANSP = 26;
 	
 	private static int contaiFlag_TRANSP = 27;
 	
-	private static int code_DELIVTERMS_TRANSP = 28;
-	private static int place_DELIVTERMS_TRANSP = 29;
-	
-	private static int identity_BORDERINFO_MEANTRANSP_TRANSP = 30;
-	private static int nationality_BORDERINFO_MEANTRANSP_TRANSP = 31;
-	
-	private static int currCode_GSINVOICE_VALU = 32;
-	private static int amountForegCurr_GSINVOICE_VALU = 33;
-	private static int currRate_GSINVOICE_VALU = 34;
-	
 	private static int rateAdjst_VALITEM_TAX_ITEM = 35;
-	
-	private static int calcWorkMode_VAL = 36;
-	
-	private static int mode_BORDERINFO_MEANTRANSP_TRANSP = 37;
-	
-	private static int inlandModeTransp_MEANTRANSP_TRANSP = 38;
-	
-	private static int code_BORDEROFFIC_TRANSP = 41;
 	
 	private static int rateAdjust_VALITEM_ITEM = 42;
 	
 	private static int statisVal_VALITEM_ITEM = 43;
-	
-	private static int modePaym_FINANC = 44;
-	
-	private static int declarReprestative_DECLAR = 45;
+	*/
 
 	private static int ROW = 3;
 
@@ -166,7 +93,7 @@ public class GeneralInfoExcel {
 	public Asycuda writeValueFromGeneralInfoExcel(byte[] byteExcel, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 		
 		GeneralInfoElaborate genInfoElab = new GeneralInfoElaborate();
-		GetCurrency currency = new GetCurrency();
+		GetCurrencyAndAmount currency = new GetCurrencyAndAmount();
 		String currencyExchange = currency.getCurrencyExchange();
 		
 		Sheet sheet = null;
@@ -179,74 +106,7 @@ public class GeneralInfoExcel {
 		}
 		
 		Row row = sheet.getRow(ROW);
-		
-		
 
-		String expoName_EXPO_TRADERS_String = ExcelPoi.getString(row, expoName_EXPO_TRADERS);
-
-		String numbForm_FORMS_PROPERT_String = ExcelPoi.getString(row, numbForm_FORMS_PROPERT);
-		String totNumbForm_FORMS_PROPERT_String = ExcelPoi.getString(row, totNumbForm_FORMS_PROPERT);
-
-		String numbLoadLists_NBERS_PROPERT_String = ExcelPoi.getString(row, numbLoadLists_NBERS_PROPERT);
-		String totNumbItems_NBERS_PROPERT_String = ExcelPoi.getString(row, totNumbItems_NBERS_PROPERT);
-		String totNumbPackages_NBERS_PROPERT_String = ExcelPoi.getString(row, totNumbPackages_NBERS_PROPERT);
-
-		String number_REFER_DECLAR_String = ExcelPoi.getString(row, number_REFER_DECLAR);
-
-		String consignName_CONSI_TRADERS_String = ExcelPoi.getString(row, consignName_CONSI_TRADERS);
-		String consignCode_CONSI_TRADERS_String = ExcelPoi.getString(row, consignCode_CONSI_TRADERS);
-
-		String countrFirstDest_COUNTR_GENERINFO_String = ExcelPoi.getString(row, countrFirstDest_COUNTR_GENERINFO);
-		String tradingCountr_COUNTR_GENERINFO_String = ExcelPoi.getString(row, tradingCountr_COUNTR_GENERINFO);
-
-		String valueDetails_GENERINFO_String = ExcelPoi.getString(row, valueDetails_GENERINFO);
-
-		String declarName_DECLAR_String = ExcelPoi.getString(row, declarName_DECLAR);
-		String declarCode_DECLAR_String = ExcelPoi.getString(row, declarCode_DECLAR);
-
-		String expoCountrName_EXPO_COUNTR_GENERINFO_String = ExcelPoi.getString(row, expoCountrName_EXPO_COUNTR_GENERINFO);
-		String expoCountrCode_EXPO_COUNTR_GENERINFO_String = ExcelPoi.getString(row, expoCountrCode_EXPO_COUNTR_GENERINFO);
-
-		String countrOrigName_COUNTR_GENERINFO_String = ExcelPoi.getString(row, countrOrigName_COUNTR_GENERINFO);
-
-		String destCountrName_DEST_COUNTR_GENERINFO_String = ExcelPoi.getString(row, destCountrName_DEST_COUNTR_GENERINFO);
-
-		String identity_MEANTRANSP_TRANSP_String = ExcelPoi.getString(row, identity_MEANTRANSP_TRANSP);
-		String nationality_MEANTRANSP_TRANSP_String = ExcelPoi.getString(row, nationality_MEANTRANSP_TRANSP);
-
-		String contaiFlag_TRANSP_String = ExcelPoi.getString(row, contaiFlag_TRANSP);
-
-		String code_DELIVTERMS_TRANSP_String = ExcelPoi.getString(row, code_DELIVTERMS_TRANSP);
-		String place_DELIVTERMS_TRANSP_String = ExcelPoi.getString(row, place_DELIVTERMS_TRANSP);
-
-		String identity_BORDERINFO_MEANTRANSP_TRANSP_String = ExcelPoi.getString(row, identity_BORDERINFO_MEANTRANSP_TRANSP);
-		String nationality_BORDERINFO_MEANTRANSP_TRANSP_String = ExcelPoi.getString(row, nationality_BORDERINFO_MEANTRANSP_TRANSP);
-
-		String currCode_GSINVOICE_VALU_String = ExcelPoi.getString(row, currCode_GSINVOICE_VALU);
-		String amountForegCurr_GSINVOICE_VALU_String = ExcelPoi.getString(row, amountForegCurr_GSINVOICE_VALU);
-		String currRate_GSINVOICE_VALU_String = ExcelPoi.getString(row, currRate_GSINVOICE_VALU);
-
-		String rateAdjst_VALITEM_TAX_ITEM_String = ExcelPoi.getString(row, rateAdjst_VALITEM_TAX_ITEM);
-
-		String calcWorkMode_VAL_String = ExcelPoi.getString(row, calcWorkMode_VAL);
-
-		String mode_BORDERINFO_MEANTRANSP_TRANSP_String = ExcelPoi.getString(row, mode_BORDERINFO_MEANTRANSP_TRANSP);
-
-		String inlandModeTransp_MEANTRANSP_TRANSP_String = ExcelPoi.getString(row, inlandModeTransp_MEANTRANSP_TRANSP);
-
-		String code_BORDEROFFIC_TRANSP_String = ExcelPoi.getString(row, code_BORDEROFFIC_TRANSP);
-
-		
-
-		String rateAdjust_VALITEM_ITEM_String = ExcelPoi.getString(row, rateAdjust_VALITEM_ITEM);
-
-		String statisVal_VALITEM_ITEM_String = ExcelPoi.getString(row, statisVal_VALITEM_ITEM);
-
-		String modePaym_FINANC_String = ExcelPoi.getString(row, modePaym_FINANC);
-
-		String declarReprestative_DECLAR_String = ExcelPoi.getString(row, declarReprestative_DECLAR);
-		
-		
 		Asycuda ASYCUDA = new Asycuda();
 		
 		ExportRelease expRelease = new ExportRelease();
@@ -273,19 +133,22 @@ public class GeneralInfoExcel {
 		// e futur vete
 		property.setSad_flow("I");
 		
-		Forms formsProp = new Forms();
-		formsProp.setNumber_of_the_form(numbForm_FORMS_PROPERT_String);
-		formsProp.setTotal_number_of_forms(totNumbForm_FORMS_PROPERT_String);
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 6, 7
+		 * - numbForm_FORMS_PROPERT (mandatory)
+		 * - totNumbForm_FORMS_PROPERT (mandatory)
+		 * */
+		Forms formsProp = genInfoElab.getFormsPropertyChilds(row, hmGenInfoColsNameAndPosit);
 		property.setForms(formsProp);
 		
-		Nbers nbers = new Nbers();
-
-		List<String> numbLoadLists = new ArrayList<String>();
-		numbLoadLists.add(numbLoadLists_NBERS_PROPERT_String);
-		nbers.setNumber_of_loading_lists(numbLoadLists);
-		
-		nbers.setTotal_number_of_items(totNumbItems_NBERS_PROPERT_String);
-		nbers.setTotal_number_of_packages(totNumbPackages_NBERS_PROPERT_String);
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 8, 9, 10
+		 * - totNumbItems_NBERS_PROPERT (mandatory)
+		 * - totNumbPackages_NBERS_PROPERT (mandatory)
+		 * */
+		Nbers nbers = genInfoElab.getNbersPropertyChilds(row, hmGenInfoColsNameAndPosit);
 		
 		property.setNbers(nbers);
 		
@@ -340,13 +203,21 @@ public class GeneralInfoExcel {
 		
 		Traders trad = new Traders();
 		
-		Exporter expo = new Exporter();
-		expo.setExporter_name(expoName_EXPO_TRADERS_String);
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 5
+		 * - expoName_EXPO_TRADERS (mandatory)
+		 * */
+		Exporter expo = genInfoElab.getExporterTradersChilds(row, hmGenInfoColsNameAndPosit);
 		trad.setExporter(expo);
 		
-		Consignee cons = new Consignee();
-		cons.setConsignee_code(consignCode_CONSI_TRADERS_String);
-		cons.setConsignee_name(consignName_CONSI_TRADERS_String);
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 12, 13, 53
+		 * - consignName_CONSI_TRADERS (mandatory)
+		 * - consignCode_CONSI_TRADERS (mandatory)
+		 * */
+		Consignee cons = genInfoElab.getConsigneeTradersChilds(row, hmGenInfoColsNameAndPosit);
 		
 		trad.setConsignee(cons);
 		
@@ -355,39 +226,69 @@ public class GeneralInfoExcel {
 		
 		ASYCUDA.setTraders(trad);
 		
-		Declarant decl = new Declarant();
-		decl.setDeclarant_code(declarCode_DECLAR_String);
-		decl.setDeclarant_name(declarName_DECLAR_String);
-		decl.setDeclarant_representative(declarReprestative_DECLAR_String);
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 19, 20
+		 * - declarName_DECLAR (mandatory)
+		 * - declarCode_DECLAR (mandatory)
+		 * - declarReprestative_DECLAR (mandatory)
+		 * */
+		Declarant decl = genInfoElab.getDeclarant(row, hmGenInfoColsNameAndPosit);
 		
-		Reference ref = new Reference();
-		ref.setNumber(number_REFER_DECLAR_String);
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 11
+		 * - number_REFER_DECLAR (mandatory)
+		 * */
+		Reference ref = genInfoElab.getReferenceDeclarantChilds(row, hmGenInfoColsNameAndPosit);
 		decl.setReference(ref);
 		
 		ASYCUDA.setDeclarant(decl);
 		
 		GeneralInformation genInfo = new GeneralInformation();
 		
-		Country count = new Country();
-		count.setCountry_first_destination(countrFirstDest_COUNTR_GENERINFO_String);
-		count.setTrading_country(tradingCountr_COUNTR_GENERINFO_String);
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 12, 13
+		 * - countrFirstDest_COUNTR_GENERINFO (mandatory)
+		 * - tradingCountr_COUNTR_GENERINFO (mandatory)
+		 * */
+		Country count = genInfoElab.getCountryGeneralInfoChilds(row, hmGenInfoColsNameAndPosit);
 		
-		Export export = new Export();
-		export.setExport_country_code(expoCountrCode_EXPO_COUNTR_GENERINFO_String);
-		export.setExport_country_name(expoCountrName_EXPO_COUNTR_GENERINFO_String);
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 21, 22
+		 * - expoCountrName_EXPO_COUNTR_GENERINFO (mandatory)
+		 * - expoCountrCode_EXPO_COUNTR_GENERINFO (mandatory)
+		 * */
+		Export export = genInfoElab.getExportGeneralInnfo(row, hmGenInfoColsNameAndPosit);
+		
 		count.setExport(export);
 		
-		Destination dest = new Destination();
-		// vete
-		dest.setDestination_country_code("AL");
-		dest.setDestination_country_name(destCountrName_DEST_COUNTR_GENERINFO_String);
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 24
+		 * - destCountrName_DEST_COUNTR_GENERINFO (mandatory)
+		 * */
+		Destination dest = genInfoElab.getValueCountrDestCountrNameGeneralInfo(row, hmGenInfoColsNameAndPosit);
+		
 		count.setDestination(dest);
 		
-		count.setCountry_of_origin_name(countrOrigName_COUNTR_GENERINFO_String);
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 23
+		 * - countrOrigName_COUNTR_GENERINFO (mandatory)
+		 * */
+		count.setCountry_of_origin_name(genInfoElab.getValueCountrOrigNameGeneralInfo(row, hmGenInfoColsNameAndPosit));
 		
 		genInfo.setCountry(count);
 		
-		genInfo.setValue_details(valueDetails_GENERINFO_String);
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 17
+		 * - valueDetails_GENERINFO (mandatory)
+		 * */
+		genInfo.setValue_details(genInfoElab.getValueDetailGeneralInfo(row, hmGenInfoColsNameAndPosit));
 		
 		genInfo.setAdditional_information("null");
 		genInfo.setComments_free_text("null");
@@ -398,33 +299,50 @@ public class GeneralInfoExcel {
 		
 		MeansOfTransport meTran = new MeansOfTransport();
 		
-		DepartureArrivalInformation dai = new DepartureArrivalInformation();
-		dai.setIdentity(identity_BORDERINFO_MEANTRANSP_TRANSP_String);
-		dai.setNationality(nationality_BORDERINFO_MEANTRANSP_TRANSP_String);
+		DepartureArrivalInformation dai = genInfoElab.getValueDepartureArrivalInformation(row, hmGenInfoColsNameAndPosit);
+		
 		meTran.setDeparture_arrival_information(dai);
 		
-		BorderInformation bi = new BorderInformation();
-		bi.setIdentity(identity_BORDERINFO_MEANTRANSP_TRANSP_String);
-		bi.setNationality(nationality_BORDERINFO_MEANTRANSP_TRANSP_String);
-		bi.setMode(mode_BORDERINFO_MEANTRANSP_TRANSP_String);
+		/**
+		 * NOTE FIRST AND SECOND COLUMNS ARE SAME WITH: DeliveryTerms delTerm
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 28, 29
+		 * - code_DELIVTERMS_TRANSP (mandatory)
+		 * - place_DELIVTERMS_TRANSP (mandatory)
+		 * */
+		BorderInformation bi = genInfoElab.getValueBorderInformation(row, hmGenInfoColsNameAndPosit);
+		
 		meTran.setBorder_information(bi);
 		
-		meTran.setInland_mode_of_transport(inlandModeTransp_MEANTRANSP_TRANSP_String);
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 38
+		 * - inlandModeTransp_MEANTRANSP_TRANSP (mandatory)
+		 * */
+		meTran.setInland_mode_of_transport(genInfoElab.getValueInlandModeTransp(row, hmGenInfoColsNameAndPosit));
 		
 		trans.setMeans_of_transport(meTran);
 		
 		// Vete, eshte checkbox ne app
 		trans.setContainer_flag("false");
 		
-		DeliveryTerms delTerm = new DeliveryTerms();
-		delTerm.setCode(code_DELIVTERMS_TRANSP_String);
-		delTerm.setPlace(place_DELIVTERMS_TRANSP_String);
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 28, 29
+		 * - code_DELIVTERMS_TRANSP (mandatory)
+		 * - place_DELIVTERMS_TRANSP (mandatory)
+		 * */
+		DeliveryTerms delTerm = genInfoElab.getValueDeliveryTermsTransportChilds(row, hmGenInfoColsNameAndPosit);
+		
 		trans.setDelivery_terms(delTerm);
 		
-		BorderOffice bordOff = new BorderOffice();
-		bordOff.setCode(code_BORDEROFFIC_TRANSP_String);
-		// vete
-		bordOff.setName("Durresi");
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 37
+		 * - code_BORDEROFFIC_TRANSP (mandatory)
+		 * */
+		BorderOffice bordOff = genInfoElab.getValueBorderOfficeTransChilds(row, hmGenInfoColsNameAndPosit);
+		
 		trans.setBorder_office(bordOff);
 		
 		PlaceOfLoading placLoad = new PlaceOfLoading();
@@ -459,7 +377,13 @@ public class GeneralInfoExcel {
 		fin.setTerms(terms);
 		
 		fin.setDeffered_payment_reference("null");
-		fin.setMode_of_payment(modePaym_FINANC_String);
+		
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 48
+		 * - modePaym_FINANC (mandatory)
+		 * */
+		fin.setMode_of_payment(genInfoElab.getValueModePaymFINANC(row, hmGenInfoColsNameAndPosit));
 		
 		Amounts am = new Amounts();
 		fin.setAmounts(am);
@@ -506,8 +430,12 @@ public class GeneralInfoExcel {
 		
 		ASYCUDA.setTransit(transi);
 		
-		Valuation val = new Valuation();
-		val.setCalculation_working_mode(calcWorkMode_VAL_String);
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 36
+		 * - calcWorkMode_VAL (mandatory)
+		 * */
+		Valuation val = genInfoElab.getValueValuation(row, hmGenInfoColsNameAndPosit);
 		
 		Weight weight = new Weight();
 		val.setWeight(weight);
@@ -516,15 +444,16 @@ public class GeneralInfoExcel {
 		val.setTotal_cost("0.0");
 		val.setTotal_CIF("819240.0");
 		
-		GsInvoice gsInv = new GsInvoice();
-		gsInv.setAmount_foreign_currency(amountForegCurr_GSINVOICE_VALU_String);
-		gsInv.setCurrency_code(currCode_GSINVOICE_VALU_String);
-		
-		// kot
-		gsInv.setCurrency_name("Ska monedhe te huaj");
-		
-		gsInv.setAmount_national_currency( calcAmountNationalCurr(amountForegCurr_GSINVOICE_VALU_String, currCode_GSINVOICE_VALU_String) );
-		gsInv.setCurrency_rate( currency.getCurrency(currCode_GSINVOICE_VALU_String, currencyExchange) );
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 28, 29
+		 * - currCode_GSINVOICE_VALU (mandatory)
+		 * - amountForegCurr_GSINVOICE_VALU (mandatory)
+		 * - setCurrency_name 
+		 * - setAmount_national_currency 
+		 * - setCurrency_rate 
+		 * */
+		GsInvoice gsInv = genInfoElab.getValueGsInvoiceValuationChilds(row, currencyExchange, hmGenInfoColsNameAndPosit);
 		
 		val.setGs_Invoice(gsInv);
 		
@@ -533,36 +462,28 @@ public class GeneralInfoExcel {
 		gsExtFrei.setAmount_foreign_currency("0");
 		gsExtFrei.setCurrency_name("Ska monedhe te huaj");
 		gsExtFrei.setCurrency_rate("0.0");
-		List<GsExternalFreight> listGsExtFr = new ArrayList<GsExternalFreight>();
-		listGsExtFr.add(gsExtFrei);
-		val.setGs_external_freight(listGsExtFr);
+		val.setGs_external_freight(gsExtFrei);
 		
 		GsInsurance gsIns = new GsInsurance();
 		gsIns.setAmount_national_currency("0.0");
 		gsIns.setAmount_foreign_currency("0");
 		gsIns.setCurrency_name("Ska monedhe te huaj");
 		gsIns.setCurrency_rate("0.0");
-		List<GsInsurance> listGsIns = new ArrayList<GsInsurance>();
-		listGsIns.add(gsIns);
-		val.setGs_insurance(listGsIns);
+		val.setGs_insurance(gsIns);
 		
 		GsOtherCost gsOtherCost = new GsOtherCost();
 		gsOtherCost.setAmount_national_currency("0.0");
 		gsOtherCost.setAmount_foreign_currency("0");
 		gsOtherCost.setCurrency_name("Ska monedhe te huaj");
 		gsOtherCost.setCurrency_rate("0.0");
-		List<GsOtherCost> listGsOtherCost = new ArrayList<GsOtherCost>();
-		listGsOtherCost.add(gsOtherCost);
-		val.setGs_other_cost(listGsOtherCost);
+		val.setGs_other_cost(gsOtherCost);
 		
 		GsDeduction gsDed = new GsDeduction();
 		gsDed.setAmount_national_currency("0.0");
 		gsDed.setAmount_foreign_currency("0");
 		gsDed.setCurrency_name("Ska monedhe te huaj");
 		gsDed.setCurrency_rate("0.0");
-		List<GsDeduction> listGsDeduction = new ArrayList<GsDeduction>();
-		listGsDeduction.add(gsDed);
-		val.setGs_deduction(listGsDeduction);
+		val.setGs_deduction(gsDed);
 		
 		Total tot = new Total();
 		// vete
@@ -578,32 +499,6 @@ public class GeneralInfoExcel {
 		return ASYCUDA;
 	}
 	
-	public BigDecimal calcAmountNationalCurr(String amountForegCurr, String currCode) {
 
-		String currString = "";
-		BigDecimal amountNationalCurr = null;
-		
-		if(currCode.equalsIgnoreCase("EUR")) {
-
-			GetCurrency currency = new GetCurrency();
-			String currencyExchange = currency.getCurrencyExchange();
-			
-			currString = currency.getCurrency(currCode, currencyExchange);
-		}
-		
-		if(!currString.equals("")) {
-			BigDecimal amountForegCurrDec = new BigDecimal(amountForegCurr);
-			BigDecimal currStringDec = new BigDecimal(currString);
-			
-			amountNationalCurr = amountForegCurrDec.multiply(currStringDec);
-			
-			// One decimal place
-			amountNationalCurr = amountNationalCurr.setScale(1, RoundingMode.CEILING);
-		} else {
-			return BigDecimal.ZERO;
-		}
-
-		return amountNationalCurr;
-	}
 	
 }

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class ConfigFileExcel {
 
@@ -36,4 +38,28 @@ public class ConfigFileExcel {
 		return data;
 	}
 
+	
+	/**
+	 * @param hmGenInfoColsNameAndPosit
+	 * @param value
+	 * @return get key by value
+	 */
+	public int getKeyByValueHashMap(HashMap<Integer, String> hmGenInfoColsNameAndPosit, String value) {
+		hmGenInfoColsNameAndPosit.get(1);
+		int index = 999;
+		for (Entry<Integer, String> entry : hmGenInfoColsNameAndPosit.entrySet()) {
+            if (entry.getValue().equals(value)) {
+            	index = entry.getKey();
+            	break;
+            }
+        }
+		
+		if(index == 999) {
+			System.err.println("**** ERROR ****\n "
+					+ " Cos Name: " + value + " not found!");
+		}
+		
+		return index;
+	}
+	
 }

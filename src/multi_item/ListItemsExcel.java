@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import logic.ExcelPoi;
-import modules.GetCurrency;
+import modules.GetCurrencyAndAmount;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -36,7 +36,7 @@ import enitity.asycuda.valuationItem_childs.ItemOtherCost;
 import enitity.asycuda.valuationItem_childs.MarketValuer;
 import enitity.asycuda.valuationItem_childs.WeightItm;
 
-public class GetDataFromMultiLines {
+public class ListItemsExcel {
 
 	private static int numbPackages_PACK_ITEM = 43;
 
@@ -92,7 +92,7 @@ public class GetDataFromMultiLines {
 
 	public static Asycuda readValueFormExcel(byte[] byteExcel) throws IOException {
 
-		GetCurrency currency = new GetCurrency();
+		GetCurrencyAndAmount currency = new GetCurrencyAndAmount();
 		String currencyExchange = currency.getCurrencyExchange();
 
 		Sheet sheet = null;

@@ -13,10 +13,10 @@ public class Valuation {
 	private String Total_cost;
 	private String Total_CIF;
 	private GsInvoice Gs_Invoice;
-	private List<GsExternalFreight> Gs_external_freight;
-	private List<GsInsurance> Gs_insurance;
-	private List<GsOtherCost> Gs_other_cost;
-	private List<GsDeduction> Gs_deduction;
+	private GsExternalFreight Gs_external_freight;
+	private GsInsurance Gs_insurance;
+	private GsOtherCost Gs_other_cost;
+	private GsDeduction Gs_deduction;
 	private Total Total;
 	
 	public String getCalculation_working_mode() {
@@ -54,32 +54,32 @@ public class Valuation {
 	public void setGs_Invoice(GsInvoice gs_Invoice) {
 		Gs_Invoice = gs_Invoice;
 	}
-	public List<GsExternalFreight> getGs_external_freight() {
+	public GsExternalFreight getGs_external_freight() {
 		return Gs_external_freight;
 	}
 	@XmlElement(nillable = true, name = "Gs_external_freight")
-	public void setGs_external_freight(List<GsExternalFreight> gs_external_freight) {
+	public void setGs_external_freight(GsExternalFreight gs_external_freight) {
 		Gs_external_freight = gs_external_freight;
 	}
-	public List<GsInsurance> getGs_insurance() {
+	public GsInsurance getGs_insurance() {
 		return Gs_insurance;
 	}
 	@XmlElement(nillable = true, name = "Gs_insurance")
-	public void setGs_insurance(List<GsInsurance> gs_insurance) {
+	public void setGs_insurance(GsInsurance gs_insurance) {
 		Gs_insurance = gs_insurance;
 	}
-	public List<GsOtherCost> getGs_other_cost() {
+	public GsOtherCost getGs_other_cost() {
 		return Gs_other_cost;
 	}
 	@XmlElement(nillable = true, name = "Gs_other_cost")
-	public void setGs_other_cost(List<GsOtherCost> gs_other_cost) {
+	public void setGs_other_cost(GsOtherCost gs_other_cost) {
 		Gs_other_cost = gs_other_cost;
 	}
-	public List<GsDeduction> getGs_deduction() {
+	public GsDeduction getGs_deduction() {
 		return Gs_deduction;
 	}
 	@XmlElement(nillable = true, name = "Gs_deduction")
-	public void setGs_deduction(List<GsDeduction> gs_deduction) {
+	public void setGs_deduction(GsDeduction gs_deduction) {
 		Gs_deduction = gs_deduction;
 	}
 	public Total getTotal() {

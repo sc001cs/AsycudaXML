@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -11,13 +13,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class GetCurrency {
+public class GetCurrencyAndAmount {
 
 	private static List<String> listCurrencies = (List<String>) Arrays.asList("USD", "EUR", "GBP", "CHF", "XAU", "TEST");
 	
+	/*
 	public static void main(String[] args) throws IOException  {
 
-		GetCurrency currency = new GetCurrency();
+		GetCurrencyAndAmount currency = new GetCurrencyAndAmount();
 
 		String currencyExchange = currency.getCurrencyExchange();
 		
@@ -27,8 +30,8 @@ public class GetCurrency {
 			System.out.println("LEK to " + currencyString + ": " + currString);
 			
 		}
-		
 	}
+	*/
 
 	public String getCurrencyExchange() {
 
@@ -85,11 +88,63 @@ public class GetCurrency {
 		currencyExchange = currencyExchange.substring(currencyExchange.indexOf("<TD nowrap>" + currencyString + "</TD>            <td align=\"right\" nowrap>") + 56);
 		currencyExchange = currencyExchange.substring(0, currencyExchange.indexOf("</td>"));
 		
-		if(currencyExchange.length() > 30)
+		if(currencyExchange.length() > 30) {
+			
+			System.err.println("***** ERROR *****\n "
+					+ "THE CURRENCY: " + currencyString + " HAS VALUE: " + currencyExchange);
+			
 			return "0";
-		else
+		} else {
 			return currencyExchange;
+		}
+	}
+	
+	public BigDecimal calcAmountNationalCurr(String amountForegCurr, String currCode) {
+
+		String currString = "";
+		BigDecimal amountNationalCurr = null;
 		
+		if(currCode == null) {
+			System.err.println("***** ERROR *****\n "
+					+ "SOMETHING WRONG WITH AMOUNT\n "
+					+ "currCode: " + currCode);
+			
+			return BigDecimal.ZERO;
+		}
+		
+		if(amountForegCurr == null) {
+			System.err.println("***** ERROR *****\n "
+					+ "SOMETHING WRONG WITH AMOUNT\n "
+					+ "amountForegCurr: " + amountForegCurr);
+			
+			return BigDecimal.ZERO;
+		}
+		
+		if(currCode.equalsIgnoreCase("EUR")) {
+
+			GetCurrencyAndAmount currency = new GetCurrencyAndAmount();
+			String currencyExchange = currency.getCurrencyExchange();
+			
+			currString = currency.getCurrency(currCode, currencyExchange);
+		}
+		
+		if(!currString.equals("")) {
+			BigDecimal amountForegCurrDec = new BigDecimal(amountForegCurr);
+			BigDecimal currStringDec = new BigDecimal(currString);
+			
+			amountNationalCurr = amountForegCurrDec.multiply(currStringDec);
+			
+			// One decimal place
+			amountNationalCurr = amountNationalCurr.setScale(1, RoundingMode.CEILING);
+		} else {
+			
+			System.err.println("***** ERROR *****\n "
+					+ "SOMETHING WRONG WITH AMOUNT ");
+			
+			return BigDecimal.ZERO;
+		}
+
+		return amountNationalCurr;
 	}
 	
 }

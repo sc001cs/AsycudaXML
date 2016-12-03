@@ -6,15 +6,15 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class Nbers {
 
-	private List<String> Number_of_loading_lists;
+	private String Number_of_loading_lists;
 	private String Total_number_of_items;
 	private String Total_number_of_packages;
 	
-	public List<String> getNumber_of_loading_lists() {
+	public String getNumber_of_loading_lists() {
 		return Number_of_loading_lists;
 	}
 	@XmlElement(nillable = true, name = "Number_of_loading_lists")
-	public void setNumber_of_loading_lists(List<String> number_of_loading_lists) {
+	public void setNumber_of_loading_lists(String number_of_loading_lists) {
 		Number_of_loading_lists = number_of_loading_lists;
 	}
 	public String getTotal_number_of_items() {
