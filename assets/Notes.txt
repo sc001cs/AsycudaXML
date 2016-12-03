@@ -1,0 +1,214 @@
+1*** Deklarate
+
+Identification->Type->Type_of_declaration  			  ---- IM 
+Identification->Type->Declaration_gen_procedure_code  ---- 4
+Identification->Type->Type_of_transit_document  	  ---- 
+
+A*** Zyra e destinacionit
+
+Identification->Office_segment->Customs_clearance_office_code  	  ---- AL110000
+Identification->Office_segment->Customs_Clearance_office_name  	  ---- Tirana
+
+2*** Eksportuesi
+
+Traders->Exporter->Exporter_name               --- Armand
+
+3*** Formularet
+
+Property->Forms->Number_of_the_form         --- 1
+Property->Forms->Total_number_of_forms      --- 1
+
+4*** Lista
+
+Property->Nbers->Number_of_loading_lists      --- 
+
+5*** Artikujt
+
+Property->Nbers->Total_number_of_items      --- 1
+
+6*** Nr. i kolive
+
+Property->Nbers->Total_number_of_packages   --- 9
+
+7*** Nr i referimit (2016 nuk gjendet ne XML)
+
+Declarant->Reference->Number          --- test
+
+8*** Marresi
+
+Traders->Consignee->Consignee_name     --- Albakontroll
+Traders->Consignee->Consignee_code     --- 987654321
+
+9*** Financiare (Bosh, krijo obj Financial )
+
+10*** Vendi i fundit
+
+General_information->Country->Country_first_destination   --- IT
+
+11*** Vendi tranzicion
+
+General_information->Country->Trading_country   --- IT
+
+12*** Detajet e vleres (kujdes e inseruar zero, ne XML eshte 0.0)
+
+General_information->Value_details   --- 0
+
+13*** P.P.B (Bosh)
+
+14*** Deklaruesi/Perfaqesuesit
+
+Declarant->Declarant_name      --- Albakontroll Bulevardi "Deshmoret e Kombit" Tirane
+Declarant->Declarant_code      --- J029
+
+15*** Vendi dergues/exportues
+
+General_information->Country->Export->Export_country_name   --- Italia
+
+15-A*** Vendi Exportit (B eshte bosh)
+
+General_information->Country->Export->Export_country_code --- IT
+
+16*** Vendi i origjines
+
+General_information->Country->Country_of_origin_name --- Italia
+
+17*** Vendi i destinacionit
+
+General_information->Country->Destination->Destination_country_name --- Albania
+
+18*** identity and nationality of means of transport at arrival
+
+Transport->Means_of_transport->Identity      --- TEST2
+Transport->Means_of_transport->Nationality   --- AL
+
+19*** (Bosh ose kjo)
+
+Transport->Container_flag --- false (e pa checkuar)
+
+20**** Kushtet e levrimit
+
+Transport->Delivery_terms->Code   --- EXW
+Transport->Delivery_terms->Place  --- italia2
+
+21*** Identiteti & kombesia e mejtit aktiv ne kufi
+
+Transport->Means_of_transport->Border_information->Identity      --- TEST2
+Transport->Means_of_transport->Border_information->Nationality   --- AL
+
+22*** Mon & shuma totale ne fature (jo sh i sigurt)
+
+Valuation->Gs_Invoice->Currency_code    		  --- EUR
+Valuation->Gs_Invoice->Amount_foreign_currency    --- 6000 (vlera e futur eshte integer, ne xml eshte decimal me 2)
+
+23*** Kursi i kembimit (ne form vlera eshte decimal me 3, ne xml eshte me 2) (jo sh i sigurt)
+
+Valuation->Gs_Invoice->Currency_rate    --- 136.54
+
+24*** Natyra (jo sh i sigurt)
+
+Item->Taxation->Valuation_item->Rate_of_adjustement	--- 1 (aspak i sigurt)
+Valuation->Calculation_working_mode  --- 2
+
+25*** Menyra e transportit (ne kufi)
+
+Transport->Means_of_transport->Border_information->Mode   --- 32
+
+26*** Menyra e transportit (Transporti)
+
+Transport->Means_of_transport->Inland_mode_of_transport   --- 32
+
+27*** Vendi i shkarkimit (bosh)
+
+28*** Te dhena financiare & bankare (bosh)
+
+29*** Zyra e hyrjes
+
+Transport->Border_office->Code   ---- AL140000
+
+30*** Vendodhja e mallrave
+
+31*** Kolite and pershkrim i mallit
+Shenjat dhe numrat - Nr i kontenierit/ve - Numer dhe llok
+
+Item->Packages->Number_of_packages      --- 9          (Nr. dhe Lloji)
+Item->Packages->Kind_of_packages_code   --- 00         (Nr. dhe Lloji)
+Item->Packages->Kind_of_packages_name   --- Rifuxho    (Ctn Nbr)
+Item->Tarification->Goods_description->Description_of_goods   ---    - - - Grure dhe meslin i zakonshem
+Item->Tarification->Goods_description->Commercial_Description ---    Zhdoganim hashashi
+
+32*** Artikull
+
+Property->Nbers->Total_number_of_items   --- 1
+
+33*** Kodi tarifor
+
+Item->Tarification->HScode->Commodity_code   --- 10019120
+Item->Tarification->HScode->Precision_1      --- 000
+
+34*** Kodi V.O.
+
+Item->Tarification->Goods_description->Country_of_origin_code   --- IT
+
+35*** Pesha bruto(kg) (ne form eshte decimal me 4, ne xml integer)
+
+Item->Valuation_item->Weight_itm->Gross_weight_itm   --- 300
+
+36*** Prefer.
+
+Item->Tarification->Preference_code   --- MSABE
+
+37*** REGJIMI
+
+Item->Tarification->Extended_customs_procedure   --- 4000
+Item->Tarification->National_customs_procedure   --- 000
+
+38*** Pesha Neto(kg) (ne form eshte decimal me 4, ne xml integer)
+
+Item->Valuation_item->Weight_itm->Net_weight_itm   --- 280
+
+39*** Kuota
+
+40*** Permbledhja e deklarates/Dokumenti i meparshem
+
+41*** Sasia e njesise se p...
+
+42*** Vlera e artikullit (vlera e form eshte integer, ne xml decimal me 1)
+
+Item->Tarification->Item_price   --- 6000.0
+
+43*** M.Valuation-
+
+44*** Inf shte... Dokumentet Prodhuar Vertetim dhe autorit. Autrizim
+
+Item->Tarification->Value_item --- 0+0+0+0-0
+Item->Previous_doc->Previous_document_reference  --- 12345678987654321
+
+45*** Rregullimi (ne form eshte decimal me 4, ne xml eshte integer)
+
+Item->Valuation_item->Rate_of_adjustement --- 1
+
+46*** Vlera Sintaksore (ne xml eshte decimal 1)
+
+Item->Valuation_item->Statistical_value --- 819240.0
+
+47*** Llogaritja e akti i taksa
+
+48*** agesa e shtyre
+
+49*** Identifikimi i magazines
+
+B DETAJE TE LLOGARISE***
+
+Financial->Mode_of_payment --- Mode_of_payment   (menyra e pageses)
+
+50*** Principali
+
+51*** Pasardh.. zyra e tranzitit and vendi
+
+52*** Garancia i pavlefshem pershkrim
+
+53*** Zyra e destinacionit dhe vendi
+
+54*** Vendi she data
+
+Declarant->Declarant_representative --- Alban Shehri
