@@ -1,67 +1,63 @@
 package modules;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import javax.xml.bind.*;
 
+import configuration.ConfigFileExcel;
+import configuration.ConvertObjectToXMLString;
 import enitity.Asycuda;
 import enitity.asycuda.Item;
 import enitity.asycuda.item_childs.Tarification;
-import multi_item.GetDataFromExcelFirstSheetMultiLines;
+import multi_item.GeneralInfoExcel;
 
 public class GenerateXMLFirstSheet {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 
-		byte[] byteExcel = GetDataFromExcelFirstSheetMultiLines.getByteFromFile("C:\\TemplateAsycudaTempMulti.xlsx");
+		ConfigFileExcel configFileExcel = new ConfigFileExcel();
+		GeneralInfoExcel genInfoExcel = new GeneralInfoExcel();
+		ConvertObjectToXMLString objToXMLString = new ConvertObjectToXMLString();
+		Asycuda ASYCUDA = new Asycuda();
+		String utf8 = "UTF-8";
+		String nameFile = "E:\\TemplateAsycudaTempMulti.xlsx";
+		String fileOutput = "E:\\asycuda_first_sheet.xml";
+		String finalXML = "";
+
+		byte[] byteExcel = configFileExcel.getByteFromFile(nameFile);
+		ASYCUDA = genInfoExcel.writeValueFromGeneralInfoExcel(byteExcel);
+
+		/* --------------------------------------
+		 * CONSOLE: PRINT OUT THE ASYCUDA OBJECT
+		 * --------------------------------------*/
+		finalXML = objToXMLString.convertObjectXML(ASYCUDA);
 		
-		Asycuda ASYCUDA = GetDataFromExcelFirstSheetMultiLines.readValueFormExcel(byteExcel);
-
-		try {
-
-			File file = new File("D:\\file_first_sheet.xml");
-			JAXBContext jaxbContext = JAXBContext.newInstance(Asycuda.class);
-			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-			// output pretty printed
-			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
-			jaxbMarshaller.setProperty("com.sun.xml.internal.bind.xmlHeaders", "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
-
-			StringWriter stringWriter = new StringWriter();
-			jaxbMarshaller.marshal(ASYCUDA, file);
-			jaxbMarshaller.marshal(ASYCUDA, stringWriter);
-
-			String xml = stringWriter.toString();
-			String xmlClear = xml.replace(" xsi:nil=\"true\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", "");
-			String nullClear = xmlClear.replace("null", "<null/>");
-
-			System.out.println( nullClear );
-
-		} catch (JAXBException e) {
+		// Create and write the XML file 
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream(fileOutput), utf8))) {
+			writer.write(finalXML);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
 	}
 
-	public List<Item> getListItems() {
-		
-		List<Item> listItems = new ArrayList<Item>();
-		
-		Item item1 = new Item();
-		Item item2 = new Item();
-		
-		Tarification tarification = new Tarification();
-		tarification.setExtended_customs_procedure("4000");
-		tarification.setNational_customs_procedure("000");
-		item1.setTarification(tarification);
-		
-		listItems.add(item1);
-		listItems.add(item2);
-		
-		return listItems;
-	}
-	
+
+
 }

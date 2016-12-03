@@ -30,17 +30,52 @@ public class GetCurrency {
 		
 	}
 
-	public String getCurrencyExchange() throws IOException {
+	public String getCurrencyExchange() {
 
-		URL bankaShqipURL = new URL("https://www.bankofalbania.org/web/kursi_i_kembimit_2014_1.php");
-		URLConnection yc = bankaShqipURL.openConnection();
-		BufferedReader in = new BufferedReader(new InputStreamReader(
-				yc.getInputStream(), "UTF-8"));
-		String inputLine;
+		// Declaration of variables
+		String urlBankaShqip = "https://www.bankofalbania.org/web/kursi_i_kembimit_2014_1.php";
+		String utf8 = "UTF-8";
+		URL bankaShqipURL = null;
+		URLConnection yc = null;;
+		BufferedReader in = null;
+		String inputLine = null;
 		StringBuilder a = new StringBuilder();
-		while ((inputLine = in.readLine()) != null)
-			a.append(inputLine);
-		in.close();
+		
+		try {
+			bankaShqipURL = new URL(urlBankaShqip);
+		} catch (MalformedURLException e) {
+			
+			System.err.println("Can't find the website: " + urlBankaShqip);
+			e.printStackTrace();
+		}
+		
+		try {
+			yc = bankaShqipURL.openConnection();
+		} catch (IOException e) {
+			
+			System.err.println("Can't connect with the website: " + urlBankaShqip);
+			e.printStackTrace();
+		}
+		
+		try {
+			in = new BufferedReader(new InputStreamReader( yc.getInputStream(), utf8));
+		} catch (UnsupportedEncodingException e) {
+			
+			System.err.println("UnsupportedEncodingException: " + utf8);
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			while ((inputLine = in.readLine()) != null)
+				a.append(inputLine);
+			
+			in.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		return a.toString();
 	}

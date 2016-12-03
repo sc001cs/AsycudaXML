@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import logic.ExcelPoi;
+import logic.elaboration.GeneralInfoElaborate;
 import modules.GetCurrency;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -89,12 +90,8 @@ import enitity.asycuda.valuation_childs.Total;
 import enitity.asycuda.valuation_childs.Weight;
 
 
-public class GetDataFromExcelFirstSheetMultiLines {
+public class GeneralInfoExcel {
 
-	private static int typeDeclaration_TYPE_IDENT = 0;
-	private static int declarGenProcCode_TYPE_IDENT = 1;
-	private static int typeTransDoc_TYPE_IDENT = 2;
-	
 	private static int costumTransDoc_OFFICESEGM_IDENT = 3;
 	private static int costumClearaOffName_OFFICESEGM_IDENT = 4;
 	
@@ -161,26 +158,14 @@ public class GetDataFromExcelFirstSheetMultiLines {
 	private static int declarReprestative_DECLAR = 45;
 
 	private static int ROW = 3;
-	
-	
-	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 
-		byte[] byteExcel = getByteFromFile("C:\\TemplateAsycudaTempMulti.xlsx");
+	/**
+	 * @param byteExcel
+	 * @return Asycuda populated first sheet
+	 */
+	public Asycuda writeValueFromGeneralInfoExcel(byte[] byteExcel) {
 		
-		readValueFormExcel(byteExcel);
-	}
-
-	public static byte[] getByteFromFile(String pathExcel) throws IOException {
-		
-		Path path = Paths.get(pathExcel);
-		byte[] data = Files.readAllBytes(path);
-		
-		return data;
-	}
-	
-	public static Asycuda readValueFormExcel(byte[] byteExcel) throws IOException {
-		
+		GeneralInfoElaborate elabGenerInfo = new GeneralInfoElaborate();
 		GetCurrency currency = new GetCurrency();
 		String currencyExchange = currency.getCurrencyExchange();
 		
@@ -189,15 +174,12 @@ public class GetDataFromExcelFirstSheetMultiLines {
 			Workbook wb = WorkbookFactory.create(new ByteArrayInputStream(byteExcel));
 			sheet = wb.getSheetAt(0);
 		} catch (Exception e) {
+			System.err.println("Can't create Workbook object");
 			e.printStackTrace();
 		}
 		
 		Row row = sheet.getRow(ROW);
 		
-		String typeDeclaration_TYPE_IDENT_String = ExcelPoi.getString(row, typeDeclaration_TYPE_IDENT);
-		String declarGenProcCode_TYPE_IDENT_String = ExcelPoi.getString(row, declarGenProcCode_TYPE_IDENT);
-		String typeTransDoc_TYPE_IDENT_String = ExcelPoi.getString(row, typeTransDoc_TYPE_IDENT);
-
 		String costumTransDoc_OFFICESEGM_IDENT_String = ExcelPoi.getString(row, costumTransDoc_OFFICESEGM_IDENT);
 		String costumClearaOffName_OFFICESEGM_IDENT_String = ExcelPoi.getString(row, costumClearaOffName_OFFICESEGM_IDENT);
 
@@ -323,10 +305,14 @@ public class GetDataFromExcelFirstSheetMultiLines {
 		
 		ident.setOffice_segment(offSegm);
 		
-		Type type = new Type();
-		type.setType_of_declaration(typeDeclaration_TYPE_IDENT_String);
-		type.setDeclaration_gen_procedure_code(declarGenProcCode_TYPE_IDENT_String);
-		type.setType_of_transit_document(typeTransDoc_TYPE_IDENT_String);
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 0, 1, 2
+		 * - typeDeclaration_TYPE_IDENT (mandatory)
+		 * - declarGenProcCode_TYPE_IDENT (mandatory)
+		 * - typeTransDoc_TYPE_IDENT
+		 * */
+		Type type = elabGenerInfo.getTypeIdentificationChilds(row);
 		
 		ident.setType(type);
 		
@@ -589,7 +575,7 @@ public class GetDataFromExcelFirstSheetMultiLines {
 		return ASYCUDA;
 	}
 	
-	public static BigDecimal calcAmountNationalCurr(String amountForegCurr, String currCode) throws IOException {
+	public BigDecimal calcAmountNationalCurr(String amountForegCurr, String currCode) {
 
 		String currString = "";
 		BigDecimal amountNationalCurr = null;
