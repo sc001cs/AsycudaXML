@@ -35,7 +35,7 @@ public class GeneralInfoValidation {
 					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "typeDeclaration_TYPE_IDENT"));
 		}
 
-		if(type.getDeclaration_gen_procedure_code() == null && 
+		if(type.getDeclaration_gen_procedure_code() == null ||
 				type.getDeclaration_gen_procedure_code().equals("")) {
 
 			System.err.println("***** ERROR *****\n "
@@ -55,7 +55,7 @@ public class GeneralInfoValidation {
 					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "costumTransDoc_OFFICESEGM_IDENT"));
 		}
 
-		if(offSegm.getCustoms_Clearance_office_name() == null && 
+		if(offSegm.getCustoms_Clearance_office_name() == null ||
 				offSegm.getCustoms_Clearance_office_name().equals("")) {
 
 			System.err.println("***** ERROR *****\n "

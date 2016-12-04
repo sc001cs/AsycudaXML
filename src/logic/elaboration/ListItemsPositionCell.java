@@ -72,7 +72,13 @@ public class ListItemsPositionCell {
 		
 		listItemsColsName.add("netWeightItm_WEIGHTITM_VALITEM_ITEM");
 		
+		listItemsColsName.add("");
+		listItemsColsName.add("");
+		listItemsColsName.add("");
+		
 		listItemsColsName.add("itemPrice_TARIF_ITEM");
+		
+		listItemsColsName.add("");
 		
 		listItemsColsName.add("valItm_TARIF_ITEM");
 		

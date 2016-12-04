@@ -11,6 +11,8 @@ import java.util.List;
 
 import logic.ExcelPoi;
 import logic.GetCurrencyAndAmount;
+import logic.elaboration.GeneralInfoElaborate;
+import logic.elaboration.ListItemElaborate;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -39,43 +41,18 @@ import enitity.asycuda.valuationItem_childs.WeightItm;
 
 public class ListItemsExcel {
 
-	private static int numbPackages_PACK_ITEM = 43;
-
-	private static int kindPackCode_PACK_ITEM = 44;
-	private static int kindPackName_PACK_ITEM = 45;
-
-	private static int descrGoods_GOODDESCR_TARIF_ITEM = 46;
-
-	private static int commDescr_GOODDESCR_TARIF_ITEM = 47;
-
-	private static int totNumbItems_NBERS_PROP = 48;
-
-	private static int commCode_HSCODE_TARIF_ITEM = 49;
-
-	private static int prec1_HSCODE_TARIF_ITEM = 50;
-
-	private static int countrOrigCode_GOODDESCR_TARIF_ITEM = 51;
-
-	private static int grossWeightItm_WEIGHTITM_VALITEM_ITEM = 52;
-
-	private static int code_PREF_TARIF_ITEM = 53;
-
-	private static int msProc_EXTCUSTOM_TARIF_ITEM = 54;
-
-	private static int natCustomProc_TARIF_ITEM = 55;
-
-	private static int netWeightItm_WEIGHTITM_VALITEM_ITEM = 56;
-
-	private static int itemPrice_TARIF_ITEM = 60;
-
-	private static int valItm_TARIF_ITEM = 62;
-
-	private static int prevDocRef_PREVDOC_ITEM = 63;
+	/**
+	 * FUSHA PA SPECIFIKIM TE QARTE NE XML DHE EXCEL
+	 * PER VERIFIKIM
+	  
+		private static int totNumbItems_NBERS_PROP = 48;  
+	 */
 
 	private static int ROW = 3;
 
-	public Asycuda writeValueListItems(byte[] byteExcel, Asycuda ASYCUDA, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public Asycuda writeValueListItems(byte[] byteExcel, Asycuda ASYCUDA, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
+		ListItemElaborate itemElab = new ListItemElaborate();
 		GetCurrencyAndAmount currency = new GetCurrencyAndAmount();
 		String currencyExchange = currency.getCurrencyExchange();
 
@@ -84,53 +61,23 @@ public class ListItemsExcel {
 			Workbook wb = WorkbookFactory.create(new ByteArrayInputStream(byteExcel));
 			sheet = wb.getSheetAt(1);
 		} catch (Exception e) {
+			System.err.println("Can't create Workbook object");
 			e.printStackTrace();
 		}
 
 		Row row = sheet.getRow(ROW);
 
-		String numbPackages_PACK_ITEM_String = ExcelPoi.getString(row, numbPackages_PACK_ITEM);
-
-		String kindPackCode_PACK_ITEM_String = ExcelPoi.getString(row, kindPackCode_PACK_ITEM);
-		String kindPackName_PACK_ITEM_String = ExcelPoi.getString(row, kindPackName_PACK_ITEM);
-
-		String descrGoods_GOODDESCR_TARIF_ITEM_String = ExcelPoi.getString(row, descrGoods_GOODDESCR_TARIF_ITEM);
-
-		String commDescr_GOODDESCR_TARIF_ITEM_String = ExcelPoi.getString(row, commDescr_GOODDESCR_TARIF_ITEM);
-
-		String totNumbItems_NBERS_PROP_String = ExcelPoi.getString(row, totNumbItems_NBERS_PROP);
-
-		String prec1_HSCODE_TARIF_ITEM_String = ExcelPoi.getString(row, prec1_HSCODE_TARIF_ITEM);
-
-		String commCode_HSCODE_TARIF_ITEMString = ExcelPoi.getString(row, commCode_HSCODE_TARIF_ITEM);
-
-		String countrOrigCode_GOODDESCR_TARIF_ITEM_String = ExcelPoi.getString(row, countrOrigCode_GOODDESCR_TARIF_ITEM);
-
-		String grossWeightItm_WEIGHTITM_VALITEM_ITEM_String = ExcelPoi.getString(row, grossWeightItm_WEIGHTITM_VALITEM_ITEM);
-
-		String code_PREF_TARIF_ITEM_String = ExcelPoi.getString(row, code_PREF_TARIF_ITEM);
-
-		String msProc_EXTCUSTOM_TARIF_ITEM_String = ExcelPoi.getString(row, msProc_EXTCUSTOM_TARIF_ITEM);
-
-		String natCustomProc_TARIF_ITEM_String = ExcelPoi.getString(row, natCustomProc_TARIF_ITEM);
-
-		String netWeightItm_WEIGHTITM_VALITEM_ITEM_String = ExcelPoi.getString(row, netWeightItm_WEIGHTITM_VALITEM_ITEM);
-
-		String itemPrice_TARIF_ITEM_String = ExcelPoi.getString(row, itemPrice_TARIF_ITEM);
-
-		String valItm_TARIF_ITEM_String = ExcelPoi.getString(row, valItm_TARIF_ITEM);
-
-		String prevDocRef_PREVDOC_ITEM_String = ExcelPoi.getString(row, prevDocRef_PREVDOC_ITEM);
-
 		Item item = new Item();
 
-		Packages pack = new Packages();
-		pack.setNumber_of_packages(numbPackages_PACK_ITEM_String);
-		pack.setKind_of_packages_code(kindPackCode_PACK_ITEM_String);
-		pack.setKind_of_packages_name(kindPackName_PACK_ITEM_String);
-
-		pack.setMarks1_of_packages("null");
-		pack.setMarks2_of_packages("null");
+		/**
+		 * SHEET: LIST ITEMS
+		 * COLUMNS: 0, 1, 2
+		 * - numbPackages_PACK_ITEM (mandatory)
+		 * - kindPackCode_PACK_ITEM (mandatory)
+		 * - kindPackName_PACK_ITEM (mandatory)
+		 * */
+		Packages pack = itemElab.getPackagesItemChilds(row, hmListItemColsNameAndPosit);
+		
 		item.setPackages(pack);
 
 		IncoTerms incoTerm = new IncoTerms();
@@ -141,16 +88,27 @@ public class ListItemsExcel {
 		Tarification tar = new Tarification();
 		tar.setTarification_data("null");
 
-		HScode hsCode = new HScode();
-		hsCode.setCommodity_code(commCode_HSCODE_TARIF_ITEMString);
-		hsCode.setPrecision_1(prec1_HSCODE_TARIF_ITEM_String);
-		hsCode.setPrecision_2("null");
-		hsCode.setPrecision_3("null");
+		/**
+		 * SHEET: LIST ITEMS
+		 * COLUMNS: 6, 7
+		 * - commCode_HSCODE_TARIF_ITEM (mandatory)
+		 * - prec1_HSCODE_TARIF_ITEM (mandatory)
+		 * */
+		HScode hsCode = itemElab.getHScodeTarificItemChilds(row, hmListItemColsNameAndPosit);
+		
 		tar.setHScode(hsCode);
 
-		tar.setPreference_code(code_PREF_TARIF_ITEM_String);
-		tar.setExtended_customs_procedure(msProc_EXTCUSTOM_TARIF_ITEM_String);
-		tar.setNational_customs_procedure(natCustomProc_TARIF_ITEM_String);
+		/**
+		 * SHEET: LIST ITEMS
+		 * COLUMNS: 10, 11, 12,  17, 19
+		 * - code_PREF_TARIF_ITEM (mandatory)
+		 * - msProc_EXTCUSTOM_TARIF_ITEM (mandatory)
+		 * - natCustomProc_TARIF_ITEM (mandatory)
+		 * 
+		 * - itemPrice_TARIF_ITEM (mandatory)
+		 * - valItm_TARIF_ITEM (mandatory)
+		 * */
+		tar = itemElab.getTarification(row, tar, hmListItemColsNameAndPosit);
 
 		tar.setQuota_code("null");
 
@@ -175,25 +133,26 @@ public class ListItemsExcel {
 		}
 		tar.setSupplementary_unit(listSuppUn);
 
-		tar.setItem_price(itemPrice_TARIF_ITEM_String);
-		tar.setValuation_method_code("null");
-		tar.setValue_item(valItm_TARIF_ITEM_String);
-		tar.setAttached_doc_item("null");
-		tar.setAI_code("null");
-
 		item.setTarification(tar);
 
-		GoodsDescription gDescr = new GoodsDescription();
-		gDescr.setCountry_of_origin_code(countrOrigCode_GOODDESCR_TARIF_ITEM_String);
-		gDescr.setDescription_of_goods(descrGoods_GOODDESCR_TARIF_ITEM_String);
-		gDescr.setCommercial_Description(commDescr_GOODDESCR_TARIF_ITEM_String);
+		/**
+		 * SHEET: LIST ITEMS
+		 * COLUMNS: 3, 4, 8
+		 * - descrGoods_GOODDESCR_TARIF_ITEM (mandatory)
+		 * - commDescr_GOODDESCR_TARIF_ITEM (mandatory)
+		 * - countrOrigCode_GOODDESCR_TARIF_ITEM (mandatory)
+		 * */
+		GoodsDescription gDescr = itemElab.getGoodsDescription(row, hmListItemColsNameAndPosit);
+		
 		item.setGoods_description(gDescr);
 
-		PreviousDoc pDoc = new PreviousDoc();
-		pDoc.setSummary_declaration("null");
-		pDoc.setSummary_declaration_sl("null");
-		pDoc.setPrevious_document_reference(prevDocRef_PREVDOC_ITEM_String);
-		pDoc.setPrevious_warehouse_code("null");
+		/**
+		 * SHEET: LIST ITEMS
+		 * COLUMNS: 20
+		 * - prevDocRef_PREVDOC_ITEM (mandatory)
+		 * */
+		PreviousDoc pDoc = itemElab.getPreviousDoc(row, hmListItemColsNameAndPosit);
+		
 		item.setPrevious_doc(pDoc);
 
 		item.setFree_text_1("null");
@@ -217,9 +176,13 @@ public class ListItemsExcel {
 
 		ValuationItem vItem = new ValuationItem();
 
-		WeightItm wItm = new WeightItm();
-		wItm.setGross_weight_itm(grossWeightItm_WEIGHTITM_VALITEM_ITEM_String);
-		wItm.setNet_weight_itm(netWeightItm_WEIGHTITM_VALITEM_ITEM_String);
+		/**
+		 * SHEET: LIST ITEMS
+		 * COLUMNS: 9, 13
+		 * - grossWeightItm_WEIGHTITM_VALITEM_ITEM (mandatory)
+		 * - netWeightItm_WEIGHTITM_VALITEM_ITEM (mandatory)
+		 * */
+		WeightItm wItm = itemElab.getWeightItmItemChilds(row, hmListItemColsNameAndPosit);
 
 		List<WeightItm> listWeightItm = new ArrayList<WeightItm>();
 		listWeightItm.add(wItm);
