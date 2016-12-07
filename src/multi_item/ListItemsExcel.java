@@ -1,17 +1,11 @@
 package multi_item;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import logic.ExcelPoi;
 import logic.GetCurrencyAndAmount;
-import logic.elaboration.GeneralInfoElaborate;
 import logic.elaboration.ListItemElaborate;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -80,9 +74,20 @@ public class ListItemsExcel {
 		
 		item.setPackages(pack);
 
+		// Same as Delivery_terms -> code & place
 		IncoTerms incoTerm = new IncoTerms();
-		//		incoTerm.setCode(code_DELIVTERMS_TRANSP_String);
-		//		incoTerm.setPlace(place_DELIVTERMS_TRANSP_String);
+		if(ASYCUDA.getTransport() != null 
+			&& ASYCUDA.getTransport().getDelivery_terms() != null 
+			&& ASYCUDA.getTransport().getDelivery_terms().getCode() != null) {
+			incoTerm.setCode(ASYCUDA.getTransport().getDelivery_terms().getCode());
+		}
+		
+		if(ASYCUDA.getTransport() != null 
+				&& ASYCUDA.getTransport().getDelivery_terms() != null 
+				&& ASYCUDA.getTransport().getDelivery_terms().getPlace() != null) {
+			incoTerm.setPlace(ASYCUDA.getTransport().getDelivery_terms().getPlace());
+		}
+		
 		item.setIncoTerms(incoTerm);
 
 		Tarification tar = new Tarification();
@@ -194,11 +199,7 @@ public class ListItemsExcel {
 		//		vItem.setRate_of_adjustement(rateAdjust_VALITEM_ITEM_String);
 		//		vItem.setStatistical_value(calcAmountNationalCurr(amountForegCurr_GSINVOICE_VALU_String, currCode_GSINVOICE_VALU_String));
 
-		ItemInvoice itmInv = new ItemInvoice();
-		//		itmInv.setAmount_national_currency(calcAmountNationalCurr(amountForegCurr_GSINVOICE_VALU_String, currCode_GSINVOICE_VALU_String));
-		//		itmInv.setAmount_foreign_currency(amountForegCurr_GSINVOICE_VALU_String);
-		//		itmInv.setCurrency_code(currCode_GSINVOICE_VALU_String);
-		//		itmInv.setCurrency_rate(currency.getCurrency(currCode_GSINVOICE_VALU_String, currencyExchange));
+		ItemInvoice itmInv = itemElab.getItemInvoiceValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
 
 		List<ItemInvoice> listItmInv = new ArrayList<ItemInvoice>();
 		listItmInv.add(itmInv);
@@ -236,6 +237,9 @@ public class ListItemsExcel {
 
 		vItem.setMarket_valuer(listMarkValue);
 
+		// Update Item set Valutation item
+		item = itemElab.getSetTotals(row, item, vItem, hmListItemColsNameAndPosit);
+		
 		item.setValuation_item(vItem);
 
 		List<Item> items = new ArrayList<Item>();
