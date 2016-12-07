@@ -29,7 +29,7 @@ public class GenerateXMLFINAL {
 		Asycuda ASYCUDA = new Asycuda();
 		String utf8 = "UTF-8";
 		String nameFile = "D:\\TemplateAsycudaTempMulti.xlsx";
-		String fileOutput = "D:\\asycuda_generated.xml"; 
+		String fileOutput = "D:\\asycuda_generated.xml";
 		String finalXML = "";
 		HashMap<Integer, String> hmGenInfoColsNameAndPosit = genInfoPosCell.hmGenInfoColsName();
 		HashMap<Integer, String> hmListItemsColsNameAndPosit = listItemsPosCell.hmListItemsColsName();
