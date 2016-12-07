@@ -4,11 +4,13 @@ import java.util.HashMap;
 
 import configuration.ConfigFileExcel;
 import enitity.asycuda.GoodsDescription;
+import enitity.asycuda.Item;
 import enitity.asycuda.PreviousDoc;
 import enitity.asycuda.identification_childs.Type;
 import enitity.asycuda.item_childs.Packages;
 import enitity.asycuda.item_childs.Tarification;
 import enitity.asycuda.item_childs.tarification_childs.HScode;
+import enitity.asycuda.valuationItem_childs.ItemInvoice;
 import enitity.asycuda.valuationItem_childs.WeightItm;
 
 public class ListItemValidation {
@@ -164,6 +166,43 @@ public class ListItemValidation {
 					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "prevDocRef_PREVDOC_ITEM"));
 		}
 
+	}
+	
+	public void validItemInvoiceValChilds(ItemInvoice itmInv, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+
+		if(itmInv.getAmount_foreign_currency() == null || 
+				itmInv.getAmount_foreign_currency().equals("")) {
+
+			System.err.println("***** ERROR *****\n "
+					+ "Please fill out: itemPrice_TARIF_ITEM -- Sheet2 Cell " + 
+					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "itemPrice_TARIF_ITEM"));
+		}
+
+	}
+	
+	public void validSetTotals(Item item, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+
+		if(item.getValuation_item().getRate_of_adjustement() == null || 
+				item.getValuation_item().getRate_of_adjustement().equals("")) {
+
+			System.err.println("***** ERROR *****\n "
+					+ "Please fill out: Rate_of_adjustement -- Sheet2 Cell " + 
+					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Rate_of_adjustement"));
+		}
+
+		if(item.getValuation_item().getStatistical_value() == null) {
+
+			System.err.println("***** ERROR *****\n "
+					+ "Please fill out: Statistical_value -- Sheet2 Cell " + 
+					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Statistical_value"));
+		}
+		
+		if(item.getValuation_item().getTotal_CIF_itm() == null) {
+
+			System.err.println("***** ERROR *****\n "
+					+ "Please fill out: Total_CIF_itm -- Sheet2 Cell " + 
+					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Total_CIF_itm"));
+		}
 	}
 	
 }

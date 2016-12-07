@@ -8,7 +8,9 @@ import java.util.Map.Entry;
 import org.apache.poi.ss.usermodel.Row;
 
 import configuration.ConfigFileExcel;
+import enitity.Asycuda;
 import enitity.asycuda.Declarant;
+import enitity.asycuda.Item;
 import enitity.asycuda.Valuation;
 import enitity.asycuda.declarant_childs.Reference;
 import enitity.asycuda.generalInfo_childs.Country;
@@ -368,7 +370,7 @@ public class GeneralInfoElaborate {
 	 * @param row
 	 * @return GsInvoice ValuationChilds
 	 */ 
-	public GsInvoice getValueGsInvoiceValuationChilds(Row row, String currencyExchange, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public GsInvoice getValueGsInvoiceValuationChilds(Row row, Asycuda asycuda, String currencyExchange, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
 		int currCode_GSINVOICE_VALU = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "currCode_GSINVOICE_VALU");
 		int amountForegCurr_GSINVOICE_VALU = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "amountForegCurr_GSINVOICE_VALU");
@@ -386,7 +388,29 @@ public class GeneralInfoElaborate {
 		gsInv.setAmount_national_currency( currency.calcAmountNationalCurr(amountForegCurr_GSINVOICE_VALU_String, currCode_GSINVOICE_VALU_String) );
 		gsInv.setCurrency_rate( currency.getCurrency(currCode_GSINVOICE_VALU_String, currencyExchange) );
 		
-		
+
+		BigDecimal sumAmountForeignCurr = BigDecimal.ZERO;
+		BigDecimal sumAmounNationalCurr = BigDecimal.ZERO;
+		if(asycuda.getItem() != null && asycuda.getItem().size() > 0) {
+			for (Item item : asycuda.getItem()) {
+				
+				if(item != null 
+						&& item.getValuation_item() != null 
+						&& item.getValuation_item().getItem_Invoice() != null 
+						&& item.getValuation_item().getItem_Invoice().size() > 0 
+						&& item.getValuation_item().getItem_Invoice().get(0).getAmount_foreign_currency() != null)
+				sumAmountForeignCurr.add(new BigDecimal(item.getValuation_item().getItem_Invoice().get(0).getAmount_foreign_currency()));
+				
+				if(item != null 
+						&& item.getValuation_item() != null 
+						&& item.getValuation_item().getItem_Invoice() != null 
+						&& item.getValuation_item().getItem_Invoice().size() > 0 
+						&& item.getValuation_item().getItem_Invoice().get(0).getAmount_national_currency() != null)
+					sumAmounNationalCurr.add(item.getValuation_item().getItem_Invoice().get(0).getAmount_national_currency());
+				
+			}
+		}
+
 		genInfoValid.validCellValGsInvoiceValuationChilds(gsInv, hmGenInfoColsNameAndPosit);
 
 		return gsInv;

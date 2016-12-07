@@ -1,7 +1,5 @@
 package enitity.asycuda;
 
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlElement;
 
 import enitity.asycuda.valuation_childs.*;

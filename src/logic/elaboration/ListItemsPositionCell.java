@@ -64,6 +64,15 @@ public class ListItemsPositionCell {
 		
 		listItemsColsName.add("grossWeightItm_WEIGHTITM_VALITEM_ITEM");
 		
+		listItemsColsName.add("Net_weight_itm");
+		listItemsColsName.add("Total_cost_itm");
+		listItemsColsName.add("Total_CIF_itm");
+		listItemsColsName.add("Rate_of_adjustement");
+		listItemsColsName.add("Statistical_value");
+		listItemsColsName.add("Amount_national_currency");
+		listItemsColsName.add("Amount_foreign_currency");
+		listItemsColsName.add("Currency_code");
+		
 		listItemsColsName.add("code_PREF_TARIF_ITEM");
 		
 		listItemsColsName.add("msProc_EXTCUSTOM_TARIF_ITEM");

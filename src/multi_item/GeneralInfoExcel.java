@@ -90,7 +90,7 @@ public class GeneralInfoExcel {
 	 * @param byteExcel
 	 * @return Asycuda populated first sheet
 	 */
-	public Asycuda writeValueFromGeneralInfoExcel(byte[] byteExcel, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public Asycuda writeValueFromGeneralInfoExcel(byte[] byteExcel, HashMap<Integer, String> hmGenInfoColsNameAndPosit, HashMap<Integer, String> hmListItemsColsNameAndPosit) {
 
 		GeneralInfoElaborate genInfoElab = new GeneralInfoElaborate();
 		GetCurrencyAndAmount currency = new GetCurrencyAndAmount();
@@ -451,7 +451,7 @@ public class GeneralInfoExcel {
 		 * - setAmount_national_currency 
 		 * - setCurrency_rate 
 		 * */
-		GsInvoice gsInv = genInfoElab.getValueGsInvoiceValuationChilds(row, currencyExchange, hmGenInfoColsNameAndPosit);
+		GsInvoice gsInv = genInfoElab.getValueGsInvoiceValuationChilds(row, ASYCUDA, currencyExchange, hmGenInfoColsNameAndPosit);
 
 		val.setGs_Invoice(gsInv);
 
@@ -488,6 +488,31 @@ public class GeneralInfoExcel {
 		gsDed.setCurrency_rate("0.0");
 		val.setGs_deduction(gsDed);
 
+		ASYCUDA.setValuation(val);
+		
+		/*|------------------------------------------| 
+		  |------------------------------------------|
+		 
+		     ASYCUDA: THE SECOND SHEET -> LIST ITEMS
+		  
+		  |------------------------------------------|
+		  |------------------------------------------|*/
+		ListItemsExcel listItemsExcel = new ListItemsExcel();
+		
+		ASYCUDA = listItemsExcel.writeValueListItems(byteExcel, ASYCUDA, hmListItemsColsNameAndPosit);
+		
+		/**
+		 * *** UPDATE ***
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 28, 29
+		 * - currCode_GSINVOICE_VALU (mandatory)
+		 * - amountForegCurr_GSINVOICE_VALU (mandatory)
+		 * - setCurrency_name 
+		 * - setAmount_national_currency 
+		 * - setCurrency_rate 
+		 * */
+		GsInvoice gsInvUpdate = genInfoElab.getValueGsInvoiceValuationChilds(row, ASYCUDA, currencyExchange, hmGenInfoColsNameAndPosit);
+		
 		Total tot = new Total();
 		// vete
 		tot.setTotal_invoice("6000.0");

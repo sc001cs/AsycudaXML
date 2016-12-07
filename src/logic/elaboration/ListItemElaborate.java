@@ -1,16 +1,21 @@
 package logic.elaboration;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 
 import org.apache.poi.ss.usermodel.Row;
 
 import configuration.ConfigFileExcel;
+import enitity.Asycuda;
 import enitity.asycuda.GoodsDescription;
+import enitity.asycuda.Item;
 import enitity.asycuda.PreviousDoc;
+import enitity.asycuda.ValuationItem;
 import enitity.asycuda.identification_childs.Type;
 import enitity.asycuda.item_childs.Packages;
 import enitity.asycuda.item_childs.Tarification;
 import enitity.asycuda.item_childs.tarification_childs.HScode;
+import enitity.asycuda.valuationItem_childs.ItemInvoice;
 import enitity.asycuda.valuationItem_childs.WeightItm;
 import logic.ExcelPoi;
 import logic.GetCurrencyAndAmount;
@@ -170,5 +175,62 @@ public class ListItemElaborate {
 		return pDoc;
 	}
 	
+	/**
+	 * @param row
+	 * @return ItemInvoice Valutation Childs 
+	 */
+	public ItemInvoice getItemInvoiceValChilds(Row row, Asycuda asycuda, HashMap<Integer, String> hmListItemColsNameAndPosit) {
+
+		int itemPrice_TARIF_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "itemPrice_TARIF_ITEM");
+
+		String itemPrice_TARIF_ITEM_String = ExcelPoi.getString(row, itemPrice_TARIF_ITEM);
+
+		ItemInvoice itmInv = new ItemInvoice();
+		itmInv.setAmount_foreign_currency(itemPrice_TARIF_ITEM_String);
+		
+		if(asycuda.getValuation() != null 
+				&& asycuda.getValuation().getGs_Invoice() != null 
+				&& asycuda.getValuation().getGs_Invoice().getCurrency_code() != null) {
+			
+			itmInv.setCurrency_code(asycuda.getValuation().getGs_Invoice().getCurrency_code());	
+			itmInv.setAmount_national_currency(currency.calcAmountNationalCurr(itemPrice_TARIF_ITEM_String, asycuda.getValuation().getGs_Invoice().getCurrency_code()));
+		}
+		
+		if(asycuda.getValuation() != null 
+				&& asycuda.getValuation().getGs_Invoice() != null 
+				&& asycuda.getValuation().getGs_Invoice().getCurrency_rate() != null) {
+			itmInv.setCurrency_rate(asycuda.getValuation().getGs_Invoice().getCurrency_rate());	
+		}
+		
+		itemValid.validItemInvoiceValChilds(itmInv, hmListItemColsNameAndPosit);
+
+		return itmInv;
+	}
+	
+	
+	/**
+	 * @param row
+	 * @return Statistical_value Total_CIF_itm Rate_of_adjustement
+	 */
+	public Item getSetTotals(Row row, Item item, ValuationItem vItem, HashMap<Integer, String> hmListItemColsNameAndPosit) {
+
+		int Rate_of_adjustement = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Rate_of_adjustement");
+		int Statistical_value = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Statistical_value");
+		int Total_CIF_itm = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Total_CIF_itm");
+
+		String Rate_of_adjustement_String = ExcelPoi.getString(row, Rate_of_adjustement);
+		String Statistical_value_String = ExcelPoi.getString(row, Statistical_value);
+		String Total_CIF_itm_String = ExcelPoi.getString(row, Total_CIF_itm);
+		
+		item.setValuation_item(vItem);
+		
+		item.getValuation_item().setRate_of_adjustement(Rate_of_adjustement_String);
+		item.getValuation_item().setStatistical_value(new BigDecimal(Statistical_value_String));
+		item.getValuation_item().setTotal_CIF_itm(new BigDecimal(Total_CIF_itm_String));
+		
+		itemValid.validSetTotals(item, hmListItemColsNameAndPosit);
+
+		return item;
+	}
 	
 }
