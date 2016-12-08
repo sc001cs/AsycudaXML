@@ -27,6 +27,7 @@ import enitity.asycuda.transport_childs.DeliveryTerms;
 import enitity.asycuda.transport_childs.meansOfTransport_childs.BorderInformation;
 import enitity.asycuda.transport_childs.meansOfTransport_childs.DepartureArrivalInformation;
 import enitity.asycuda.valuation_childs.GsInvoice;
+import enitity.asycuda.valuation_childs.Total;
 import logic.ExcelPoi;
 import logic.GetCurrencyAndAmount;
 
@@ -118,31 +119,6 @@ public class GeneralInfoElaborate {
 		genInfoValid.validationCellsFormsPropertyChilds(formsProp, hmGenInfoColsNameAndPosit);
 
 		return formsProp;
-	}
-
-	/**
-	 * @param row
-	 * @return Nbers PropertyChilds
-	 */
-	public Nbers getNbersPropertyChilds(Row row, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
-
-		int numbLoadLists_NBERS_PROPERT = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "numbLoadLists_NBERS_PROPERT");
-		int totNumbItems_NBERS_PROPERT = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "totNumbItems_NBERS_PROPERT");
-		int totNumbPackages_NBERS_PROPERT = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "totNumbPackages_NBERS_PROPERT");
-
-		String numbLoadLists_NBERS_PROPERT_String = ExcelPoi.getString(row, numbLoadLists_NBERS_PROPERT);
-		String totNumbItems_NBERS_PROPERT_String = ExcelPoi.getString(row, totNumbItems_NBERS_PROPERT);
-		String totNumbPackages_NBERS_PROPERT_String = ExcelPoi.getString(row, totNumbPackages_NBERS_PROPERT);
-
-		Nbers nbers = new Nbers();
-
-		nbers.setNumber_of_loading_lists(numbLoadLists_NBERS_PROPERT_String);
-		nbers.setTotal_number_of_items(totNumbItems_NBERS_PROPERT_String);
-		nbers.setTotal_number_of_packages(totNumbPackages_NBERS_PROPERT_String);
-
-		genInfoValid.validationCellsNbersPropertyChilds(nbers, hmGenInfoColsNameAndPosit);
-
-		return nbers;
 	}
 
 	/**
@@ -286,13 +262,21 @@ public class GeneralInfoElaborate {
 	 */
 	public Destination getValueCountrDestCountrNameGeneralInfo(Row row, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
-		int destCountrName_DEST_COUNTR_GENERINFO = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "destCountrName_DEST_COUNTR_GENERINFO");
+		int codeCountrName_DEST_COUNTR_GENERINFO = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "codeCountrName_DEST_COUNTR_GENERINFO");
 
-		String destCountrName_DEST_COUNTR_GENERINFO_String = ExcelPoi.getString(row, destCountrName_DEST_COUNTR_GENERINFO);
+		String codeCountrName_DEST_COUNTR_GENERINFO_String = ExcelPoi.getString(row, codeCountrName_DEST_COUNTR_GENERINFO);
+		String destCountrName_DEST_COUNTR_GENERINFO_String = "";
 
 		Destination dest = new Destination();
-		// vete
-		dest.setDestination_country_code("AL");
+		
+		dest.setDestination_country_code(codeCountrName_DEST_COUNTR_GENERINFO_String);
+		
+		// ****TODO
+		if(codeCountrName_DEST_COUNTR_GENERINFO_String.equals("AL"))
+			destCountrName_DEST_COUNTR_GENERINFO_String = "Albania";
+		if(codeCountrName_DEST_COUNTR_GENERINFO_String.equals("TR"))
+			destCountrName_DEST_COUNTR_GENERINFO_String = "Turqia";
+		
 		dest.setDestination_country_name(destCountrName_DEST_COUNTR_GENERINFO_String);
 
 		genInfoValid.validCellValDestinationGeneralInfo(dest, hmGenInfoColsNameAndPosit);
@@ -324,6 +308,7 @@ public class GeneralInfoElaborate {
 	/**
 	 * @param row
 	 * @return DepartureArrivalInformation
+	 * NJESOJ ME BORDER INFORMATION, PER TU VERIFIKUAR
 	 */
 	public DepartureArrivalInformation getValueDepartureArrivalInformation(Row row, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
@@ -462,8 +447,12 @@ public class GeneralInfoElaborate {
 
 		BorderOffice bordOff = new BorderOffice();
 		bordOff.setCode(code_BORDEROFFIC_TRANSP_String);
-		// vete
-		bordOff.setName("Durresi");
+
+		if(code_BORDEROFFIC_TRANSP_String.equals("AL190000"))
+			bordOff.setName("Kapshtica");
+		else
+			bordOff.setName("Durresi");	// vete
+		
 		
 		genInfoValid.validCellValBorderOfficeTransChilds(bordOff, hmGenInfoColsNameAndPosit);
 
@@ -484,4 +473,102 @@ public class GeneralInfoElaborate {
 
 		return modePaym_FINANC_String;
 	}
+	
+	/**
+	 * 
+	 * */
+	public Asycuda updateTotCostTotCIFTotInvoiceTotWeight(Asycuda asycuda) {
+
+		BigDecimal sumTotalCIF = BigDecimal.ZERO;
+		BigDecimal sumTotalCost = BigDecimal.ZERO;
+		
+		BigDecimal sumTotalInvoice = BigDecimal.ZERO;
+		BigDecimal sumTotalWeight = BigDecimal.ZERO;
+		
+		if(asycuda.getItem() != null && asycuda.getItem().size() > 0) {
+			for (Item item : asycuda.getItem()) {
+				
+				if(item != null 
+						&& item.getValuation_item() != null 
+						&& item.getValuation_item().getTotal_CIF_itm() != null)
+					sumTotalCIF = sumTotalCIF.add(item.getValuation_item().getTotal_CIF_itm());
+				
+				if(item != null 
+						&& item.getValuation_item() != null 
+						&& item.getValuation_item().getTotal_cost_itm() != null)
+					sumTotalCost = sumTotalCost.add(new BigDecimal(item.getValuation_item().getTotal_cost_itm()));
+				
+				
+				if(item != null 
+						&& item.getTarification() != null 
+						&& item.getTarification().getItem_price() != null)
+					sumTotalInvoice = sumTotalInvoice.add(new BigDecimal(item.getTarification().getItem_price()));
+				
+				if(item != null 
+						&& item.getValuation_item() != null 
+						&& item.getValuation_item().getWeight_itm() != null
+						&& item.getValuation_item().getWeight_itm().getGross_weight_itm() != null)
+					sumTotalWeight = sumTotalWeight.add(new BigDecimal(item.getValuation_item().getWeight_itm().getGross_weight_itm()));
+				
+			}
+		}
+		asycuda.getValuation().setTotal_CIF(sumTotalCIF);
+		asycuda.getValuation().setTotal_cost(sumTotalCost);
+		
+		Total tot = new Total();
+		tot.setTotal_invoice(sumTotalInvoice);
+		tot.setTotal_weight(sumTotalWeight);
+
+		asycuda.getValuation().setTotal(tot);
+		
+		asycuda.getValuation().getTotal().setTotal_invoice(sumTotalInvoice);
+		
+		return asycuda;
+	}
+	
+	
+	/**
+	 * @param row
+	 * @return Nbers PropertyChilds
+	 */
+	public Nbers getNbersPropertyChilds(Row row, Asycuda asycuda, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+
+		int numbLoadLists_NBERS_PROPERT = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "numbLoadLists_NBERS_PROPERT");
+		int totNumbPackages_NBERS_PROPERT = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "totNumbPackages_NBERS_PROPERT");
+
+		String numbLoadLists_NBERS_PROPERT_String = ExcelPoi.getString(row, numbLoadLists_NBERS_PROPERT);
+		String totNumbPackages_NBERS_PROPERT_String = ExcelPoi.getString(row, totNumbPackages_NBERS_PROPERT);
+
+		Nbers nbers = new Nbers();
+		
+		BigDecimal sumTotalNumbPackages_NBERS_PROPERT = BigDecimal.ZERO;
+		BigDecimal sumTotalWeight = BigDecimal.ZERO;
+		
+		if(asycuda.getItem() != null && asycuda.getItem().size() > 0) {
+			for (Item item : asycuda.getItem()) {
+
+				if(item.getPackages() != null
+						&& item.getPackages().getNumber_of_packages() != null) {
+					sumTotalNumbPackages_NBERS_PROPERT = 
+							sumTotalNumbPackages_NBERS_PROPERT.add(
+									new BigDecimal(item.getPackages()
+											           .getNumber_of_packages())
+									                   .setScale(0, BigDecimal.ROUND_UP));
+				}
+					
+					
+			}
+			nbers.setTotal_number_of_items(new Integer(asycuda.getItem().size()));
+		}
+
+		nbers.setNumber_of_loading_lists(numbLoadLists_NBERS_PROPERT_String);
+		
+		nbers.setTotal_number_of_packages(sumTotalNumbPackages_NBERS_PROPERT);
+
+		genInfoValid.validationCellsNbersPropertyChilds(nbers, hmGenInfoColsNameAndPosit);
+
+		return nbers;
+	}
+	
+	
 }

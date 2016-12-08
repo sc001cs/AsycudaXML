@@ -61,6 +61,7 @@ import enitity.asycuda.transport_childs.meansOfTransport_childs.DepartureArrival
 import enitity.asycuda.valuation_childs.GsDeduction;
 import enitity.asycuda.valuation_childs.GsExternalFreight;
 import enitity.asycuda.valuation_childs.GsInsurance;
+import enitity.asycuda.valuation_childs.GsInternalFreight;
 import enitity.asycuda.valuation_childs.GsInvoice;
 import enitity.asycuda.valuation_childs.GsOtherCost;
 import enitity.asycuda.valuation_childs.Total;
@@ -142,15 +143,6 @@ public class GeneralInfoExcel {
 		Forms formsProp = genInfoElab.getFormsPropertyChilds(row, hmGenInfoColsNameAndPosit);
 		property.setForms(formsProp);
 
-		/**
-		 * SHEET: GENERAL INFO
-		 * COLUMNS: 8, 9, 10
-		 * - totNumbItems_NBERS_PROPERT (mandatory)
-		 * - totNumbPackages_NBERS_PROPERT (mandatory)
-		 * */
-		Nbers nbers = genInfoElab.getNbersPropertyChilds(row, hmGenInfoColsNameAndPosit);
-
-		property.setNbers(nbers);
 
 		property.setPlace_of_declaration("null");
 
@@ -268,7 +260,7 @@ public class GeneralInfoExcel {
 		/**
 		 * SHEET: GENERAL INFO
 		 * COLUMNS: 24
-		 * - destCountrName_DEST_COUNTR_GENERINFO (mandatory)
+		 * - codeCountrName_DEST_COUNTR_GENERINFO (mandatory)
 		 * */
 		Destination dest = genInfoElab.getValueCountrDestCountrNameGeneralInfo(row, hmGenInfoColsNameAndPosit);
 
@@ -359,7 +351,7 @@ public class GeneralInfoExcel {
 		FinancialTransaction finTra = new FinancialTransaction();
 		// vete te dyja
 		finTra.setCode1("1");
-		finTra.setCode2("2");
+		finTra.setCode2("1");
 
 		fin.setFinancial_transaction(finTra);
 
@@ -376,7 +368,11 @@ public class GeneralInfoExcel {
 
 		fin.setTerms(terms);
 
-		fin.setDeffered_payment_reference("null");
+		// mund te jete e njete me Consignee_code
+		if(ASYCUDA.getTraders() != null
+				&& ASYCUDA.getTraders().getConsignee() != null
+				&& ASYCUDA.getTraders().getConsignee().getConsignee_code() != null)
+			fin.setDeffered_payment_reference(ASYCUDA.getTraders().getConsignee().getConsignee_code());
 
 		/**
 		 * SHEET: GENERAL INFO
@@ -385,7 +381,11 @@ public class GeneralInfoExcel {
 		 * */
 		fin.setMode_of_payment(genInfoElab.getValueModePaymFINANC(row, hmGenInfoColsNameAndPosit));
 
+		// ALARM NUK DIHET SI LLOGARITET TAKSA GLOBARE DHE TAKSA TOTALE
+		// VLERA ESHTE FUTUR VETE
 		Amounts am = new Amounts();
+		am.setGlobal_taxes("2996.0");
+		am.setTotals_taxes("180464.0");
 		fin.setAmounts(am);
 
 		Guarantee guar = new Guarantee();
@@ -455,10 +455,7 @@ public class GeneralInfoExcel {
 
 		val.setGs_Invoice(gsInv);
 
-		// vete
-		val.setTotal_cost("0.0");
-		// PER TE BERE, SA VLERA TOTALE E NXJERRE NGA FORMULA
-		val.setTotal_CIF("819240.0");
+		
 
 		GsExternalFreight gsExtFrei = new GsExternalFreight();
 		gsExtFrei.setAmount_national_currency("0.0");
@@ -466,6 +463,13 @@ public class GeneralInfoExcel {
 		gsExtFrei.setCurrency_name("Ska monedhe te huaj");
 		gsExtFrei.setCurrency_rate("0.0");
 		val.setGs_external_freight(gsExtFrei);
+		
+		GsInternalFreight gsIntFrei = new GsInternalFreight();
+		gsIntFrei.setAmount_national_currency("0.0");
+		gsIntFrei.setAmount_foreign_currency("0");
+		gsIntFrei.setCurrency_name("Ska monedhe te huaj");
+		gsIntFrei.setCurrency_rate("0.0");
+		val.setGs_internal_freight(gsIntFrei);
 
 		GsInsurance gsIns = new GsInsurance();
 		gsIns.setAmount_national_currency("0.0");
@@ -513,16 +517,20 @@ public class GeneralInfoExcel {
 		 * */
 		GsInvoice gsInvUpdate = genInfoElab.getValueGsInvoiceValuationChilds(row, ASYCUDA, currencyExchange, hmGenInfoColsNameAndPosit);
 		
-		Total tot = new Total();
-		// vete
-		tot.setTotal_invoice("6000.0");
-		tot.setTotal_weight("300.0");
-
-		val.setTotal(tot);
+		// Set Total too with childs: Total_invoice & Total_weight
+		val = genInfoElab.updateTotCostTotCIFTotInvoiceTotWeight(ASYCUDA).getValuation();
 
 		ASYCUDA.setValuation(val);
 
+		/**
+		 * SHEET: GENERAL INFO
+		 * COLUMNS: 8, 9, 10
+		 * - totNumbItems_NBERS_PROPERT (mandatory)
+		 * - totNumbPackages_NBERS_PROPERT (mandatory)
+		 * */
+		Nbers nbers = genInfoElab.getNbersPropertyChilds(row, ASYCUDA, hmGenInfoColsNameAndPosit);
 
+		ASYCUDA.getProperty().setNbers(nbers);
 
 		return ASYCUDA;
 	}

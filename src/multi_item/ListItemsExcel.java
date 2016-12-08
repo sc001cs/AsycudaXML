@@ -189,15 +189,10 @@ public class ListItemsExcel {
 		 * */
 		WeightItm wItm = itemElab.getWeightItmItemChilds(row, hmListItemColsNameAndPosit);
 
-		List<WeightItm> listWeightItm = new ArrayList<WeightItm>();
-		listWeightItm.add(wItm);
-		vItem.setWeight_itm(listWeightItm);
+		vItem.setWeight_itm(wItm);
 
-		// vete
-		vItem.setTotal_cost_itm("0.0");
-		//		vItem.setTotal_CIF_itm(calcAmountNationalCurr(amountForegCurr_GSINVOICE_VALU_String, currCode_GSINVOICE_VALU_String));
-		//		vItem.setRate_of_adjustement(rateAdjust_VALITEM_ITEM_String);
-		//		vItem.setStatistical_value(calcAmountNationalCurr(amountForegCurr_GSINVOICE_VALU_String, currCode_GSINVOICE_VALU_String));
+		// Llogarit total CIF, Statistical, Rate_of_adjustement 
+		vItem = itemElab.getTotCostCIFStatistRateItem(row, vItem, hmListItemColsNameAndPosit);
 
 		ItemInvoice itmInv = itemElab.getItemInvoiceValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
 

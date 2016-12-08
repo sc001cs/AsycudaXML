@@ -14,7 +14,7 @@ import enitity.asycuda.valuationItem_childs.WeightItm;
 
 public class ValuationItem {
 
-	private List<WeightItm> Weight_itm;
+	private WeightItm Weight_itm;
 	private String Total_cost_itm;
 	private BigDecimal Total_CIF_itm;
 	private String Rate_of_adjustement;
@@ -26,11 +26,11 @@ public class ValuationItem {
 	private List<ItemOtherCost> item_other_cost;
 	private List<MarketValuer> Market_valuer;
 	
-	public List<WeightItm> getWeight_itm() {
+	public WeightItm getWeight_itm() {
 		return Weight_itm;
 	}
 	@XmlElement(nillable = true, name = "Weight_itm")
-	public void setWeight_itm(List<WeightItm> weight_itm) {
+	public void setWeight_itm(WeightItm weight_itm) {
 		Weight_itm = weight_itm;
 	}
 	public String getTotal_cost_itm() {

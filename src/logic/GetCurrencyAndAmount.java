@@ -135,7 +135,8 @@ public class GetCurrencyAndAmount {
 			amountNationalCurr = amountForegCurrDec.multiply(currStringDec);
 			
 			// One decimal place
-			amountNationalCurr = amountNationalCurr.setScale(1, RoundingMode.CEILING);
+			amountNationalCurr = amountNationalCurr.setScale(0, RoundingMode.UP);
+			amountNationalCurr = amountNationalCurr.setScale(1, RoundingMode.UP);
 		} else {
 			
 			System.err.println("***** ERROR *****\n "

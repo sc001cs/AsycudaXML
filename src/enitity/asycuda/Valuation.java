@@ -1,5 +1,7 @@
 package enitity.asycuda;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlElement;
 
 import enitity.asycuda.valuation_childs.*;
@@ -8,13 +10,14 @@ public class Valuation {
 
 	private String Calculation_working_mode;
 	private Weight Weight;
-	private String Total_cost;
-	private String Total_CIF;
+	private BigDecimal Total_cost;
+	private BigDecimal Total_CIF;
 	private GsInvoice Gs_Invoice;
 	private GsExternalFreight Gs_external_freight;
 	private GsInsurance Gs_insurance;
 	private GsOtherCost Gs_other_cost;
 	private GsDeduction Gs_deduction;
+	private GsInternalFreight Gs_internal_freight;
 	private Total Total;
 	
 	public String getCalculation_working_mode() {
@@ -31,18 +34,18 @@ public class Valuation {
 	public void setWeight(Weight weight) {
 		Weight = weight;
 	}
-	public String getTotal_cost() {
+	public BigDecimal getTotal_cost() {
 		return Total_cost;
 	}
 	@XmlElement(nillable = true, name = "Total_cost")
-	public void setTotal_cost(String total_cost) {
+	public void setTotal_cost(BigDecimal total_cost) {
 		Total_cost = total_cost;
 	}
-	public String getTotal_CIF() {
+	public BigDecimal getTotal_CIF() {
 		return Total_CIF;
 	}
 	@XmlElement(nillable = true, name = "Total_CIF")
-	public void setTotal_CIF(String total_CIF) {
+	public void setTotal_CIF(BigDecimal total_CIF) {
 		Total_CIF = total_CIF;
 	}
 	public GsInvoice getGs_Invoice() {
@@ -86,6 +89,13 @@ public class Valuation {
 	@XmlElement(nillable = true, name = "Total")
 	public void setTotal(Total total) {
 		Total = total;
+	}
+	public GsInternalFreight getGs_internal_freight() {
+		return Gs_internal_freight;
+	}
+	@XmlElement(nillable = true, name = "Gs_internal_freight")
+	public void setGs_internal_freight(GsInternalFreight gs_internal_freight) {
+		Gs_internal_freight = gs_internal_freight;
 	}
 	
 	

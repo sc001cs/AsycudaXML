@@ -106,7 +106,7 @@ public class ListItemValidation {
 
 			System.err.println("***** ERROR *****\n "
 					+ "Please fill out: netWeightItm_WEIGHTITM_VALITEM_ITEM -- Sheet2 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "netWeightItm_WEIGHTITM_VALITEM_ITEM"));
+					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Net_weight_itm_WEIGHTITM_VALITEM_ITEM"));
 		}
 
 	}

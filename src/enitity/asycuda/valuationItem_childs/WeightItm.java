@@ -17,7 +17,7 @@ public class WeightItm {
 	public String getNet_weight_itm() {
 		return Net_weight_itm;
 	}
-	@XmlElement(nillable = true, name = "Net_weight_itm")
+	@XmlElement(nillable = true, name = "Net_weight_itm_WEIGHTITM_VALITEM_ITEM")
 	public void setNet_weight_itm(String net_weight_itm) {
 		Net_weight_itm = net_weight_itm;
 	}

@@ -244,8 +244,8 @@ public class GeneralInfoValidation {
 				dest.getDestination_country_name().equals("")) {
 
 			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: destCountrName_DEST_COUNTR_GENERINFO -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "destCountrName_DEST_COUNTR_GENERINFO"));
+					+ "Please fill out: codeCountrName_DEST_COUNTR_GENERINFO -- Sheet1 Cell " + 
+					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "codeCountrName_DEST_COUNTR_GENERINFO"));
 		}
 
 	}

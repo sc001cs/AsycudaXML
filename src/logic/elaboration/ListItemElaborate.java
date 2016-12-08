@@ -43,7 +43,11 @@ public class ListItemElaborate {
 		Packages pack = new Packages();
 		pack.setNumber_of_packages(numbPackages_PACK_ITEM_String);
 		pack.setKind_of_packages_code(kindPackCode_PACK_ITEM_String);
-		pack.setKind_of_packages_name(kindPackName_PACK_ITEM_String);
+		
+		if(kindPackCode_PACK_ITEM_String.equals("52"))
+			pack.setKind_of_packages_name("Arka derrase");
+		else
+			pack.setKind_of_packages_name(kindPackName_PACK_ITEM_String);
 
 		pack.setMarks1_of_packages("null");
 		pack.setMarks2_of_packages("null");
@@ -107,7 +111,7 @@ public class ListItemElaborate {
 	public WeightItm getWeightItmItemChilds(Row row, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
 		int grossWeightItm_WEIGHTITM_VALITEM_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "grossWeightItm_WEIGHTITM_VALITEM_ITEM");
-		int netWeightItm_WEIGHTITM_VALITEM_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "netWeightItm_WEIGHTITM_VALITEM_ITEM");
+		int netWeightItm_WEIGHTITM_VALITEM_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Net_weight_itm_WEIGHTITM_VALITEM_ITEM");
 
 		String grossWeightItm_WEIGHTITM_VALITEM_ITEM_String = ExcelPoi.getString(row, grossWeightItm_WEIGHTITM_VALITEM_ITEM);
 		String netWeightItm_WEIGHTITM_VALITEM_ITEM_String = ExcelPoi.getString(row, netWeightItm_WEIGHTITM_VALITEM_ITEM);
@@ -173,6 +177,32 @@ public class ListItemElaborate {
 		itemValid.validPreviousDoc(pDoc, hmListItemColsNameAndPosit);
 
 		return pDoc;
+	}
+	
+	/**
+	 * @param row
+	 * @return PreviousDoc 
+	 */
+	public ValuationItem getTotCostCIFStatistRateItem(Row row, ValuationItem vItem, HashMap<Integer, String> hmListItemColsNameAndPosit) {
+
+//		int Total_cost_itm_VALITEM_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Total_cost_itm_VALITEM_ITEM");
+//		int Total_CIF_itm_VALITEM_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "prevDocRef_PREVDOC_ITEM");
+//		int Rate_of_adjustement_VALITEM_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Rate_of_adjustement_VALITEM_ITEM");
+//		int Statistical_value_VALITEM_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Statistical_value_VALITEM_ITEM");
+//
+//		String Total_cost_itm_VALITEM_ITEM_String = ExcelPoi.getString(row, Total_cost_itm_VALITEM_ITEM);
+//		String Total_CIF_itm_VALITEM_ITEM_String = ExcelPoi.getString(row, Total_CIF_itm_VALITEM_ITEM);
+//		String Rate_of_adjustement_VALITEM_ITEM_String = ExcelPoi.getString(row, Rate_of_adjustement_VALITEM_ITEM);
+//		String Statistical_value_VALITEM_ITEM_String = ExcelPoi.getString(row, Statistical_value_VALITEM_ITEM);
+//
+//		vItem.setTotal_cost_itm(Total_cost_itm_VALITEM_ITEM_String);
+//		vItem.setTotal_CIF_itm(calcAmountNationalCurr(amountForegCurr_GSINVOICE_VALU_String, currCode_GSINVOICE_VALU_String));
+//		vItem.setRate_of_adjustement(Rate_of_adjustement_VALITEM_ITEM_String);
+//		vItem.setStatistical_value(calcAmountNationalCurr(amountForegCurr_GSINVOICE_VALU_String, currCode_GSINVOICE_VALU_String));
+//
+//		itemValid.validPreviousDoc(vItem, hmListItemColsNameAndPosit);
+
+		return vItem;
 	}
 	
 	/**

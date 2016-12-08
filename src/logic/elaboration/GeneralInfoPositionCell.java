@@ -42,7 +42,7 @@ public class GeneralInfoPositionCell {
 	
 	public static int countrOrigName_COUNTR_GENERINFO = 23;
 	
-	public static int destCountrName_DEST_COUNTR_GENERINFO = 24;
+	public static int codeCountrName_DEST_COUNTR_GENERINFO = 24;
 	
 	public static int identity_MEANTRANSP_TRANSP = 25;
 	public static int nationality_MEANTRANSP_TRANSP = 26;
@@ -120,7 +120,7 @@ public class GeneralInfoPositionCell {
 		
 		listGenInfoColsName.add("countrOrigName_COUNTR_GENERINFO");
 		
-		listGenInfoColsName.add("destCountrName_DEST_COUNTR_GENERINFO");
+		listGenInfoColsName.add("codeCountrName_DEST_COUNTR_GENERINFO");
 		
 		listGenInfoColsName.add("identity_MEANTRANSP_TRANSP");
 		listGenInfoColsName.add("nationality_MEANTRANSP_TRANSP");
@@ -137,8 +137,6 @@ public class GeneralInfoPositionCell {
 		listGenInfoColsName.add("amountForegCurr_GSINVOICE_VALU");
 		listGenInfoColsName.add("currRate_GSINVOICE_VALU");
 		
-		listGenInfoColsName.add("rateAdjst_VALITEM_TAX_ITEM");
-	
 		listGenInfoColsName.add("calcWorkMode_VAL");
 		
 		listGenInfoColsName.add("mode_BORDERINFO_MEANTRANSP_TRANSP");
@@ -151,11 +149,6 @@ public class GeneralInfoPositionCell {
 		listGenInfoColsName.add("code_BORDEROFFIC_TRANSP");
 		
 		listGenInfoColsName.add("");
-		
-		listGenInfoColsName.add("rateAdjust_VALITEM_ITEM");
-		
-		listGenInfoColsName.add("statisVal_VALITEM_ITEM");
-		
 		listGenInfoColsName.add("");
 		listGenInfoColsName.add("");
 		listGenInfoColsName.add("");

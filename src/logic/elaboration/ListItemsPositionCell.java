@@ -54,8 +54,6 @@ public class ListItemsPositionCell {
 		
 		listItemsColsName.add("commDescr_GOODDESCR_TARIF_ITEM");
 		
-		listItemsColsName.add("totNumbItems_NBERS_PROP");
-		
 		listItemsColsName.add("commCode_HSCODE_TARIF_ITEM");
 		
 		listItemsColsName.add("prec1_HSCODE_TARIF_ITEM");
@@ -63,13 +61,13 @@ public class ListItemsPositionCell {
 		listItemsColsName.add("countrOrigCode_GOODDESCR_TARIF_ITEM");
 		
 		listItemsColsName.add("grossWeightItm_WEIGHTITM_VALITEM_ITEM");
+		listItemsColsName.add("Net_weight_itm_WEIGHTITM_VALITEM_ITEM");
 		
-		listItemsColsName.add("Net_weight_itm");
-		listItemsColsName.add("Total_cost_itm");
-		listItemsColsName.add("Total_CIF_itm");
-		listItemsColsName.add("Rate_of_adjustement");
-		listItemsColsName.add("Statistical_value");
-		listItemsColsName.add("Amount_national_currency");
+		listItemsColsName.add("Total_cost_itm_VALITEM_ITEM");
+//		listItemsColsName.add("Total_CIF_itm_VALITEM_ITEM");
+		listItemsColsName.add("Rate_of_adjustement_VALITEM_ITEM");
+//		listItemsColsName.add("Statistical_value_VALITEM_ITEM");
+		
 		listItemsColsName.add("Amount_foreign_currency");
 		listItemsColsName.add("Currency_code");
 		
@@ -78,8 +76,6 @@ public class ListItemsPositionCell {
 		listItemsColsName.add("msProc_EXTCUSTOM_TARIF_ITEM");
 		
 		listItemsColsName.add("natCustomProc_TARIF_ITEM");
-		
-		listItemsColsName.add("netWeightItm_WEIGHTITM_VALITEM_ITEM");
 		
 		listItemsColsName.add("");
 		listItemsColsName.add("");

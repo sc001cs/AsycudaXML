@@ -27,7 +27,7 @@ public class GenerateXML {
 
 		try {
 
-			File file = new File("D:\\file.xml");
+			File file = new File("E:\\file.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(Asycuda.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 

@@ -122,7 +122,7 @@ public class GetDataFromExcel {
 	
 	private static int countrOrigName_COUNTR_GENERINFO = 23;
 	
-	private static int destCountrName_DEST_COUNTR_GENERINFO = 24;
+	private static int codeCountrName_DEST_COUNTR_GENERINFO = 24;
 	
 	private static int identity_MEANTRANSP_TRANSP = 25;
 	private static int nationality_MEANTRANSP_TRANSP = 26;
@@ -258,7 +258,7 @@ public class GetDataFromExcel {
 
 		String countrOrigName_COUNTR_GENERINFO_String = ExcelPoi.getString(row, countrOrigName_COUNTR_GENERINFO);
 
-		String destCountrName_DEST_COUNTR_GENERINFO_String = ExcelPoi.getString(row, destCountrName_DEST_COUNTR_GENERINFO);
+		String codeCountrName_DEST_COUNTR_GENERINFO_String = ExcelPoi.getString(row, codeCountrName_DEST_COUNTR_GENERINFO);
 
 		String identity_MEANTRANSP_TRANSP_String = ExcelPoi.getString(row, identity_MEANTRANSP_TRANSP);
 		String nationality_MEANTRANSP_TRANSP_String = ExcelPoi.getString(row, nationality_MEANTRANSP_TRANSP);
@@ -361,8 +361,8 @@ public class GetDataFromExcel {
 		Nbers nbers = new Nbers();
 
 		nbers.setNumber_of_loading_lists(numbLoadLists_NBERS_PROPERT_String);
-		nbers.setTotal_number_of_items(totNumbItems_NBERS_PROPERT_String);
-		nbers.setTotal_number_of_packages(totNumbPackages_NBERS_PROPERT_String);
+		nbers.setTotal_number_of_items(new Integer(totNumbItems_NBERS_PROPERT_String));
+		nbers.setTotal_number_of_packages(new BigDecimal(totNumbPackages_NBERS_PROPERT_String));
 		
 		property.setNbers(nbers);
 		
@@ -449,7 +449,7 @@ public class GetDataFromExcel {
 		Destination dest = new Destination();
 		// vete
 		dest.setDestination_country_code("AL");
-		dest.setDestination_country_name(destCountrName_DEST_COUNTR_GENERINFO_String);
+		dest.setDestination_country_name(codeCountrName_DEST_COUNTR_GENERINFO_String);
 		count.setDestination(dest);
 		
 		count.setCountry_of_origin_name(countrOrigName_COUNTR_GENERINFO_String);
@@ -582,8 +582,8 @@ public class GetDataFromExcel {
 		val.setWeight(weight);
 		
 		// vete
-		val.setTotal_cost("0.0");
-		val.setTotal_CIF("819240.0");
+		val.setTotal_cost(new BigDecimal("0.0"));
+		val.setTotal_CIF(new BigDecimal("819240.0"));
 		
 		GsInvoice gsInv = new GsInvoice();
 		gsInv.setAmount_foreign_currency(amountForegCurr_GSINVOICE_VALU_String);
@@ -627,8 +627,8 @@ public class GetDataFromExcel {
 		
 		Total tot = new Total();
 		// vete
-		tot.setTotal_invoice("6000.0");
-		tot.setTotal_weight("300.0");
+		tot.setTotal_invoice(new BigDecimal("6000.0"));
+		tot.setTotal_weight(new BigDecimal("300.0"));
 		
 		val.setTotal(tot);
 		
@@ -733,9 +733,7 @@ public class GetDataFromExcel {
 		wItm.setGross_weight_itm(grossWeightItm_WEIGHTITM_VALITEM_ITEM_String);
 		wItm.setNet_weight_itm(netWeightItm_WEIGHTITM_VALITEM_ITEM_String);
 		
-		List<WeightItm> listWeightItm = new ArrayList<WeightItm>();
-		listWeightItm.add(wItm);
-		vItem.setWeight_itm(listWeightItm);
+		vItem.setWeight_itm(wItm);
 		
 		// vete
 		vItem.setTotal_cost_itm("0.0");
