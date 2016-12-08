@@ -136,12 +136,16 @@ public class ListItemElaborate {
 		int natCustomProc_TARIF_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "natCustomProc_TARIF_ITEM");
 		int itemPrice_TARIF_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "itemPrice_TARIF_ITEM");
 		int valItm_TARIF_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "valItm_TARIF_ITEM");
+		int prevDocRef_PREVDOC_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "prevDocRef_PREVDOC_ITEM");
+		int Attached_doc_item = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Attached_doc_item");
 		
 		String code_PREF_TARIF_ITEM_String = ExcelPoi.getString(row, code_PREF_TARIF_ITEM);
 		String msProc_EXTCUSTOM_TARIF_ITEM_String = ExcelPoi.getString(row, msProc_EXTCUSTOM_TARIF_ITEM);
 		String natCustomProc_TARIF_ITEM_String = ExcelPoi.getString(row, natCustomProc_TARIF_ITEM);
 		String itemPrice_TARIF_ITEM_String = ExcelPoi.getString(row, itemPrice_TARIF_ITEM);
 		String valItm_TARIF_ITEM_String = ExcelPoi.getString(row, valItm_TARIF_ITEM);
+		String prevDocRef_PREVDOC_ITEM_String = ExcelPoi.getString(row, prevDocRef_PREVDOC_ITEM);
+		String Attached_doc_item_String = ExcelPoi.getString(row, Attached_doc_item);
 		
 		tar.setPreference_code(code_PREF_TARIF_ITEM_String);
 		tar.setExtended_customs_procedure(msProc_EXTCUSTOM_TARIF_ITEM_String);
@@ -150,7 +154,8 @@ public class ListItemElaborate {
 		tar.setItem_price(itemPrice_TARIF_ITEM_String);
 		tar.setValuation_method_code("null");
 		tar.setValue_item(valItm_TARIF_ITEM_String);
-		tar.setAttached_doc_item("null");
+		tar.setPreference_code(prevDocRef_PREVDOC_ITEM_String);
+		tar.setAttached_doc_item(Attached_doc_item_String);
 		tar.setAI_code("null");
 		
 		itemValid.validTarification(tar, hmListItemColsNameAndPosit);

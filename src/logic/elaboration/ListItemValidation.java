@@ -154,7 +154,15 @@ public class ListItemValidation {
 					+ "Please fill out: valItm_TARIF_ITEM -- Sheet2 Cell " + 
 					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "valItm_TARIF_ITEM"));
 		}
+		
+		if(tar.getAttached_doc_item() == null || 
+				tar.getAttached_doc_item().equals("")) {
 
+			System.err.println("***** ERROR *****\n "
+					+ "Please fill out: prevDocRef_PREVDOC_ITEM -- Sheet2 Cell " + 
+					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "prevDocRef_PREVDOC_ITEM"));
+		}
+		
 	}
 
 	public void validPreviousDoc(PreviousDoc pDoc, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {

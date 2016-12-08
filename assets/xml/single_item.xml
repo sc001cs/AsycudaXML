@@ -420,77 +420,77 @@
 <!-- 			<Kind_of_packages_code>52</Kind_of_packages_code> -->
 <!-- 			<Kind_of_packages_name>Arka derrase</Kind_of_packages_name> -->
 <!-- 		</Packages> -->
-		<IncoTerms>
-			<Code>DAP</Code>
-			<Place>VAU I DEJES, SHQIPERI</Place>
-		</IncoTerms>
-		<Tarification>
-			<Tarification_data>
-				<null />
-			</Tarification_data>
-			<HScode>
-				<Commodity_code>76141000</Commodity_code>
-				<Precision_1>000</Precision_1>
-				<Precision_2>
-					<null />
-				</Precision_2>
-				<Precision_3>
-					<null />
-				</Precision_3>
-				<Precision_4 />
-			</HScode>
-			<Preference_code>MTLTR</Preference_code>
-			<Extended_customs_procedure>4000</Extended_customs_procedure>
-			<National_customs_procedure>000</National_customs_procedure>
-			<Quota_code>
-				<null />
-			</Quota_code>
-			<Quota>
-				<QuotaCode>
-					<null />
-				</QuotaCode>
-				<QuotaId>
-					<null />
-				</QuotaId>
-				<QuotaItem>
-					<ItmNbr>
-						<null />
-					</ItmNbr>
-				</QuotaItem>
-			</Quota>
-			<Supplementary_unit>
-				<Suppplementary_unit_code>
-					<null />
-				</Suppplementary_unit_code>
-				<Suppplementary_unit_name>
-					<null />
-				</Suppplementary_unit_name>
-				<Suppplementary_unit_quantity />
-			</Supplementary_unit>
-			<Supplementary_unit>
-				<Suppplementary_unit_code>
-					<null />
-				</Suppplementary_unit_code>
-				<Suppplementary_unit_name />
-				<Suppplementary_unit_quantity />
-			</Supplementary_unit>
-			<Supplementary_unit>
-				<Suppplementary_unit_code>
-					<null />
-				</Suppplementary_unit_code>
-				<Suppplementary_unit_name />
-				<Suppplementary_unit_quantity />
-			</Supplementary_unit>
-			<Item_price>6516.0</Item_price>
-			<Valuation_method_code>
-				<null />
-			</Valuation_method_code>
-			<Value_item>0+0+0+0-0</Value_item>
-			<Attached_doc_item>862 863 380</Attached_doc_item>
-			<A.I._code>
-				<null />
-			</A.I._code>
-		</Tarification>
+<!-- 		<IncoTerms> -->
+<!-- 			<Code>DAP</Code> -->
+<!-- 			<Place>VAU I DEJES, SHQIPERI</Place> -->
+<!-- 		</IncoTerms> -->
+<!-- 		<Tarification> -->
+<!-- 			<Tarification_data> -->
+<!-- 				<null /> -->
+<!-- 			</Tarification_data> -->
+<!-- 			<HScode> -->
+<!-- 				<Commodity_code>76141000</Commodity_code> -->
+<!-- 				<Precision_1>000</Precision_1> -->
+<!-- 				<Precision_2> -->
+<!-- 					<null /> -->
+<!-- 				</Precision_2> -->
+<!-- 				<Precision_3> -->
+<!-- 					<null /> -->
+<!-- 				</Precision_3> -->
+<!-- 				<Precision_4 /> -->
+<!-- 			</HScode> -->
+<!-- 			<Preference_code>MTLTR</Preference_code> -->
+<!-- 			<Extended_customs_procedure>4000</Extended_customs_procedure> -->
+<!-- 			<National_customs_procedure>000</National_customs_procedure> -->
+<!-- 			<Quota_code> -->
+<!-- 				<null /> -->
+<!-- 			</Quota_code> -->
+<!-- 			<Quota> -->
+<!-- 				<QuotaCode> -->
+<!-- 					<null /> -->
+<!-- 				</QuotaCode> -->
+<!-- 				<QuotaId> -->
+<!-- 					<null /> -->
+<!-- 				</QuotaId> -->
+<!-- 				<QuotaItem> -->
+<!-- 					<ItmNbr> -->
+<!-- 						<null /> -->
+<!-- 					</ItmNbr> -->
+<!-- 				</QuotaItem> -->
+<!-- 			</Quota> -->
+<!-- 			<Supplementary_unit> -->
+<!-- 				<Suppplementary_unit_code> -->
+<!-- 					<null /> -->
+<!-- 				</Suppplementary_unit_code> -->
+<!-- 				<Suppplementary_unit_name> -->
+<!-- 					<null /> -->
+<!-- 				</Suppplementary_unit_name> -->
+<!-- 				<Suppplementary_unit_quantity /> -->
+<!-- 			</Supplementary_unit> -->
+<!-- 			<Supplementary_unit> -->
+<!-- 				<Suppplementary_unit_code> -->
+<!-- 					<null /> -->
+<!-- 				</Suppplementary_unit_code> -->
+<!-- 				<Suppplementary_unit_name /> -->
+<!-- 				<Suppplementary_unit_quantity /> -->
+<!-- 			</Supplementary_unit> -->
+<!-- 			<Supplementary_unit> -->
+<!-- 				<Suppplementary_unit_code> -->
+<!-- 					<null /> -->
+<!-- 				</Suppplementary_unit_code> -->
+<!-- 				<Suppplementary_unit_name /> -->
+<!-- 				<Suppplementary_unit_quantity /> -->
+<!-- 			</Supplementary_unit> -->
+<!-- 			<Item_price>6516.0</Item_price> -->
+<!-- 			<Valuation_method_code> -->
+<!-- 				<null /> -->
+<!-- 			</Valuation_method_code> -->
+<!-- 			<Value_item>0+0+0+0-0</Value_item> -->
+<!-- 			<Attached_doc_item>862 863 380</Attached_doc_item> -->
+<!-- 			<A.I._code> -->
+<!-- 				<null /> -->
+<!-- 			</A.I._code> -->
+<!-- 		</Tarification> -->
 <!-- 		<Goods_description> -->
 <!-- 			<Country_of_origin_code>TR</Country_of_origin_code> -->
 <!-- 			<Country_of_origin_region /> -->
@@ -499,27 +499,27 @@
 <!-- 				ME CELIK ASCR 490/65 - 2000 M -->
 <!-- 			</Commercial_Description> -->
 <!-- 		</Goods_description> -->
-		<Previous_doc>
-			<Summary_declaration>
-				<null />
-			</Summary_declaration>
-			<Summary_declaration_sl>
-				<null />
-			</Summary_declaration_sl>
-			<Previous_document_reference />
-			<Previous_warehouse_code>
-				<null />
-			</Previous_warehouse_code>
-		</Previous_doc>
-		<Licence_number />
-		<Amount_deducted_from_licence />
-		<Quantity_deducted_from_licence />
-		<Free_text_1>
-			<null />
-		</Free_text_1>
-		<Free_text_2>
-			<null />
-		</Free_text_2>
+<!-- 		<Previous_doc> -->
+<!-- 			<Summary_declaration> -->
+<!-- 				<null /> -->
+<!-- 			</Summary_declaration> -->
+<!-- 			<Summary_declaration_sl> -->
+<!-- 				<null /> -->
+<!-- 			</Summary_declaration_sl> -->
+<!-- 			<Previous_document_reference /> -->
+<!-- 			<Previous_warehouse_code> -->
+<!-- 				<null /> -->
+<!-- 			</Previous_warehouse_code> -->
+<!-- 		</Previous_doc> -->
+<!-- 		<Licence_number /> -->
+<!-- 		<Amount_deducted_from_licence /> -->
+<!-- 		<Quantity_deducted_from_licence /> -->
+<!-- 		<Free_text_1> -->
+<!-- 			<null /> -->
+<!-- 		</Free_text_1> -->
+<!-- 		<Free_text_2> -->
+<!-- 			<null /> -->
+<!-- 		</Free_text_2> -->
 		<Taxation>
 			<Item_taxes_amount>177468.0</Item_taxes_amount>
 			<Item_taxes_guaranted_amount />
