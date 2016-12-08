@@ -598,28 +598,28 @@ public class GetDataFromExcel {
 		val.setGs_Invoice(gsInv);
 		
 		GsExternalFreight gsExtFrei = new GsExternalFreight();
-		gsExtFrei.setAmount_national_currency("0.0");
+		gsExtFrei.setAmount_national_currency(BigDecimal.ZERO);
 		gsExtFrei.setAmount_foreign_currency("0");
 		gsExtFrei.setCurrency_name("Ska monedhe te huaj");
 		gsExtFrei.setCurrency_rate("0.0");
 		val.setGs_external_freight(gsExtFrei);
 		
 		GsInsurance gsIns = new GsInsurance();
-		gsIns.setAmount_national_currency("0.0");
+		gsIns.setAmount_national_currency(BigDecimal.ZERO);
 		gsIns.setAmount_foreign_currency("0");
 		gsIns.setCurrency_name("Ska monedhe te huaj");
 		gsIns.setCurrency_rate("0.0");
 		val.setGs_insurance(gsIns);
 		
 		GsOtherCost gsOtherCost = new GsOtherCost();
-		gsOtherCost.setAmount_national_currency("0.0");
+		gsOtherCost.setAmount_national_currency(BigDecimal.ZERO);
 		gsOtherCost.setAmount_foreign_currency("0");
 		gsOtherCost.setCurrency_name("Ska monedhe te huaj");
 		gsOtherCost.setCurrency_rate("0.0");
 		val.setGs_other_cost(gsOtherCost);
 		
 		GsDeduction gsDed = new GsDeduction();
-		gsDed.setAmount_national_currency("0.0");
+		gsDed.setAmount_national_currency(BigDecimal.ZERO);
 		gsDed.setAmount_foreign_currency("0");
 		gsDed.setCurrency_name("Ska monedhe te huaj");
 		gsDed.setCurrency_rate("0.0");
@@ -747,41 +747,28 @@ public class GetDataFromExcel {
 		itmInv.setCurrency_code(currCode_GSINVOICE_VALU_String);
 		itmInv.setCurrency_rate(currency.getCurrency(currCode_GSINVOICE_VALU_String, currencyExchange));
 		
-		List<ItemInvoice> listItmInv = new ArrayList<ItemInvoice>();
-		listItmInv.add(itmInv);
-		vItem.setItem_Invoice(listItmInv);
-		
-		List<ItemExternalFreight> listItmExtFrei = new ArrayList<ItemExternalFreight>();
-		
-		for (int i = 0; i < 2; i++) {
+		vItem.setItem_Invoice(itmInv);
 
-			ItemExternalFreight itmFreig = new ItemExternalFreight();
-			itmFreig.setAmount_national_currency("0.0");
-			itmFreig.setAmount_foreign_currency("0");
-			itmFreig.setCurrency_rate("0.0");
-			itmFreig.setCurrency_name("Ska monedhe te huaj");
+		ItemExternalFreight itmFreig = new ItemExternalFreight();
+		itmFreig.setAmount_national_currency(BigDecimal.ZERO);
+		itmFreig.setAmount_foreign_currency("0");
+		itmFreig.setCurrency_rate("0.0");
+		itmFreig.setCurrency_name("Ska monedhe te huaj");
 
-			listItmExtFrei.add(itmFreig);
-		}
-		
-		vItem.setItem_external_freight(listItmExtFrei);
-		
+		vItem.setItem_external_freight(itmFreig);
+
 		ItemOtherCost itmOthCost = new ItemOtherCost();
-		itmOthCost.setAmount_national_currency("0.0");
+		itmOthCost.setAmount_national_currency(BigDecimal.ZERO);
 		itmOthCost.setAmount_foreign_currency(amountForegCurr_GSINVOICE_VALU_String);
 		itmOthCost.setCurrency_rate(currency.getCurrency(currCode_GSINVOICE_VALU_String, currencyExchange));
 		
-		List<ItemOtherCost> listItmOthCost = new ArrayList<ItemOtherCost>();
-		vItem.setItem_other_cost(listItmOthCost);
+		vItem.setItem_other_cost(itmOthCost);
 		
 		MarketValuer mValue = new MarketValuer();
 		mValue.setCurrency_code("null");
 		mValue.setBasis_description("null");
 		
-		List<MarketValuer> listMarkValue = new ArrayList<MarketValuer>();
-		listMarkValue.add(mValue);
-		
-		vItem.setMarket_valuer(listMarkValue);
+		vItem.setMarket_valuer(mValue);
 		
 		item.setValuation_item(vItem);
 		

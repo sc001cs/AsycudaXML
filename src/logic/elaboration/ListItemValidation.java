@@ -6,6 +6,7 @@ import configuration.ConfigFileExcel;
 import enitity.asycuda.GoodsDescription;
 import enitity.asycuda.Item;
 import enitity.asycuda.PreviousDoc;
+import enitity.asycuda.ValuationItem;
 import enitity.asycuda.identification_childs.Type;
 import enitity.asycuda.item_childs.Packages;
 import enitity.asycuda.item_childs.Tarification;
@@ -16,7 +17,7 @@ import enitity.asycuda.valuationItem_childs.WeightItm;
 public class ListItemValidation {
 
 	public ConfigFileExcel confFileExcel = new ConfigFileExcel();
-	
+
 	public void validTypeIdentificationChilds(Packages pack, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
 		if(pack.getNumber_of_packages() == null || 
@@ -43,7 +44,7 @@ public class ListItemValidation {
 					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "kindPackName_PACK_ITEM"));
 		}
 	}
-	
+
 	public void validGoodsDescription(GoodsDescription gDescr, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
 		if(gDescr.getDescription_of_goods() == null || 
@@ -70,7 +71,7 @@ public class ListItemValidation {
 					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "countrOrigCode_GOODDESCR_TARIF_ITEM"));
 		}
 	}
-	
+
 	public void validHScodeTarificItemChilds(HScode hsCode, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
 		if(hsCode.getCommodity_code() == null || 
@@ -90,7 +91,7 @@ public class ListItemValidation {
 		}
 
 	}
-	
+
 	public void validWeightItmItemChilds(WeightItm wItm, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
 		if(wItm.getGross_weight_itm() == null || 
@@ -110,7 +111,7 @@ public class ListItemValidation {
 		}
 
 	}
-	
+
 	public void validTarification(Tarification tar, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
 		if(tar.getPreference_code() == null || 
@@ -128,7 +129,7 @@ public class ListItemValidation {
 					+ "Please fill out: msProc_EXTCUSTOM_TARIF_ITEM -- Sheet2 Cell " + 
 					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "msProc_EXTCUSTOM_TARIF_ITEM"));
 		}
-		
+
 		if(tar.getNational_customs_procedure() == null || 
 				tar.getNational_customs_procedure().equals("")) {
 
@@ -137,7 +138,7 @@ public class ListItemValidation {
 					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "natCustomProc_TARIF_ITEM"));
 		}
 
-		
+
 		if(tar.getItem_price() == null || 
 				tar.getItem_price().equals("")) {
 
@@ -145,7 +146,7 @@ public class ListItemValidation {
 					+ "Please fill out: itemPrice_TARIF_ITEM -- Sheet2 Cell " + 
 					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "itemPrice_TARIF_ITEM"));
 		}
-		
+
 		if(tar.getValue_item() == null || 
 				tar.getValue_item().equals("")) {
 
@@ -153,9 +154,9 @@ public class ListItemValidation {
 					+ "Please fill out: valItm_TARIF_ITEM -- Sheet2 Cell " + 
 					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "valItm_TARIF_ITEM"));
 		}
-		
+
 	}
-	
+
 	public void validPreviousDoc(PreviousDoc pDoc, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
 		if(pDoc.getPrevious_document_reference() == null || 
@@ -167,7 +168,7 @@ public class ListItemValidation {
 		}
 
 	}
-	
+
 	public void validItemInvoiceValChilds(ItemInvoice itmInv, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
 		if(itmInv.getAmount_foreign_currency() == null || 
@@ -179,30 +180,24 @@ public class ListItemValidation {
 		}
 
 	}
-	
-	public void validSetTotals(Item item, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
-		if(item.getValuation_item().getRate_of_adjustement() == null || 
-				item.getValuation_item().getRate_of_adjustement().equals("")) {
+	public void validSetTotals(ValuationItem vItem, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: Rate_of_adjustement -- Sheet2 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Rate_of_adjustement"));
-		}
-
-		if(item.getValuation_item().getStatistical_value() == null) {
+		if(vItem.getRate_of_adjustement() == null || 
+				vItem.getRate_of_adjustement().equals("")) {
 
 			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: Statistical_value -- Sheet2 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Statistical_value"));
+					+ "Please fill out: Rate_of_adjustement_VALITEM_ITEM -- Sheet2 Cell " + 
+					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Rate_of_adjustement_VALITEM_ITEM"));
 		}
-		
-		if(item.getValuation_item().getTotal_CIF_itm() == null) {
+
+		if(vItem.getTotal_cost_itm() == null) {
 
 			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: Total_CIF_itm -- Sheet2 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Total_CIF_itm"));
+					+ "Please fill out: Total_cost_itm_VALITEM_ITEM -- Sheet2 Cell " + 
+					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Total_cost_itm_VALITEM_ITEM"));
 		}
+
 	}
-	
+
 }

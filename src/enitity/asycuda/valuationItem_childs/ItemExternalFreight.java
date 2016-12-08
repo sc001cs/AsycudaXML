@@ -1,20 +1,22 @@
 package enitity.asycuda.valuationItem_childs;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlElement;
 
 public class ItemExternalFreight {
 
-	private String Amount_national_currency;
+	private BigDecimal Amount_national_currency;
 	private String Amount_foreign_currency;
 	private String Currency_code;
 	private String Currency_name;
 	private String Currency_rate;
 	
-	public String getAmount_national_currency() {
+	public BigDecimal getAmount_national_currency() {
 		return Amount_national_currency;
 	}
 	@XmlElement(nillable = true, name = "Amount_national_currency")
-	public void setAmount_national_currency(String amount_national_currency) {
+	public void setAmount_national_currency(BigDecimal amount_national_currency) {
 		Amount_national_currency = amount_national_currency;
 	}
 	public String getAmount_foreign_currency() {

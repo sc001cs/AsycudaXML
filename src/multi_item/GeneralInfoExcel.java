@@ -1,6 +1,7 @@
 package multi_item;
 
 import java.io.ByteArrayInputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -458,35 +459,35 @@ public class GeneralInfoExcel {
 		
 
 		GsExternalFreight gsExtFrei = new GsExternalFreight();
-		gsExtFrei.setAmount_national_currency("0.0");
+		gsExtFrei.setAmount_national_currency(BigDecimal.ZERO);
 		gsExtFrei.setAmount_foreign_currency("0");
 		gsExtFrei.setCurrency_name("Ska monedhe te huaj");
 		gsExtFrei.setCurrency_rate("0.0");
 		val.setGs_external_freight(gsExtFrei);
 		
 		GsInternalFreight gsIntFrei = new GsInternalFreight();
-		gsIntFrei.setAmount_national_currency("0.0");
+		gsIntFrei.setAmount_national_currency(BigDecimal.ZERO);
 		gsIntFrei.setAmount_foreign_currency("0");
 		gsIntFrei.setCurrency_name("Ska monedhe te huaj");
 		gsIntFrei.setCurrency_rate("0.0");
 		val.setGs_internal_freight(gsIntFrei);
 
 		GsInsurance gsIns = new GsInsurance();
-		gsIns.setAmount_national_currency("0.0");
+		gsIns.setAmount_national_currency(BigDecimal.ZERO);
 		gsIns.setAmount_foreign_currency("0");
 		gsIns.setCurrency_name("Ska monedhe te huaj");
 		gsIns.setCurrency_rate("0.0");
 		val.setGs_insurance(gsIns);
 
 		GsOtherCost gsOtherCost = new GsOtherCost();
-		gsOtherCost.setAmount_national_currency("0.0");
+		gsOtherCost.setAmount_national_currency(BigDecimal.ZERO);
 		gsOtherCost.setAmount_foreign_currency("0");
 		gsOtherCost.setCurrency_name("Ska monedhe te huaj");
 		gsOtherCost.setCurrency_rate("0.0");
 		val.setGs_other_cost(gsOtherCost);
 
 		GsDeduction gsDed = new GsDeduction();
-		gsDed.setAmount_national_currency("0.0");
+		gsDed.setAmount_national_currency(BigDecimal.ZERO);
 		gsDed.setAmount_foreign_currency("0");
 		gsDed.setCurrency_name("Ska monedhe te huaj");
 		gsDed.setCurrency_rate("0.0");

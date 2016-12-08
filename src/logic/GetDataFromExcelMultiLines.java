@@ -534,28 +534,28 @@ public class GetDataFromExcelMultiLines {
 		val.setGs_Invoice(gsInv);
 		
 		GsExternalFreight gsExtFrei = new GsExternalFreight();
-		gsExtFrei.setAmount_national_currency("0.0");
+		gsExtFrei.setAmount_national_currency(BigDecimal.ZERO);
 		gsExtFrei.setAmount_foreign_currency("0");
 		gsExtFrei.setCurrency_name("Ska monedhe te huaj");
 		gsExtFrei.setCurrency_rate("0.0");
 		val.setGs_external_freight(gsExtFrei);
 		
 		GsInsurance gsIns = new GsInsurance();
-		gsIns.setAmount_national_currency("0.0");
+		gsIns.setAmount_national_currency(BigDecimal.ZERO);
 		gsIns.setAmount_foreign_currency("0");
 		gsIns.setCurrency_name("Ska monedhe te huaj");
 		gsIns.setCurrency_rate("0.0");
 		val.setGs_insurance(gsIns);
 		
 		GsOtherCost gsOtherCost = new GsOtherCost();
-		gsOtherCost.setAmount_national_currency("0.0");
+		gsOtherCost.setAmount_national_currency(BigDecimal.ZERO);
 		gsOtherCost.setAmount_foreign_currency("0");
 		gsOtherCost.setCurrency_name("Ska monedhe te huaj");
 		gsOtherCost.setCurrency_rate("0.0");
 		val.setGs_other_cost(gsOtherCost);
 		
 		GsDeduction gsDed = new GsDeduction();
-		gsDed.setAmount_national_currency("0.0");
+		gsDed.setAmount_national_currency(BigDecimal.ZERO);
 		gsDed.setAmount_foreign_currency("0");
 		gsDed.setCurrency_name("Ska monedhe te huaj");
 		gsDed.setCurrency_rate("0.0");

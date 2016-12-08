@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import enitity.asycuda.valuationItem_childs.ItemDeduction;
 import enitity.asycuda.valuationItem_childs.ItemExternalFreight;
 import enitity.asycuda.valuationItem_childs.ItemInsurance;
+import enitity.asycuda.valuationItem_childs.ItemInternalFreight;
 import enitity.asycuda.valuationItem_childs.ItemInvoice;
 import enitity.asycuda.valuationItem_childs.ItemOtherCost;
 import enitity.asycuda.valuationItem_childs.MarketValuer;
@@ -20,11 +22,13 @@ public class ValuationItem {
 	private String Rate_of_adjustement;
 	private BigDecimal Statistical_value;
 	private String Alpha_coeficient_of_apportionment;
-	private List<ItemInvoice> Item_Invoice;
-	private List<ItemExternalFreight> item_external_freight;
-	private List<ItemInsurance> item_insurance;
-	private List<ItemOtherCost> item_other_cost;
-	private List<MarketValuer> Market_valuer;
+	private ItemInvoice Item_Invoice;
+	private ItemExternalFreight item_external_freight;
+	private ItemInternalFreight item_internal_freight;
+	private ItemInsurance item_insurance;
+	private ItemOtherCost item_other_cost;
+	private ItemDeduction item_deduction;
+	private MarketValuer Market_valuer;
 	
 	public WeightItm getWeight_itm() {
 		return Weight_itm;
@@ -68,40 +72,54 @@ public class ValuationItem {
 	public void setAlpha_coeficient_of_apportionment(String alpha_coeficient_of_apportionment) {
 		Alpha_coeficient_of_apportionment = alpha_coeficient_of_apportionment;
 	}
-	public List<ItemInvoice> getItem_Invoice() {
+	public ItemInvoice getItem_Invoice() {
 		return Item_Invoice;
 	}
 	@XmlElement(nillable = true, name = "Item_Invoice")
-	public void setItem_Invoice(List<ItemInvoice> item_Invoice) {
+	public void setItem_Invoice(ItemInvoice item_Invoice) {
 		Item_Invoice = item_Invoice;
 	}
-	public List<ItemExternalFreight> getItem_external_freight() {
+	public ItemExternalFreight getItem_external_freight() {
 		return item_external_freight;
 	}
 	@XmlElement(nillable = true, name = "item_external_freight")
-	public void setItem_external_freight(List<ItemExternalFreight> item_external_freight) {
+	public void setItem_external_freight(ItemExternalFreight item_external_freight) {
 		this.item_external_freight = item_external_freight;
 	}
-	public List<ItemInsurance> getItem_insurance() {
+	public ItemInsurance getItem_insurance() {
 		return item_insurance;
 	}
 	@XmlElement(nillable = true, name = "item_insurance")
-	public void setItem_insurance(List<ItemInsurance> item_insurance) {
+	public void setItem_insurance(ItemInsurance item_insurance) {
 		this.item_insurance = item_insurance;
 	}
-	public List<ItemOtherCost> getItem_other_cost() {
+	public ItemOtherCost getItem_other_cost() {
 		return item_other_cost;
 	}
 	@XmlElement(nillable = true, name = "item_other_cost")
-	public void setItem_other_cost(List<ItemOtherCost> item_other_cost) {
+	public void setItem_other_cost(ItemOtherCost item_other_cost) {
 		this.item_other_cost = item_other_cost;
 	}
-	public List<MarketValuer> getMarket_valuer() {
+	public MarketValuer getMarket_valuer() {
 		return Market_valuer;
 	}
 	@XmlElement(nillable = true, name = "Market_valuer")
-	public void setMarket_valuer(List<MarketValuer> market_valuer) {
+	public void setMarket_valuer(MarketValuer market_valuer) {
 		Market_valuer = market_valuer;
+	}
+	public ItemInternalFreight getItem_internal_freight() {
+		return item_internal_freight;
+	}
+	@XmlElement(nillable = true, name = "item_internal_freight")
+	public void setItem_internal_freight(ItemInternalFreight item_internal_freight) {
+		this.item_internal_freight = item_internal_freight;
+	}
+	public ItemDeduction getItem_deduction() {
+		return item_deduction;
+	}
+	@XmlElement(nillable = true, name = "item_deduction")
+	public void setItem_deduction(ItemDeduction item_deduction) {
+		this.item_deduction = item_deduction;
 	}
 	
 }

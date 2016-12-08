@@ -1,11 +1,10 @@
-package enitity.asycuda.valuation_childs;
+package enitity.asycuda.valuationItem_childs;
 
 import java.math.BigDecimal;
 
 import javax.xml.bind.annotation.XmlElement;
 
-public class GsDeduction {
-
+public class ItemInternalFreight {
 	private BigDecimal Amount_national_currency;
 	private String Amount_foreign_currency;
 	private String Currency_code;
@@ -47,6 +46,4 @@ public class GsDeduction {
 	public void setCurrency_rate(String currency_rate) {
 		Currency_rate = currency_rate;
 	}
-	
-	
 }

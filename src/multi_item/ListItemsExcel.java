@@ -1,6 +1,7 @@
 package multi_item;
 
 import java.io.ByteArrayInputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +28,10 @@ import enitity.asycuda.item_childs.tarification_childs.Quota;
 import enitity.asycuda.item_childs.tarification_childs.SupplementaryUnit;
 import enitity.asycuda.item_childs.tarification_childs.quota_childs.QuotaItem;
 import enitity.asycuda.taxation_childs.TaxationLine;
+import enitity.asycuda.valuationItem_childs.ItemDeduction;
 import enitity.asycuda.valuationItem_childs.ItemExternalFreight;
+import enitity.asycuda.valuationItem_childs.ItemInsurance;
+import enitity.asycuda.valuationItem_childs.ItemInternalFreight;
 import enitity.asycuda.valuationItem_childs.ItemInvoice;
 import enitity.asycuda.valuationItem_childs.ItemOtherCost;
 import enitity.asycuda.valuationItem_childs.MarketValuer;
@@ -191,49 +195,62 @@ public class ListItemsExcel {
 
 		vItem.setWeight_itm(wItm);
 
-		// Llogarit total CIF, Statistical, Rate_of_adjustement 
-		vItem = itemElab.getTotCostCIFStatistRateItem(row, vItem, hmListItemColsNameAndPosit);
-
 		ItemInvoice itmInv = itemElab.getItemInvoiceValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
 
-		List<ItemInvoice> listItmInv = new ArrayList<ItemInvoice>();
-		listItmInv.add(itmInv);
-		vItem.setItem_Invoice(listItmInv);
+		vItem.setItem_Invoice(itmInv);
 
-		List<ItemExternalFreight> listItmExtFrei = new ArrayList<ItemExternalFreight>();
+		ItemExternalFreight itmFreig = new ItemExternalFreight();
+		itmFreig.setAmount_national_currency(BigDecimal.ZERO);
+		itmFreig.setAmount_foreign_currency("0");
+		itmFreig.setCurrency_rate("0.0");
+		itmFreig.setCurrency_name("Ska monedhe te huaj");
 
-		for (int i = 0; i < 2; i++) {
+		vItem.setItem_external_freight(itmFreig);
 
-			ItemExternalFreight itmFreig = new ItemExternalFreight();
-			itmFreig.setAmount_national_currency("0.0");
-			itmFreig.setAmount_foreign_currency("0");
-			itmFreig.setCurrency_rate("0.0");
-			itmFreig.setCurrency_name("Ska monedhe te huaj");
+		ItemInternalFreight itmInternalFreig = new ItemInternalFreight();
+		itmInternalFreig.setAmount_national_currency(BigDecimal.ZERO);
+		itmInternalFreig.setAmount_foreign_currency("0");
+		itmInternalFreig.setCurrency_rate("0.0");
+		itmInternalFreig.setCurrency_name("Ska monedhe te huaj");
 
-			listItmExtFrei.add(itmFreig);
-		}
+		vItem.setItem_internal_freight(itmInternalFreig);
+		
+		ItemInsurance itmInsur = new ItemInsurance();
+		itmInsur.setAmount_national_currency(BigDecimal.ZERO);
+		itmInsur.setAmount_foreign_currency("0");
+		itmInsur.setCurrency_rate("0.0");
+		itmInsur.setCurrency_name("Ska monedhe te huaj");
 
-		vItem.setItem_external_freight(listItmExtFrei);
+		vItem.setItem_insurance(itmInsur);
+		
+		ItemDeduction itmDeduc = new ItemDeduction();
+		itmDeduc.setAmount_national_currency(BigDecimal.ZERO);
+		itmDeduc.setAmount_foreign_currency("0");
+		itmDeduc.setCurrency_rate("0.0");
+		itmDeduc.setCurrency_name("Ska monedhe te huaj");
 
+		vItem.setItem_deduction(itmDeduc);
+		
 		ItemOtherCost itmOthCost = new ItemOtherCost();
-		itmOthCost.setAmount_national_currency("0.0");
-		//		itmOthCost.setAmount_foreign_currency(amountForegCurr_GSINVOICE_VALU_String);
-		//		itmOthCost.setCurrency_rate(currency.getCurrency(currCode_GSINVOICE_VALU_String, currencyExchange));
+		itmOthCost.setAmount_national_currency(BigDecimal.ZERO);
+		itmOthCost.setAmount_foreign_currency("0");
+		itmOthCost.setCurrency_rate("0.0");
+		itmOthCost.setCurrency_name("Ska monedhe te huaj");
 
-		List<ItemOtherCost> listItmOthCost = new ArrayList<ItemOtherCost>();
-		vItem.setItem_other_cost(listItmOthCost);
+		vItem.setItem_other_cost(itmOthCost);
 
 		MarketValuer mValue = new MarketValuer();
 		mValue.setCurrency_code("null");
 		mValue.setBasis_description("null");
 
-		List<MarketValuer> listMarkValue = new ArrayList<MarketValuer>();
-		listMarkValue.add(mValue);
+		vItem.setMarket_valuer(mValue);
 
-		vItem.setMarket_valuer(listMarkValue);
-
-		// Update Item set Valutation item
-		item = itemElab.getSetTotals(row, item, vItem, hmListItemColsNameAndPosit);
+		/** UPDATE VALUATION ITEM WITH:
+		 * - Total Cost Item
+		 * - Total CIF Item
+		 * - Statistical value
+		 * */
+		vItem = itemElab.getSetTotals(row, vItem, hmListItemColsNameAndPosit);
 		
 		item.setValuation_item(vItem);
 

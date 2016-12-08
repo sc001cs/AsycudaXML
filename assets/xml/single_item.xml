@@ -636,64 +636,64 @@
 <!-- 				<Gross_weight_itm>4110</Gross_weight_itm> -->
 <!-- 				<Net_weight_itm>3656</Net_weight_itm> -->
 <!-- 			</Weight_itm> -->
-			<Total_cost_itm>0.0</Total_cost_itm>
-			<Total_CIF_itm>887349.0</Total_CIF_itm>
-			<Rate_of_adjustement>1</Rate_of_adjustement>
-			<Statistical_value>887349.0</Statistical_value>
-			<Alpha_coeficient_of_apportionment />
-			<Item_Invoice>
-				<Amount_national_currency>887349.0</Amount_national_currency>
-				<Amount_foreign_currency>6516</Amount_foreign_currency>
-				<Currency_code>EUR</Currency_code>
-				<Currency_name>Ska monedhe te huaj</Currency_name>
-				<Currency_rate>136.18</Currency_rate>
-			</Item_Invoice>
-			<item_external_freight>
-				<Amount_national_currency>0.0</Amount_national_currency>
-				<Amount_foreign_currency>0</Amount_foreign_currency>
-				<Currency_code />
-				<Currency_name>Ska monedhe te huaj</Currency_name>
-				<Currency_rate>0</Currency_rate>
-			</item_external_freight>
-			<item_internal_freight>
-				<Amount_national_currency>0.0</Amount_national_currency>
-				<Amount_foreign_currency>0</Amount_foreign_currency>
-				<Currency_code />
-				<Currency_name>Ska monedhe te huaj</Currency_name>
-				<Currency_rate>0</Currency_rate>
-			</item_internal_freight>
-			<item_insurance>
-				<Amount_national_currency>0.0</Amount_national_currency>
-				<Amount_foreign_currency>0</Amount_foreign_currency>
-				<Currency_code />
-				<Currency_name>Ska monedhe te huaj</Currency_name>
-				<Currency_rate>0</Currency_rate>
-			</item_insurance>
-			<item_other_cost>
-				<Amount_national_currency>0.0</Amount_national_currency>
-				<Amount_foreign_currency>0</Amount_foreign_currency>
-				<Currency_code />
-				<Currency_name>Ska monedhe te huaj</Currency_name>
-				<Currency_rate>0</Currency_rate>
-			</item_other_cost>
-			<item_deduction>
-				<Amount_national_currency>0.0</Amount_national_currency>
-				<Amount_foreign_currency>0</Amount_foreign_currency>
-				<Currency_code />
-				<Currency_name>Ska monedhe te huaj</Currency_name>
-				<Currency_rate>0</Currency_rate>
-			</item_deduction>
-			<Market_valuer>
-				<Rate />
-				<Currency_code>
-					<null />
-				</Currency_code>
-				<Currency_amount />
-				<Basis_description>
-					<null />
-				</Basis_description>
-				<Basis_amount />
-			</Market_valuer>
+<!-- 			<Total_cost_itm>0.0</Total_cost_itm> -->
+<!-- 			<Total_CIF_itm>887349.0</Total_CIF_itm> -->
+<!-- 			<Rate_of_adjustement>1</Rate_of_adjustement> -->
+<!-- 			<Statistical_value>887349.0</Statistical_value> -->
+<!-- 			<Alpha_coeficient_of_apportionment /> -->
+<!-- 			<Item_Invoice> -->
+<!-- 				<Amount_national_currency>887349.0</Amount_national_currency> -->
+<!-- 				<Amount_foreign_currency>6516</Amount_foreign_currency> -->
+<!-- 				<Currency_code>EUR</Currency_code> -->
+<!-- 				<Currency_name>Ska monedhe te huaj</Currency_name> -->
+<!-- 				<Currency_rate>136.18</Currency_rate> -->
+<!-- 			</Item_Invoice> -->
+<!-- 			<item_external_freight> -->
+<!-- 				<Amount_national_currency>0.0</Amount_national_currency> -->
+<!-- 				<Amount_foreign_currency>0</Amount_foreign_currency> -->
+<!-- 				<Currency_code /> -->
+<!-- 				<Currency_name>Ska monedhe te huaj</Currency_name> -->
+<!-- 				<Currency_rate>0</Currency_rate> -->
+<!-- 			</item_external_freight> -->
+<!-- 			<item_internal_freight> -->
+<!-- 				<Amount_national_currency>0.0</Amount_national_currency> -->
+<!-- 				<Amount_foreign_currency>0</Amount_foreign_currency> -->
+<!-- 				<Currency_code /> -->
+<!-- 				<Currency_name>Ska monedhe te huaj</Currency_name> -->
+<!-- 				<Currency_rate>0</Currency_rate> -->
+<!-- 			</item_internal_freight> -->
+<!-- 			<item_insurance> -->
+<!-- 				<Amount_national_currency>0.0</Amount_national_currency> -->
+<!-- 				<Amount_foreign_currency>0</Amount_foreign_currency> -->
+<!-- 				<Currency_code /> -->
+<!-- 				<Currency_name>Ska monedhe te huaj</Currency_name> -->
+<!-- 				<Currency_rate>0</Currency_rate> -->
+<!-- 			</item_insurance> -->
+<!-- 			<item_other_cost> -->
+<!-- 				<Amount_national_currency>0.0</Amount_national_currency> -->
+<!-- 				<Amount_foreign_currency>0</Amount_foreign_currency> -->
+<!-- 				<Currency_code /> -->
+<!-- 				<Currency_name>Ska monedhe te huaj</Currency_name> -->
+<!-- 				<Currency_rate>0</Currency_rate> -->
+<!-- 			</item_other_cost> -->
+<!-- 			<item_deduction> -->
+<!-- 				<Amount_national_currency>0.0</Amount_national_currency> -->
+<!-- 				<Amount_foreign_currency>0</Amount_foreign_currency> -->
+<!-- 				<Currency_code /> -->
+<!-- 				<Currency_name>Ska monedhe te huaj</Currency_name> -->
+<!-- 				<Currency_rate>0</Currency_rate> -->
+<!-- 			</item_deduction> -->
+<!-- 			<Market_valuer> -->
+<!-- 				<Rate /> -->
+<!-- 				<Currency_code> -->
+<!-- 					<null /> -->
+<!-- 				</Currency_code> -->
+<!-- 				<Currency_amount /> -->
+<!-- 				<Basis_description> -->
+<!-- 					<null /> -->
+<!-- 				</Basis_description> -->
+<!-- 				<Basis_amount /> -->
+<!-- 			</Market_valuer> -->
 		</Valuation_item>
 	</Item>
 </ASYCUDA>

@@ -178,32 +178,7 @@ public class ListItemElaborate {
 
 		return pDoc;
 	}
-	
-	/**
-	 * @param row
-	 * @return PreviousDoc 
-	 */
-	public ValuationItem getTotCostCIFStatistRateItem(Row row, ValuationItem vItem, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
-//		int Total_cost_itm_VALITEM_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Total_cost_itm_VALITEM_ITEM");
-//		int Total_CIF_itm_VALITEM_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "prevDocRef_PREVDOC_ITEM");
-//		int Rate_of_adjustement_VALITEM_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Rate_of_adjustement_VALITEM_ITEM");
-//		int Statistical_value_VALITEM_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Statistical_value_VALITEM_ITEM");
-//
-//		String Total_cost_itm_VALITEM_ITEM_String = ExcelPoi.getString(row, Total_cost_itm_VALITEM_ITEM);
-//		String Total_CIF_itm_VALITEM_ITEM_String = ExcelPoi.getString(row, Total_CIF_itm_VALITEM_ITEM);
-//		String Rate_of_adjustement_VALITEM_ITEM_String = ExcelPoi.getString(row, Rate_of_adjustement_VALITEM_ITEM);
-//		String Statistical_value_VALITEM_ITEM_String = ExcelPoi.getString(row, Statistical_value_VALITEM_ITEM);
-//
-//		vItem.setTotal_cost_itm(Total_cost_itm_VALITEM_ITEM_String);
-//		vItem.setTotal_CIF_itm(calcAmountNationalCurr(amountForegCurr_GSINVOICE_VALU_String, currCode_GSINVOICE_VALU_String));
-//		vItem.setRate_of_adjustement(Rate_of_adjustement_VALITEM_ITEM_String);
-//		vItem.setStatistical_value(calcAmountNationalCurr(amountForegCurr_GSINVOICE_VALU_String, currCode_GSINVOICE_VALU_String));
-//
-//		itemValid.validPreviousDoc(vItem, hmListItemColsNameAndPosit);
-
-		return vItem;
-	}
 	
 	/**
 	 * @param row
@@ -216,6 +191,7 @@ public class ListItemElaborate {
 		String itemPrice_TARIF_ITEM_String = ExcelPoi.getString(row, itemPrice_TARIF_ITEM);
 
 		ItemInvoice itmInv = new ItemInvoice();
+		itmInv.setCurrency_name("Ska monedhe te huaj");
 		itmInv.setAmount_foreign_currency(itemPrice_TARIF_ITEM_String);
 		
 		if(asycuda.getValuation() != null 
@@ -242,25 +218,52 @@ public class ListItemElaborate {
 	 * @param row
 	 * @return Statistical_value Total_CIF_itm Rate_of_adjustement
 	 */
-	public Item getSetTotals(Row row, Item item, ValuationItem vItem, HashMap<Integer, String> hmListItemColsNameAndPosit) {
+	public ValuationItem getSetTotals(Row row, ValuationItem vItem, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
-		int Rate_of_adjustement = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Rate_of_adjustement");
-		int Statistical_value = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Statistical_value");
-		int Total_CIF_itm = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Total_CIF_itm");
+		int Total_cost_itm_VALITEM_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Total_cost_itm_VALITEM_ITEM");
+		int Rate_of_adjustement_VALITEM_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Rate_of_adjustement_VALITEM_ITEM");
+		
+		String Total_cost_itm_VALITEM_ITEM_String = ExcelPoi.getString(row, Total_cost_itm_VALITEM_ITEM);
+		String Rate_of_adjustement_VALITEM_ITEM_String = ExcelPoi.getString(row, Rate_of_adjustement_VALITEM_ITEM);
+		
+		BigDecimal totCIFitm = BigDecimal.ZERO;
+		BigDecimal statistValue = BigDecimal.ZERO;
+		
+		if(vItem.getItem_Invoice() != null
+				&& vItem.getItem_Invoice().getAmount_national_currency() != null)
+			totCIFitm = totCIFitm.add(vItem.getItem_Invoice().getAmount_national_currency());
+		
+		if(vItem.getItem_external_freight() != null
+				&& vItem.getItem_external_freight().getAmount_national_currency() != null)
+			totCIFitm = totCIFitm.add(vItem.getItem_external_freight().getAmount_national_currency());
+		
+		if(vItem.getItem_internal_freight() != null
+				&& vItem.getItem_internal_freight().getAmount_national_currency() != null)
+			totCIFitm = totCIFitm.add(vItem.getItem_internal_freight().getAmount_national_currency());
+		
+		if(vItem.getItem_insurance() != null
+				&& vItem.getItem_insurance().getAmount_national_currency() != null)
+			totCIFitm = totCIFitm.add(vItem.getItem_insurance().getAmount_national_currency());
+		
+		if(vItem.getItem_other_cost() != null
+				&& vItem.getItem_other_cost().getAmount_national_currency() != null)
+			totCIFitm = totCIFitm.add(vItem.getItem_other_cost().getAmount_national_currency());
+		
+		if(vItem.getItem_deduction() != null
+				&& vItem.getItem_deduction().getAmount_national_currency() != null)
+			totCIFitm = totCIFitm.add(vItem.getItem_deduction().getAmount_national_currency());
+		
+		
+		vItem.setTotal_cost_itm(Total_cost_itm_VALITEM_ITEM_String);
+		vItem.setRate_of_adjustement(Rate_of_adjustement_VALITEM_ITEM_String);
+		
+		statistValue = totCIFitm;
+		vItem.setStatistical_value(statistValue);
+		vItem.setTotal_CIF_itm(totCIFitm);
+		
+		itemValid.validSetTotals(vItem, hmListItemColsNameAndPosit);
 
-		String Rate_of_adjustement_String = ExcelPoi.getString(row, Rate_of_adjustement);
-		String Statistical_value_String = ExcelPoi.getString(row, Statistical_value);
-		String Total_CIF_itm_String = ExcelPoi.getString(row, Total_CIF_itm);
-		
-		item.setValuation_item(vItem);
-		
-		item.getValuation_item().setRate_of_adjustement(Rate_of_adjustement_String);
-		item.getValuation_item().setStatistical_value(new BigDecimal(Statistical_value_String));
-		item.getValuation_item().setTotal_CIF_itm(new BigDecimal(Total_CIF_itm_String));
-		
-		itemValid.validSetTotals(item, hmListItemColsNameAndPosit);
-
-		return item;
+		return vItem;
 	}
 	
 }

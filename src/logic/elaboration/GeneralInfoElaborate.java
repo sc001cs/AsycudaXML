@@ -382,16 +382,14 @@ public class GeneralInfoElaborate {
 				if(item != null 
 						&& item.getValuation_item() != null 
 						&& item.getValuation_item().getItem_Invoice() != null 
-						&& item.getValuation_item().getItem_Invoice().size() > 0 
-						&& item.getValuation_item().getItem_Invoice().get(0).getAmount_foreign_currency() != null)
-				sumAmountForeignCurr.add(new BigDecimal(item.getValuation_item().getItem_Invoice().get(0).getAmount_foreign_currency()));
+						&& item.getValuation_item().getItem_Invoice().getAmount_foreign_currency() != null)
+				sumAmountForeignCurr.add(new BigDecimal(item.getValuation_item().getItem_Invoice().getAmount_foreign_currency()));
 				
 				if(item != null 
 						&& item.getValuation_item() != null 
 						&& item.getValuation_item().getItem_Invoice() != null 
-						&& item.getValuation_item().getItem_Invoice().size() > 0 
-						&& item.getValuation_item().getItem_Invoice().get(0).getAmount_national_currency() != null)
-					sumAmounNationalCurr.add(item.getValuation_item().getItem_Invoice().get(0).getAmount_national_currency());
+						&& item.getValuation_item().getItem_Invoice().getAmount_national_currency() != null)
+					sumAmounNationalCurr.add(item.getValuation_item().getItem_Invoice().getAmount_national_currency());
 				
 			}
 		}
