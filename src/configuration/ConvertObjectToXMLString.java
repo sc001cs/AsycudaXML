@@ -25,8 +25,7 @@ public class ConvertObjectToXMLString {
 
 			// output pretty printed
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
-			jaxbMarshaller.setProperty("com.sun.xml.internal.bind.xmlHeaders", "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.FALSE);
 
 			StringWriter stringWriter = new StringWriter();
 			jaxbMarshaller.marshal(ASYCUDA, stringWriter);
@@ -34,9 +33,10 @@ public class ConvertObjectToXMLString {
 			String xml = stringWriter.toString();
 			String xmlClear = xml.replace(" xsi:nil=\"true\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", "");
 			String nullClear = xmlClear.replace("null", "<null/>");
-			finalXML = nullClear;
+			String changeStandaloneHeader = nullClear.replace("standalone=\"yes\"", "standalone=\"no\"");
+			finalXML = changeStandaloneHeader;
 
-			System.out.println( nullClear );
+			System.out.println( finalXML );
 
 		} catch (JAXBException e) {
 			e.printStackTrace();

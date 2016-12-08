@@ -20,6 +20,7 @@ import enitity.asycuda.Item;
 import enitity.asycuda.PreviousDoc;
 import enitity.asycuda.Taxation;
 import enitity.asycuda.ValuationItem;
+import enitity.asycuda.item_childs.AttachedDocuments;
 import enitity.asycuda.item_childs.IncoTerms;
 import enitity.asycuda.item_childs.Packages;
 import enitity.asycuda.item_childs.Tarification;
@@ -67,6 +68,11 @@ public class ListItemsExcel {
 
 		Item item = new Item();
 
+		AttachedDocuments attDoc = new AttachedDocuments();
+		List<AttachedDocuments> listAttDoc = new ArrayList<AttachedDocuments>();
+		listAttDoc.add(attDoc);
+		item.setAttached_documents(listAttDoc);
+		
 		/**
 		 * SHEET: LIST ITEMS
 		 * COLUMNS: 0, 1, 2
