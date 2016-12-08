@@ -167,7 +167,7 @@ public class ListItemsExcel {
 		item.setFree_text_1("null");
 		item.setFree_text_2("null");
 
-		Taxation tax = new Taxation();
+		Taxation tax = new Taxation(); 
 		tax.setItem_taxes_mode_of_payment("null");
 
 		List<TaxationLine> listTaxLine = new ArrayList<TaxationLine>();
