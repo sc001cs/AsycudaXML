@@ -11,7 +11,12 @@ import enitity.asycuda.identification_childs.Type;
 import enitity.asycuda.item_childs.Packages;
 import enitity.asycuda.item_childs.Tarification;
 import enitity.asycuda.item_childs.tarification_childs.HScode;
+import enitity.asycuda.valuationItem_childs.ItemDeduction;
+import enitity.asycuda.valuationItem_childs.ItemExternalFreight;
+import enitity.asycuda.valuationItem_childs.ItemInsurance;
+import enitity.asycuda.valuationItem_childs.ItemInternalFreight;
 import enitity.asycuda.valuationItem_childs.ItemInvoice;
+import enitity.asycuda.valuationItem_childs.ItemOtherCost;
 import enitity.asycuda.valuationItem_childs.WeightItm;
 
 public class ListItemValidation {
@@ -183,12 +188,72 @@ public class ListItemValidation {
 				itmInv.getAmount_foreign_currency().equals("")) {
 
 			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: itemPrice_TARIF_ITEM -- Sheet2 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "itemPrice_TARIF_ITEM"));
+					+ "Please fill out: Amount_foreign_currency_Invoice -- Sheet2 Cell " + 
+					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Amount_foreign_currency_Invoice"));
 		}
 
 	}
+	
+	public void validItemItemExternalFreightValChilds(ItemExternalFreight itmFreig, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
+		if(itmFreig.getAmount_foreign_currency() == null || 
+				itmFreig.getAmount_foreign_currency().equals("")) {
+
+			System.err.println("***** ERROR *****\n "
+					+ "Please fill out: Amount_foreign_currency_ext_frei -- Sheet2 Cell " + 
+					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Amount_foreign_currency_ext_frei"));
+		}
+
+	}
+	
+	public void validItemItemInternalFreightValChilds(ItemInternalFreight itmInternalFreig, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+
+		if(itmInternalFreig.getAmount_foreign_currency() == null || 
+				itmInternalFreig.getAmount_foreign_currency().equals("")) {
+
+			System.err.println("***** ERROR *****\n "
+					+ "Please fill out: Amount_foreign_currency_inter_frei -- Sheet2 Cell " + 
+					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Amount_foreign_currency_inter_frei"));
+		}
+
+	}
+	
+	public void validItemInsuranceValChilds(ItemInsurance itmInsur, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+
+		if(itmInsur.getAmount_foreign_currency() == null || 
+				itmInsur.getAmount_foreign_currency().equals("")) {
+
+			System.err.println("***** ERROR *****\n "
+					+ "Please fill out: Amount_foreign_currency_ins -- Sheet2 Cell " + 
+					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Amount_foreign_currency_ins"));
+		}
+
+	}
+	
+	public void validItemOtherCostValChilds(ItemOtherCost itmOthCost, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+
+		if(itmOthCost.getAmount_foreign_currency() == null || 
+				itmOthCost.getAmount_foreign_currency().equals("")) {
+
+			System.err.println("***** ERROR *****\n "
+					+ "Please fill out: Amount_foreign_currency_other_cost -- Sheet2 Cell " + 
+					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Amount_foreign_currency_other_cost"));
+		}
+
+	}
+	
+	public void validItemOtherCostValChilds(ItemDeduction itmDeduc, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+
+		if(itmDeduc.getAmount_foreign_currency() == null || 
+				itmDeduc.getAmount_foreign_currency().equals("")) {
+
+			System.err.println("***** ERROR *****\n "
+					+ "Please fill out: Amount_foreign_currency_deduc -- Sheet2 Cell " + 
+					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Amount_foreign_currency_deduc"));
+		}
+
+	}
+	
 	public void validSetTotals(ValuationItem vItem, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
 		if(vItem.getRate_of_adjustement() == null || 

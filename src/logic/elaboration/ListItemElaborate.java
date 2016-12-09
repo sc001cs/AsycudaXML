@@ -185,39 +185,6 @@ public class ListItemElaborate {
 	}
 
 	
-	/**
-	 * @param row
-	 * @return ItemInvoice Valutation Childs 
-	 */
-	public ItemInvoice getItemInvoiceValChilds(Row row, Asycuda asycuda, HashMap<Integer, String> hmListItemColsNameAndPosit) {
-
-		int itemPrice_TARIF_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "itemPrice_TARIF_ITEM");
-
-		String itemPrice_TARIF_ITEM_String = ExcelPoi.getString(row, itemPrice_TARIF_ITEM);
-
-		ItemInvoice itmInv = new ItemInvoice();
-		itmInv.setCurrency_name("Ska monedhe te huaj");
-		itmInv.setAmount_foreign_currency(itemPrice_TARIF_ITEM_String);
-		
-		if(asycuda.getValuation() != null 
-				&& asycuda.getValuation().getGs_Invoice() != null 
-				&& asycuda.getValuation().getGs_Invoice().getCurrency_code() != null) {
-			
-			itmInv.setCurrency_code(asycuda.getValuation().getGs_Invoice().getCurrency_code());	
-			itmInv.setAmount_national_currency(currency.calcAmountNationalCurr(itemPrice_TARIF_ITEM_String, asycuda.getValuation().getGs_Invoice().getCurrency_code()));
-		}
-		
-		if(asycuda.getValuation() != null 
-				&& asycuda.getValuation().getGs_Invoice() != null 
-				&& asycuda.getValuation().getGs_Invoice().getCurrency_rate() != null) {
-			itmInv.setCurrency_rate(asycuda.getValuation().getGs_Invoice().getCurrency_rate());	
-		}
-		
-		itemValid.validItemInvoiceValChilds(itmInv, hmListItemColsNameAndPosit);
-
-		return itmInv;
-	}
-	
 	
 	/**
 	 * @param row

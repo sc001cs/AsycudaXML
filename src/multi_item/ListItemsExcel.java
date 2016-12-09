@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import logic.GetCurrencyAndAmount;
+import logic.elaboration.ListItemElabGS;
 import logic.elaboration.ListItemElaborate;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -52,6 +53,7 @@ public class ListItemsExcel {
 	public Asycuda writeValueListItems(byte[] byteExcel, Asycuda ASYCUDA, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
 		ListItemElaborate itemElab = new ListItemElaborate();
+		ListItemElabGS itemElabGS = new ListItemElabGS();
 		GetCurrencyAndAmount currency = new GetCurrencyAndAmount();
 		String currencyExchange = currency.getCurrencyExchange();
 
@@ -201,49 +203,23 @@ public class ListItemsExcel {
 
 		vItem.setWeight_itm(wItm);
 
-		ItemInvoice itmInv = itemElab.getItemInvoiceValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
-
+		ItemInvoice itmInv = itemElabGS.getItemInvoiceValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
 		vItem.setItem_Invoice(itmInv);
 
-		ItemExternalFreight itmFreig = new ItemExternalFreight();
-		itmFreig.setAmount_national_currency(BigDecimal.ZERO);
-		itmFreig.setAmount_foreign_currency("0");
-		itmFreig.setCurrency_rate("0.0");
-		itmFreig.setCurrency_name("Ska monedhe te huaj");
-
+		ItemExternalFreight itmFreig = itemElabGS.getItemItemExternalFreightValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
 		vItem.setItem_external_freight(itmFreig);
 
-		ItemInternalFreight itmInternalFreig = new ItemInternalFreight();
-		itmInternalFreig.setAmount_national_currency(BigDecimal.ZERO);
-		itmInternalFreig.setAmount_foreign_currency("0");
-		itmInternalFreig.setCurrency_rate("0.0");
-		itmInternalFreig.setCurrency_name("Ska monedhe te huaj");
-
+		ItemInternalFreight itmInternalFreig = itemElabGS.getItemItemInternalFreightValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
 		vItem.setItem_internal_freight(itmInternalFreig);
 		
-		ItemInsurance itmInsur = new ItemInsurance();
-		itmInsur.setAmount_national_currency(BigDecimal.ZERO);
-		itmInsur.setAmount_foreign_currency("0");
-		itmInsur.setCurrency_rate("0.0");
-		itmInsur.setCurrency_name("Ska monedhe te huaj");
-
+		ItemInsurance itmInsur = itemElabGS.getItemItemInsuranceValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
 		vItem.setItem_insurance(itmInsur);
 		
-		ItemDeduction itmDeduc = new ItemDeduction();
-		itmDeduc.setAmount_national_currency(BigDecimal.ZERO);
-		itmDeduc.setAmount_foreign_currency("0");
-		itmDeduc.setCurrency_rate("0.0");
-		itmDeduc.setCurrency_name("Ska monedhe te huaj");
-
-		vItem.setItem_deduction(itmDeduc);
-		
-		ItemOtherCost itmOthCost = new ItemOtherCost();
-		itmOthCost.setAmount_national_currency(BigDecimal.ZERO);
-		itmOthCost.setAmount_foreign_currency("0");
-		itmOthCost.setCurrency_rate("0.0");
-		itmOthCost.setCurrency_name("Ska monedhe te huaj");
-
+		ItemOtherCost itmOthCost = itemElabGS.getItemOtherCostValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
 		vItem.setItem_other_cost(itmOthCost);
+		
+		ItemDeduction itmDeduc = itemElabGS.getItemDeductionValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
+		vItem.setItem_deduction(itmDeduc);
 
 		MarketValuer mValue = new MarketValuer();
 		mValue.setCurrency_code("null");
