@@ -17,7 +17,7 @@ import enitity.asycuda.valuationItem_childs.WeightItm;
 public class ValuationItem {
 
 	private WeightItm Weight_itm;
-	private String Total_cost_itm;
+	private BigDecimal Total_cost_itm;
 	private BigDecimal Total_CIF_itm;
 	private String Rate_of_adjustement;
 	private BigDecimal Statistical_value;
@@ -37,11 +37,11 @@ public class ValuationItem {
 	public void setWeight_itm(WeightItm weight_itm) {
 		Weight_itm = weight_itm;
 	}
-	public String getTotal_cost_itm() {
+	public BigDecimal getTotal_cost_itm() {
 		return Total_cost_itm;
 	}
 	@XmlElement(nillable = true, name = "Total_cost_itm")
-	public void setTotal_cost_itm(String total_cost_itm) {
+	public void setTotal_cost_itm(BigDecimal total_cost_itm) {
 		Total_cost_itm = total_cost_itm;
 	}
 	public BigDecimal getTotal_CIF_itm() {

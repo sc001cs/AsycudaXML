@@ -154,7 +154,6 @@ public class ListItemElaborate {
 		tar.setItem_price(itemPrice_TARIF_ITEM_String);
 		tar.setValuation_method_code("null");
 		tar.setValue_item(valItm_TARIF_ITEM_String);
-		tar.setPreference_code(prevDocRef_PREVDOC_ITEM_String);
 		tar.setAttached_doc_item(Attached_doc_item_String);
 		tar.setAI_code("null");
 		
@@ -206,8 +205,10 @@ public class ListItemElaborate {
 			totCIFitm = totCIFitm.add(vItem.getItem_Invoice().getAmount_national_currency());
 		
 		if(vItem.getItem_external_freight() != null
-				&& vItem.getItem_external_freight().getAmount_national_currency() != null)
+				&& vItem.getItem_external_freight().getAmount_national_currency() != null) {
 			totCIFitm = totCIFitm.add(vItem.getItem_external_freight().getAmount_national_currency());
+			vItem.setTotal_cost_itm(vItem.getItem_external_freight().getAmount_national_currency());
+		}
 		
 		if(vItem.getItem_internal_freight() != null
 				&& vItem.getItem_internal_freight().getAmount_national_currency() != null)
@@ -226,7 +227,7 @@ public class ListItemElaborate {
 			totCIFitm = totCIFitm.add(vItem.getItem_deduction().getAmount_national_currency());
 		
 		
-		vItem.setTotal_cost_itm(Total_cost_itm_VALITEM_ITEM_String);
+		
 		vItem.setRate_of_adjustement(Rate_of_adjustement_VALITEM_ITEM_String);
 		
 		statistValue = totCIFitm;

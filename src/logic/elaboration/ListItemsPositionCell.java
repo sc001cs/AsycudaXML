@@ -63,7 +63,7 @@ public class ListItemsPositionCell {
 		listItemsColsName.add("grossWeightItm_WEIGHTITM_VALITEM_ITEM");
 		listItemsColsName.add("Net_weight_itm_WEIGHTITM_VALITEM_ITEM");
 		
-		listItemsColsName.add("Total_cost_itm_VALITEM_ITEM");
+	//	listItemsColsName.add("Total_cost_itm_VALITEM_ITEM");
 		listItemsColsName.add("Rate_of_adjustement_VALITEM_ITEM");
 		// Item_Invoice
 		listItemsColsName.add("Amount_foreign_currency_Invoice");

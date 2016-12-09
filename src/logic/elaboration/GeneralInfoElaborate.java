@@ -351,53 +351,7 @@ public class GeneralInfoElaborate {
 		return bi;
 	}
 
-	/**
-	 * @param row
-	 * @return GsInvoice ValuationChilds
-	 */ 
-	public GsInvoice getValueGsInvoiceValuationChilds(Row row, Asycuda asycuda, String currencyExchange, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
-
-		int currCode_GSINVOICE_VALU = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "currCode_GSINVOICE_VALU");
-		int amountForegCurr_GSINVOICE_VALU = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "amountForegCurr_GSINVOICE_VALU");
-		int currRate_GSINVOICE_VALU = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "currRate_GSINVOICE_VALU");
-
-		String currCode_GSINVOICE_VALU_String = ExcelPoi.getString(row, currCode_GSINVOICE_VALU);
-		String amountForegCurr_GSINVOICE_VALU_String = ExcelPoi.getString(row, amountForegCurr_GSINVOICE_VALU);
-		String currRate_GSINVOICE_VALU_String = ExcelPoi.getString(row, currRate_GSINVOICE_VALU);
-
-		GsInvoice gsInv = new GsInvoice();
-		gsInv.setCurrency_code(currCode_GSINVOICE_VALU_String);
-		gsInv.setAmount_foreign_currency(amountForegCurr_GSINVOICE_VALU_String);
-		// kot
-		gsInv.setCurrency_name("Ska monedhe te huaj");
-		gsInv.setAmount_national_currency( currency.calcAmountNationalCurr(amountForegCurr_GSINVOICE_VALU_String, currCode_GSINVOICE_VALU_String) );
-		gsInv.setCurrency_rate( currency.getCurrency(currCode_GSINVOICE_VALU_String, currencyExchange) );
-		
-
-		BigDecimal sumAmountForeignCurr = BigDecimal.ZERO;
-		BigDecimal sumAmounNationalCurr = BigDecimal.ZERO;
-		if(asycuda.getItem() != null && asycuda.getItem().size() > 0) {
-			for (Item item : asycuda.getItem()) {
-				
-				if(item != null 
-						&& item.getValuation_item() != null 
-						&& item.getValuation_item().getItem_Invoice() != null 
-						&& item.getValuation_item().getItem_Invoice().getAmount_foreign_currency() != null)
-				sumAmountForeignCurr.add(new BigDecimal(item.getValuation_item().getItem_Invoice().getAmount_foreign_currency()));
-				
-				if(item != null 
-						&& item.getValuation_item() != null 
-						&& item.getValuation_item().getItem_Invoice() != null 
-						&& item.getValuation_item().getItem_Invoice().getAmount_national_currency() != null)
-					sumAmounNationalCurr.add(item.getValuation_item().getItem_Invoice().getAmount_national_currency());
-				
-			}
-		}
-
-		genInfoValid.validCellValGsInvoiceValuationChilds(gsInv, hmGenInfoColsNameAndPosit);
-
-		return gsInv;
-	}
+	
 	
 	/**
 	 * @param row
@@ -494,7 +448,7 @@ public class GeneralInfoElaborate {
 				if(item != null 
 						&& item.getValuation_item() != null 
 						&& item.getValuation_item().getTotal_cost_itm() != null)
-					sumTotalCost = sumTotalCost.add(new BigDecimal(item.getValuation_item().getTotal_cost_itm()));
+					sumTotalCost = sumTotalCost.add(item.getValuation_item().getTotal_cost_itm());
 				
 				
 				if(item != null 

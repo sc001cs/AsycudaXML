@@ -8,6 +8,7 @@ import java.util.List;
 
 import logic.ExcelPoi;
 import logic.GetCurrencyAndAmount;
+import logic.elaboration.GeneralInfoElabGS;
 import logic.elaboration.GeneralInfoElaborate;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -94,6 +95,7 @@ public class GeneralInfoExcel {
 	 */
 	public Asycuda writeValueFromGeneralInfoExcel(byte[] byteExcel, HashMap<Integer, String> hmGenInfoColsNameAndPosit, HashMap<Integer, String> hmListItemsColsNameAndPosit) {
 
+		GeneralInfoElabGS genInfoElabGS = new GeneralInfoElabGS();
 		GeneralInfoElaborate genInfoElab = new GeneralInfoElaborate();
 		GetCurrencyAndAmount currency = new GetCurrencyAndAmount();
 		String currencyExchange = currency.getCurrencyExchange();
@@ -441,59 +443,7 @@ public class GeneralInfoExcel {
 		Weight weight = new Weight();
 		val.setWeight(weight);
 
-
-
-		/**
-		 * SHEET: GENERAL INFO
-		 * COLUMNS: 28, 29
-		 * - currCode_GSINVOICE_VALU (mandatory)
-		 * - amountForegCurr_GSINVOICE_VALU (mandatory)
-		 * - setCurrency_name 
-		 * - setAmount_national_currency 
-		 * - setCurrency_rate 
-		 * */
-		GsInvoice gsInv = genInfoElab.getValueGsInvoiceValuationChilds(row, ASYCUDA, currencyExchange, hmGenInfoColsNameAndPosit);
-
-		val.setGs_Invoice(gsInv);
-
 		
-
-		GsExternalFreight gsExtFrei = new GsExternalFreight();
-		gsExtFrei.setAmount_national_currency(BigDecimal.ZERO);
-		gsExtFrei.setAmount_foreign_currency("0");
-		gsExtFrei.setCurrency_name("Ska monedhe te huaj");
-		gsExtFrei.setCurrency_rate("0.0");
-		val.setGs_external_freight(gsExtFrei);
-		
-		GsInternalFreight gsIntFrei = new GsInternalFreight();
-		gsIntFrei.setAmount_national_currency(BigDecimal.ZERO);
-		gsIntFrei.setAmount_foreign_currency("0");
-		gsIntFrei.setCurrency_name("Ska monedhe te huaj");
-		gsIntFrei.setCurrency_rate("0.0");
-		val.setGs_internal_freight(gsIntFrei);
-
-		GsInsurance gsIns = new GsInsurance();
-		gsIns.setAmount_national_currency(BigDecimal.ZERO);
-		gsIns.setAmount_foreign_currency("0");
-		gsIns.setCurrency_name("Ska monedhe te huaj");
-		gsIns.setCurrency_rate("0.0");
-		val.setGs_insurance(gsIns);
-
-		GsOtherCost gsOtherCost = new GsOtherCost();
-		gsOtherCost.setAmount_national_currency(BigDecimal.ZERO);
-		gsOtherCost.setAmount_foreign_currency("0");
-		gsOtherCost.setCurrency_name("Ska monedhe te huaj");
-		gsOtherCost.setCurrency_rate("0.0");
-		val.setGs_other_cost(gsOtherCost);
-
-		GsDeduction gsDed = new GsDeduction();
-		gsDed.setAmount_national_currency(BigDecimal.ZERO);
-		gsDed.setAmount_foreign_currency("0");
-		gsDed.setCurrency_name("Ska monedhe te huaj");
-		gsDed.setCurrency_rate("0.0");
-		val.setGs_deduction(gsDed);
-
-		ASYCUDA.setValuation(val);
 		
 		/*|------------------------------------------| 
 		  |------------------------------------------|
@@ -507,7 +457,6 @@ public class GeneralInfoExcel {
 		ASYCUDA = listItemsExcel.writeValueListItems(byteExcel, ASYCUDA, hmListItemsColsNameAndPosit);
 		
 		/**
-		 * *** UPDATE ***
 		 * SHEET: GENERAL INFO
 		 * COLUMNS: 28, 29
 		 * - currCode_GSINVOICE_VALU (mandatory)
@@ -516,10 +465,23 @@ public class GeneralInfoExcel {
 		 * - setAmount_national_currency 
 		 * - setCurrency_rate 
 		 * */
-		GsInvoice gsInvUpdate = genInfoElab.getValueGsInvoiceValuationChilds(row, ASYCUDA, currencyExchange, hmGenInfoColsNameAndPosit);
+		GsInvoice gsInv = genInfoElabGS.getValueGsInvoiceValuationChilds(row, ASYCUDA, currencyExchange, hmGenInfoColsNameAndPosit);
+		val.setGs_Invoice(gsInv);
+
+		GsExternalFreight gsExtFrei = genInfoElabGS.getValueGsExternalFreiValuationChilds(row, ASYCUDA, currencyExchange, hmGenInfoColsNameAndPosit);
+		val.setGs_external_freight(gsExtFrei);
 		
-		// Set Total too with childs: Total_invoice & Total_weight
-		val = genInfoElab.updateTotCostTotCIFTotInvoiceTotWeight(ASYCUDA).getValuation();
+		GsInternalFreight gsIntFrei = genInfoElabGS.getValueGsInternalFreightValuationChilds(row, ASYCUDA, currencyExchange, hmGenInfoColsNameAndPosit);
+		val.setGs_internal_freight(gsIntFrei);
+
+		GsInsurance gsIns = genInfoElabGS.getValueGsInsuranceValuationChilds(row, ASYCUDA, currencyExchange, hmGenInfoColsNameAndPosit);
+		val.setGs_insurance(gsIns);
+
+		GsOtherCost gsOtherCost = genInfoElabGS.getValueGsOtherCosteValuationChilds(row, ASYCUDA, currencyExchange, hmGenInfoColsNameAndPosit);
+		val.setGs_other_cost(gsOtherCost);
+
+		GsDeduction gsDed = genInfoElabGS.getValueGsDeductionValuationChilds(row, ASYCUDA, currencyExchange, hmGenInfoColsNameAndPosit);
+		val.setGs_deduction(gsDed);
 
 		ASYCUDA.setValuation(val);
 
@@ -533,6 +495,8 @@ public class GeneralInfoExcel {
 
 		ASYCUDA.getProperty().setNbers(nbers);
 
+		ASYCUDA = genInfoElab.updateTotCostTotCIFTotInvoiceTotWeight(ASYCUDA);
+		
 		return ASYCUDA;
 	}
 

@@ -135,7 +135,7 @@ public class GeneralInfoPositionCell {
 		
 		listGenInfoColsName.add("currCode_GSINVOICE_VALU");
 		listGenInfoColsName.add("amountForegCurr_GSINVOICE_VALU");
-		listGenInfoColsName.add("currRate_GSINVOICE_VALU");
+	//	listGenInfoColsName.add("currRate_GSINVOICE_VALU");
 		
 		listGenInfoColsName.add("calcWorkMode_VAL");
 		

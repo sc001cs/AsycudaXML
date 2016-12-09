@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 public class GsInsurance {
 
 	private BigDecimal Amount_national_currency;
-	private String Amount_foreign_currency;
+	private BigDecimal Amount_foreign_currency;
 	private String Currency_code;
 	private String Currency_name;
 	private String Currency_rate;
@@ -20,11 +20,11 @@ public class GsInsurance {
 	public void setAmount_national_currency(BigDecimal amount_national_currency) {
 		Amount_national_currency = amount_national_currency;
 	}
-	public String getAmount_foreign_currency() {
+	public BigDecimal getAmount_foreign_currency() {
 		return Amount_foreign_currency;
 	}
 	@XmlElement(nillable = true, name = "Amount_foreign_currency")
-	public void setAmount_foreign_currency(String amount_foreign_currency) {
+	public void setAmount_foreign_currency(BigDecimal amount_foreign_currency) {
 		Amount_foreign_currency = amount_foreign_currency;
 	}
 	public String getCurrency_code() {
