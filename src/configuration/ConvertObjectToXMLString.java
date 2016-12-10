@@ -36,7 +36,7 @@ public class ConvertObjectToXMLString {
 			String changeStandaloneHeader = nullClear.replace("standalone=\"yes\"", "standalone=\"no\"");
 			finalXML = changeStandaloneHeader;
 
-	//		System.out.println( finalXML );
+			System.out.println( finalXML );
 
 		} catch (JAXBException e) {
 			e.printStackTrace();

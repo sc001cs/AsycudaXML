@@ -12,6 +12,7 @@ import java.util.*;
 
 import configuration.ConfigFileExcel;
 import configuration.ConvertObjectToXMLString;
+import configuration.xml.ConfigXML;
 import enitity.Asycuda;
 import logic.GetCurrencyAndAmount;
 import logic.elaboration.GeneralInfoPositionCell;
@@ -22,10 +23,20 @@ public class GenerateXMLFINAL {
 
 	public static void main(String[] args) {
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_hh_mm-ss");
-		String sCertDate = dateFormat.format(new Date());
+		String rootLoc = ConfigFileExcel.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 		
 		ConfigFileExcel configFileExcel = new ConfigFileExcel();
+		ConfigXML configXML = configFileExcel.getConfigXML(rootLoc);
+		
+		if(configXML == null) {
+			System.err.println("File config xml not found!");
+			System.exit(0);
+		}
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat(configXML.getGeneral().getData_format_file());
+		String sCertDate = dateFormat.format(new Date());
+		
+		
 		GeneralInfoExcel genInfoExcel = new GeneralInfoExcel();
 		GetCurrencyAndAmount currAndAmount = new GetCurrencyAndAmount();
 		String currencyExchange = currAndAmount.getCurrencyExchangeBSH();
@@ -34,9 +45,9 @@ public class GenerateXMLFINAL {
 		GeneralInfoPositionCell genInfoPosCell = new GeneralInfoPositionCell();
 		ListItemsPositionCell listItemsPosCell = new ListItemsPositionCell();
 		Asycuda ASYCUDA = new Asycuda();
-		String utf8 = "UTF-8";
-		String nameFile = "E:\\MultiItems.xlsx";
-		String fileOutput = "E:\\asycudaXML_"+ sCertDate +".xml";
+		String utf8 = configXML.getGeneral().getUtf8();
+		String nameFile = configXML.getGeneral().getName_file_excel();
+		String fileOutput = configXML.getGeneral().getName_file_output() + sCertDate +".xml";
 		String finalXML = "";
 		HashMap<Integer, String> hmGenInfoColsNameAndPosit = genInfoPosCell.hmGenInfoColsName();
 		HashMap<Integer, String> hmListItemsColsNameAndPosit = listItemsPosCell.hmListItemsColsName();

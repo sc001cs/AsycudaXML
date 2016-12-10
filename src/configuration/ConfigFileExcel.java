@@ -1,11 +1,19 @@
 package configuration;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map.Entry;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
+import configuration.xml.ConfigXML;
+import modules.GenerateXMLFINAL;
 
 public class ConfigFileExcel {
 
@@ -61,5 +69,25 @@ public class ConfigFileExcel {
 		
 		return index;
 	}
+	
+	public ConfigXML getConfigXML(String rootLoc) {
+
+		try {  
+			
+			String configLoc = rootLoc + "configuration/xml/config.xml";
+			
+			File file = new File(configLoc);  
+			JAXBContext jaxbContext = JAXBContext.newInstance(ConfigXML.class);  
+
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();  
+			ConfigXML configXML= (ConfigXML) jaxbUnmarshaller.unmarshal(file);  
+
+			return configXML;
+		} catch (JAXBException e) {  
+			e.printStackTrace();  
+			return null;
+		}  
+
+	}  
 	
 }
