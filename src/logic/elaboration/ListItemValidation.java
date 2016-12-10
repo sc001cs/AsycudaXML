@@ -163,9 +163,9 @@ public class ListItemValidation {
 		if(tar.getAttached_doc_item() == null || 
 				tar.getAttached_doc_item().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: prevDocRef_PREVDOC_ITEM -- Sheet2 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "prevDocRef_PREVDOC_ITEM"));
+//			System.err.println("***** ERROR *****\n "
+//					+ "Please fill out: prevDocRef_PREVDOC_ITEM -- Sheet2 Cell " + 
+//					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "prevDocRef_PREVDOC_ITEM"));
 		}
 		
 	}
@@ -175,9 +175,9 @@ public class ListItemValidation {
 		if(pDoc.getPrevious_document_reference() == null || 
 				pDoc.getPrevious_document_reference().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: prevDocRef_PREVDOC_ITEM -- Sheet2 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "prevDocRef_PREVDOC_ITEM"));
+//			System.err.println("***** ERROR *****\n "
+//					+ "Please fill out: prevDocRef_PREVDOC_ITEM -- Sheet2 Cell " + 
+//					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "prevDocRef_PREVDOC_ITEM"));
 		}
 
 	}
@@ -264,12 +264,12 @@ public class ListItemValidation {
 					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Rate_of_adjustement_VALITEM_ITEM"));
 		}
 
-		if(vItem.getTotal_cost_itm() == null) {
-
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: Total_cost_itm_VALITEM_ITEM -- Sheet2 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Total_cost_itm_VALITEM_ITEM"));
-		}
+//		if(vItem.getTotal_cost_itm() == null) {
+//
+//			System.err.println("***** ERROR *****\n "
+//					+ "Please fill out: Total_cost_itm_VALITEM_ITEM -- Sheet2 Cell " + 
+//					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "Total_cost_itm_VALITEM_ITEM"));
+//		}
 
 	}
 

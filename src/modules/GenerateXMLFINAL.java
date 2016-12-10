@@ -28,8 +28,8 @@ public class GenerateXMLFINAL {
 		ListItemsPositionCell listItemsPosCell = new ListItemsPositionCell();
 		Asycuda ASYCUDA = new Asycuda();
 		String utf8 = "UTF-8";
-		String nameFile = "E:\\MultiItems.xlsx";
-		String fileOutput = "E:\\MultiItems.xml";
+		String nameFile = "D:\\MultiItems.xlsx";
+		String fileOutput = "D:\\MultiItems.xml";
 		String finalXML = "";
 		HashMap<Integer, String> hmGenInfoColsNameAndPosit = genInfoPosCell.hmGenInfoColsName();
 		HashMap<Integer, String> hmListItemsColsNameAndPosit = listItemsPosCell.hmListItemsColsName();

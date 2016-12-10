@@ -6,6 +6,9 @@ import org.apache.poi.ss.usermodel.Row;
 public class ExcelPoi {
 
 	public static String getString(Row rc, int nc) {
+		
+		if(rc == null) return null;
+		
 		Cell cc = rc.getCell((short) nc);
 
 		if (cc != null) {

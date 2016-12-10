@@ -37,9 +37,13 @@ public class ListItemElabGS {
 		
 		/* Check if the currency is set, if not get the currency from first page
 		 * */
-		if(Currency_code_Invoice_String == null || Currency_code_Invoice_String.equals(""))
+		if(asycuda.getValuation() != null 
+				&& asycuda.getValuation().getGs_Invoice() != null 
+				&& (Currency_code_Invoice_String == null 
+				|| Currency_code_Invoice_String.equals("")) ) {
 			Currency_code_Invoice_String = asycuda.getValuation().getGs_Invoice().getCurrency_code();
-
+		}
+			
 		ItemInvoice itmInv = new ItemInvoice();
 		itmInv.setCurrency_name("Ska monedhe te huaj");
 		
@@ -49,8 +53,8 @@ public class ListItemElabGS {
 			itmInv.setAmount_foreign_currency(Amount_foreign_currency_Invoice_String);
 
 		itmInv.setCurrency_code(Currency_code_Invoice_String);	
+		
 		itmInv.setAmount_national_currency(currency.calcAmountNationalCurr(Amount_foreign_currency_Invoice_String, Currency_code_Invoice_String));
-
 		itmInv.setCurrency_rate(currency.getCurrency(Currency_code_Invoice_String, currencyExchange));	
 
 		itemValid.validItemInvoiceValChilds(itmInv, hmListItemColsNameAndPosit);

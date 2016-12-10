@@ -6,15 +6,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import logic.ExcelPoi;
 import logic.GetCurrencyAndAmount;
 import logic.elaboration.ListItemElabGS;
 import logic.elaboration.ListItemElaborate;
 
+import org.apache.commons.codec.binary.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import configuration.ConfigFileExcel;
 import enitity.Asycuda;
 import enitity.asycuda.GoodsDescription;
 import enitity.asycuda.Item;
@@ -44,11 +48,11 @@ public class ListItemsExcel {
 	/**
 	 * FUSHA PA SPECIFIKIM TE QARTE NE XML DHE EXCEL
 	 * PER VERIFIKIM
-	  
+
 		private static int totNumbItems_NBERS_PROP = 48;  
 	 */
 
-	private static int ROW = 3;
+	private int ROW = 3;
 
 	public Asycuda writeValueListItems(byte[] byteExcel, Asycuda ASYCUDA, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
@@ -66,184 +70,206 @@ public class ListItemsExcel {
 			e.printStackTrace();
 		}
 
+		List<Item> items = new ArrayList<Item>();
 		Row row = sheet.getRow(ROW);
 
-		Item item = new Item();
+		while(checkHasNextRow(row, hmListItemColsNameAndPosit)) {
 
-		AttachedDocuments attDoc = new AttachedDocuments();
-		List<AttachedDocuments> listAttDoc = new ArrayList<AttachedDocuments>();
-		listAttDoc.add(attDoc);
-		item.setAttached_documents(listAttDoc);
-		
-		/**
-		 * SHEET: LIST ITEMS
-		 * COLUMNS: 0, 1, 2
-		 * - numbPackages_PACK_ITEM (mandatory)
-		 * - kindPackCode_PACK_ITEM (mandatory)
-		 * - kindPackName_PACK_ITEM (mandatory)
-		 * */
-		Packages pack = itemElab.getPackagesItemChilds(row, hmListItemColsNameAndPosit);
-		
-		item.setPackages(pack);
+			Item item = new Item();
 
-		// Same as Delivery_terms -> code & place
-		IncoTerms incoTerm = new IncoTerms();
-		if(ASYCUDA.getTransport() != null 
-			&& ASYCUDA.getTransport().getDelivery_terms() != null 
-			&& ASYCUDA.getTransport().getDelivery_terms().getCode() != null) {
-			incoTerm.setCode(ASYCUDA.getTransport().getDelivery_terms().getCode());
+			AttachedDocuments attDoc = new AttachedDocuments();
+			List<AttachedDocuments> listAttDoc = new ArrayList<AttachedDocuments>();
+			listAttDoc.add(attDoc);
+			item.setAttached_documents(listAttDoc);
+
+			/**
+			 * SHEET: LIST ITEMS
+			 * COLUMNS: 0, 1, 2
+			 * - numbPackages_PACK_ITEM (mandatory)
+			 * - kindPackCode_PACK_ITEM (mandatory)
+			 * - kindPackName_PACK_ITEM (mandatory)
+			 * */
+			Packages pack = itemElab.getPackagesItemChilds(row, hmListItemColsNameAndPosit);
+
+			item.setPackages(pack);
+
+			// Same as Delivery_terms -> code & place
+			IncoTerms incoTerm = new IncoTerms();
+			if(ASYCUDA.getTransport() != null 
+					&& ASYCUDA.getTransport().getDelivery_terms() != null 
+					&& ASYCUDA.getTransport().getDelivery_terms().getCode() != null) {
+				incoTerm.setCode(ASYCUDA.getTransport().getDelivery_terms().getCode());
+			}
+
+			if(ASYCUDA.getTransport() != null 
+					&& ASYCUDA.getTransport().getDelivery_terms() != null 
+					&& ASYCUDA.getTransport().getDelivery_terms().getPlace() != null) {
+				incoTerm.setPlace(ASYCUDA.getTransport().getDelivery_terms().getPlace());
+			}
+
+			item.setIncoTerms(incoTerm);
+
+			Tarification tar = new Tarification();
+			tar.setTarification_data("null");
+
+			/**
+			 * SHEET: LIST ITEMS
+			 * COLUMNS: 6, 7
+			 * - commCode_HSCODE_TARIF_ITEM (mandatory)
+			 * - prec1_HSCODE_TARIF_ITEM (mandatory)
+			 * */
+			HScode hsCode = itemElab.getHScodeTarificItemChilds(row, hmListItemColsNameAndPosit);
+
+			tar.setHScode(hsCode);
+
+			/**
+			 * SHEET: LIST ITEMS
+			 * COLUMNS: 10, 11, 12,  17, 19
+			 * - code_PREF_TARIF_ITEM (mandatory)
+			 * - msProc_EXTCUSTOM_TARIF_ITEM (mandatory)
+			 * - natCustomProc_TARIF_ITEM (mandatory)
+			 * 
+			 * - itemPrice_TARIF_ITEM (mandatory)
+			 * - valItm_TARIF_ITEM (mandatory)
+			 * */
+			tar = itemElab.getTarification(row, tar, hmListItemColsNameAndPosit);
+
+			tar.setQuota_code("null");
+
+			Quota q = new Quota();
+			q.setQuotaCode("null");
+			q.setQuotaId("null");
+
+			List<QuotaItem> listQuotaItem = new ArrayList<QuotaItem>();
+			QuotaItem qItem = new QuotaItem();
+			listQuotaItem.add(qItem);
+			q.setQuotaItem(listQuotaItem);
+
+			tar.setQuota(q);
+
+			List<SupplementaryUnit> listSuppUn = new ArrayList<SupplementaryUnit>();
+			for (int i = 0; i < 3; i++) {
+
+				SupplementaryUnit suppUnit = new SupplementaryUnit();
+				suppUnit.setSuppplementary_unit_code("null");
+
+				listSuppUn.add(suppUnit);
+			}
+			tar.setSupplementary_unit(listSuppUn);
+
+			item.setTarification(tar);
+
+			/**
+			 * SHEET: LIST ITEMS
+			 * COLUMNS: 3, 4, 8
+			 * - descrGoods_GOODDESCR_TARIF_ITEM (mandatory)
+			 * - commDescr_GOODDESCR_TARIF_ITEM (mandatory)
+			 * - countrOrigCode_GOODDESCR_TARIF_ITEM (mandatory)
+			 * */
+			GoodsDescription gDescr = itemElab.getGoodsDescription(row, hmListItemColsNameAndPosit);
+
+			item.setGoods_description(gDescr);
+
+			/**
+			 * SHEET: LIST ITEMS
+			 * COLUMNS: 20
+			 * - prevDocRef_PREVDOC_ITEM (mandatory)
+			 * */
+			PreviousDoc pDoc = itemElab.getPreviousDoc(row, hmListItemColsNameAndPosit);
+
+			item.setPrevious_doc(pDoc);
+
+			item.setFree_text_1("null");
+			item.setFree_text_2("null");
+
+			Taxation tax = new Taxation(); 
+			tax.setItem_taxes_mode_of_payment("null");
+
+			List<TaxationLine> listTaxLine = new ArrayList<TaxationLine>();
+			for (int i = 0; i < 8; i++) {
+				TaxationLine tLine = new TaxationLine();
+				tLine.setDuty_tax_code("null");
+				tLine.setDuty_tax_MP("null");
+				tLine.setDuty_tax_Type_of_calculation("null");
+
+				listTaxLine.add(tLine);
+			}
+			tax.setTaxation_line(listTaxLine);
+
+			item.setTaxation(tax);
+
+			ValuationItem vItem = new ValuationItem();
+
+			/**
+			 * SHEET: LIST ITEMS
+			 * COLUMNS: 9, 13
+			 * - grossWeightItm_WEIGHTITM_VALITEM_ITEM (mandatory)
+			 * - netWeightItm_WEIGHTITM_VALITEM_ITEM (mandatory)
+			 * */
+			WeightItm wItm = itemElab.getWeightItmItemChilds(row, hmListItemColsNameAndPosit);
+
+			vItem.setWeight_itm(wItm);
+
+			ItemInvoice itmInv = itemElabGS.getItemInvoiceValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
+			vItem.setItem_Invoice(itmInv);
+
+			ItemExternalFreight itmFreig = itemElabGS.getItemItemExternalFreightValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
+			vItem.setItem_external_freight(itmFreig);
+
+			ItemInternalFreight itmInternalFreig = itemElabGS.getItemItemInternalFreightValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
+			vItem.setItem_internal_freight(itmInternalFreig);
+
+			ItemInsurance itmInsur = itemElabGS.getItemItemInsuranceValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
+			vItem.setItem_insurance(itmInsur);
+
+			ItemOtherCost itmOthCost = itemElabGS.getItemOtherCostValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
+			vItem.setItem_other_cost(itmOthCost);
+
+			ItemDeduction itmDeduc = itemElabGS.getItemDeductionValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
+			vItem.setItem_deduction(itmDeduc);
+
+			MarketValuer mValue = new MarketValuer();
+			mValue.setCurrency_code("null");
+			mValue.setBasis_description("null");
+
+			vItem.setMarket_valuer(mValue);
+
+			/** UPDATE VALUATION ITEM WITH:
+			 * - Total Cost Item
+			 * - Total CIF Item
+			 * - Statistical value
+			 * */
+			vItem = itemElab.getSetTotals(row, vItem, hmListItemColsNameAndPosit);
+
+			item.setValuation_item(vItem);
+
+			
+			items.add(item);
+
+			ROW++;
+			row = sheet.getRow(ROW);
 		}
-		
-		if(ASYCUDA.getTransport() != null 
-				&& ASYCUDA.getTransport().getDelivery_terms() != null 
-				&& ASYCUDA.getTransport().getDelivery_terms().getPlace() != null) {
-			incoTerm.setPlace(ASYCUDA.getTransport().getDelivery_terms().getPlace());
-		}
-		
-		item.setIncoTerms(incoTerm);
-
-		Tarification tar = new Tarification();
-		tar.setTarification_data("null");
-
-		/**
-		 * SHEET: LIST ITEMS
-		 * COLUMNS: 6, 7
-		 * - commCode_HSCODE_TARIF_ITEM (mandatory)
-		 * - prec1_HSCODE_TARIF_ITEM (mandatory)
-		 * */
-		HScode hsCode = itemElab.getHScodeTarificItemChilds(row, hmListItemColsNameAndPosit);
-		
-		tar.setHScode(hsCode);
-
-		/**
-		 * SHEET: LIST ITEMS
-		 * COLUMNS: 10, 11, 12,  17, 19
-		 * - code_PREF_TARIF_ITEM (mandatory)
-		 * - msProc_EXTCUSTOM_TARIF_ITEM (mandatory)
-		 * - natCustomProc_TARIF_ITEM (mandatory)
-		 * 
-		 * - itemPrice_TARIF_ITEM (mandatory)
-		 * - valItm_TARIF_ITEM (mandatory)
-		 * */
-		tar = itemElab.getTarification(row, tar, hmListItemColsNameAndPosit);
-
-		tar.setQuota_code("null");
-
-		Quota q = new Quota();
-		q.setQuotaCode("null");
-		q.setQuotaId("null");
-
-		List<QuotaItem> listQuotaItem = new ArrayList<QuotaItem>();
-		QuotaItem qItem = new QuotaItem();
-		listQuotaItem.add(qItem);
-		q.setQuotaItem(listQuotaItem);
-
-		tar.setQuota(q);
-
-		List<SupplementaryUnit> listSuppUn = new ArrayList<SupplementaryUnit>();
-		for (int i = 0; i < 3; i++) {
-
-			SupplementaryUnit suppUnit = new SupplementaryUnit();
-			suppUnit.setSuppplementary_unit_code("null");
-
-			listSuppUn.add(suppUnit);
-		}
-		tar.setSupplementary_unit(listSuppUn);
-
-		item.setTarification(tar);
-
-		/**
-		 * SHEET: LIST ITEMS
-		 * COLUMNS: 3, 4, 8
-		 * - descrGoods_GOODDESCR_TARIF_ITEM (mandatory)
-		 * - commDescr_GOODDESCR_TARIF_ITEM (mandatory)
-		 * - countrOrigCode_GOODDESCR_TARIF_ITEM (mandatory)
-		 * */
-		GoodsDescription gDescr = itemElab.getGoodsDescription(row, hmListItemColsNameAndPosit);
-		
-		item.setGoods_description(gDescr);
-
-		/**
-		 * SHEET: LIST ITEMS
-		 * COLUMNS: 20
-		 * - prevDocRef_PREVDOC_ITEM (mandatory)
-		 * */
-		PreviousDoc pDoc = itemElab.getPreviousDoc(row, hmListItemColsNameAndPosit);
-		
-		item.setPrevious_doc(pDoc);
-
-		item.setFree_text_1("null");
-		item.setFree_text_2("null");
-
-		Taxation tax = new Taxation(); 
-		tax.setItem_taxes_mode_of_payment("null");
-
-		List<TaxationLine> listTaxLine = new ArrayList<TaxationLine>();
-		for (int i = 0; i < 8; i++) {
-			TaxationLine tLine = new TaxationLine();
-			tLine.setDuty_tax_code("null");
-			tLine.setDuty_tax_MP("null");
-			tLine.setDuty_tax_Type_of_calculation("null");
-
-			listTaxLine.add(tLine);
-		}
-		tax.setTaxation_line(listTaxLine);
-
-		item.setTaxation(tax);
-
-		ValuationItem vItem = new ValuationItem();
-
-		/**
-		 * SHEET: LIST ITEMS
-		 * COLUMNS: 9, 13
-		 * - grossWeightItm_WEIGHTITM_VALITEM_ITEM (mandatory)
-		 * - netWeightItm_WEIGHTITM_VALITEM_ITEM (mandatory)
-		 * */
-		WeightItm wItm = itemElab.getWeightItmItemChilds(row, hmListItemColsNameAndPosit);
-
-		vItem.setWeight_itm(wItm);
-
-		ItemInvoice itmInv = itemElabGS.getItemInvoiceValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
-		vItem.setItem_Invoice(itmInv);
-
-		ItemExternalFreight itmFreig = itemElabGS.getItemItemExternalFreightValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
-		vItem.setItem_external_freight(itmFreig);
-
-		ItemInternalFreight itmInternalFreig = itemElabGS.getItemItemInternalFreightValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
-		vItem.setItem_internal_freight(itmInternalFreig);
-		
-		ItemInsurance itmInsur = itemElabGS.getItemItemInsuranceValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
-		vItem.setItem_insurance(itmInsur);
-		
-		ItemOtherCost itmOthCost = itemElabGS.getItemOtherCostValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
-		vItem.setItem_other_cost(itmOthCost);
-		
-		ItemDeduction itmDeduc = itemElabGS.getItemDeductionValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
-		vItem.setItem_deduction(itmDeduc);
-
-		MarketValuer mValue = new MarketValuer();
-		mValue.setCurrency_code("null");
-		mValue.setBasis_description("null");
-
-		vItem.setMarket_valuer(mValue);
-
-		/** UPDATE VALUATION ITEM WITH:
-		 * - Total Cost Item
-		 * - Total CIF Item
-		 * - Statistical value
-		 * */
-		vItem = itemElab.getSetTotals(row, vItem, hmListItemColsNameAndPosit);
-		
-		item.setValuation_item(vItem);
-
-		List<Item> items = new ArrayList<Item>();
-		items.add(item);
-
 		ASYCUDA.setItem(items);
 
 		return ASYCUDA;
 
 	}
 
+	private Boolean checkHasNextRow(Row row, HashMap<Integer, String> hmListItemColsNameAndPosit) {
+		
+		ConfigFileExcel confFileExcel = new ConfigFileExcel();
+		
+		int Amount_foreign_currency_Invoice = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Amount_foreign_currency_Invoice");
+		String Amount_foreign_currency_Invoice_String = ExcelPoi.getString(row, Amount_foreign_currency_Invoice);
+		
+		if(Amount_foreign_currency_Invoice_String == null 
+				&& !NumberUtils.isNumber(Amount_foreign_currency_Invoice_String)
+				|| Amount_foreign_currency_Invoice_String.equals("0") 
+				|| Amount_foreign_currency_Invoice_String.equals("0.0")) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 }

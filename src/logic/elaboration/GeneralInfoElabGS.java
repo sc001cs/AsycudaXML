@@ -31,11 +31,11 @@ public class GeneralInfoElabGS {
 
 		int currCode_GSINVOICE_VALU = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "currCode_GSINVOICE_VALU");
 		int amountForegCurr_GSINVOICE_VALU = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "amountForegCurr_GSINVOICE_VALU");
-		int currRate_GSINVOICE_VALU = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "currRate_GSINVOICE_VALU");
+		//int currRate_GSINVOICE_VALU = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "currRate_GSINVOICE_VALU");
 
 		String currCode_GSINVOICE_VALU_String = ExcelPoi.getString(row, currCode_GSINVOICE_VALU);
 		String amountForegCurr_GSINVOICE_VALU_String = ExcelPoi.getString(row, amountForegCurr_GSINVOICE_VALU);
-		String currRate_GSINVOICE_VALU_String = ExcelPoi.getString(row, currRate_GSINVOICE_VALU);
+	//	String currRate_GSINVOICE_VALU_String = ExcelPoi.getString(row, currRate_GSINVOICE_VALU);
 
 		GsInvoice gsInv = new GsInvoice();
 		gsInv.setCurrency_code(currCode_GSINVOICE_VALU_String);

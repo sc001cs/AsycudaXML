@@ -44,7 +44,8 @@ public class ListItemElaborate {
 		pack.setNumber_of_packages(numbPackages_PACK_ITEM_String);
 		pack.setKind_of_packages_code(kindPackCode_PACK_ITEM_String);
 		
-		if(kindPackCode_PACK_ITEM_String.equals("52"))
+		if(kindPackCode_PACK_ITEM_String != null 
+				&& kindPackCode_PACK_ITEM_String.equals("52"))
 			pack.setKind_of_packages_name("Arka derrase");
 		else
 			pack.setKind_of_packages_name(kindPackName_PACK_ITEM_String);
@@ -136,7 +137,6 @@ public class ListItemElaborate {
 		int natCustomProc_TARIF_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "natCustomProc_TARIF_ITEM");
 		int itemPrice_TARIF_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "itemPrice_TARIF_ITEM");
 		int valItm_TARIF_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "valItm_TARIF_ITEM");
-		int prevDocRef_PREVDOC_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "prevDocRef_PREVDOC_ITEM");
 		int Attached_doc_item = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Attached_doc_item");
 		
 		String code_PREF_TARIF_ITEM_String = ExcelPoi.getString(row, code_PREF_TARIF_ITEM);
@@ -144,7 +144,6 @@ public class ListItemElaborate {
 		String natCustomProc_TARIF_ITEM_String = ExcelPoi.getString(row, natCustomProc_TARIF_ITEM);
 		String itemPrice_TARIF_ITEM_String = ExcelPoi.getString(row, itemPrice_TARIF_ITEM);
 		String valItm_TARIF_ITEM_String = ExcelPoi.getString(row, valItm_TARIF_ITEM);
-		String prevDocRef_PREVDOC_ITEM_String = ExcelPoi.getString(row, prevDocRef_PREVDOC_ITEM);
 		String Attached_doc_item_String = ExcelPoi.getString(row, Attached_doc_item);
 		
 		tar.setPreference_code(code_PREF_TARIF_ITEM_String);
@@ -191,10 +190,8 @@ public class ListItemElaborate {
 	 */
 	public ValuationItem getSetTotals(Row row, ValuationItem vItem, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
-		int Total_cost_itm_VALITEM_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Total_cost_itm_VALITEM_ITEM");
 		int Rate_of_adjustement_VALITEM_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Rate_of_adjustement_VALITEM_ITEM");
 		
-		String Total_cost_itm_VALITEM_ITEM_String = ExcelPoi.getString(row, Total_cost_itm_VALITEM_ITEM);
 		String Rate_of_adjustement_VALITEM_ITEM_String = ExcelPoi.getString(row, Rate_of_adjustement_VALITEM_ITEM);
 		
 		BigDecimal totCIFitm = BigDecimal.ZERO;
