@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import configuration.ConfigFileExcel;
@@ -20,6 +21,9 @@ public class GenerateXMLFINAL {
 
 	public static void main(String[] args) {
 
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_mm-ss");
+		String sCertDate = dateFormat.format(new Date());
+		
 		ConfigFileExcel configFileExcel = new ConfigFileExcel();
 		GeneralInfoExcel genInfoExcel = new GeneralInfoExcel();
 		
@@ -28,8 +32,8 @@ public class GenerateXMLFINAL {
 		ListItemsPositionCell listItemsPosCell = new ListItemsPositionCell();
 		Asycuda ASYCUDA = new Asycuda();
 		String utf8 = "UTF-8";
-		String nameFile = "D:\\MultiItems.xlsx";
-		String fileOutput = "D:\\MultiItems.xml";
+		String nameFile = "E:\\MultiItems.xlsx";
+		String fileOutput = "E:\\asycudaXML_"+ sCertDate +".xml";
 		String finalXML = "";
 		HashMap<Integer, String> hmGenInfoColsNameAndPosit = genInfoPosCell.hmGenInfoColsName();
 		HashMap<Integer, String> hmListItemsColsNameAndPosit = listItemsPosCell.hmListItemsColsName();
@@ -61,7 +65,4 @@ public class GenerateXMLFINAL {
 		}
 		
 	}
-
-
-
 }

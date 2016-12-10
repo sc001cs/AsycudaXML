@@ -131,6 +131,9 @@ public class GeneralInfoElaborate {
 
 		String number_REFER_DECLAR_String = ExcelPoi.getString(row, number_REFER_DECLAR);
 
+		if(number_REFER_DECLAR_String == null || number_REFER_DECLAR_String.equals(""))
+			number_REFER_DECLAR_String = "null";
+		
 		Reference ref = new Reference();
 		ref.setNumber(number_REFER_DECLAR_String);
 
@@ -312,15 +315,15 @@ public class GeneralInfoElaborate {
 	 */
 	public DepartureArrivalInformation getValueDepartureArrivalInformation(Row row, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
-		int identity_BORDERINFO_MEANTRANSP_TRANSP = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "identity_BORDERINFO_MEANTRANSP_TRANSP");
-		int nationality_BORDERINFO_MEANTRANSP_TRANSP = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "nationality_BORDERINFO_MEANTRANSP_TRANSP");
+		int identity_MEANTRANSP_TRANSP = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "identity_MEANTRANSP_TRANSP");
+		int nationality_MEANTRANSP_TRANSP = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "nationality_MEANTRANSP_TRANSP");
 
-		String identity_BORDERINFO_MEANTRANSP_TRANSP_String = ExcelPoi.getString(row, identity_BORDERINFO_MEANTRANSP_TRANSP);
-		String nationality_BORDERINFO_MEANTRANSP_TRANSP_String = ExcelPoi.getString(row, nationality_BORDERINFO_MEANTRANSP_TRANSP);
+		String identity_MEANTRANSP_TRANSP_String = ExcelPoi.getString(row, identity_MEANTRANSP_TRANSP);
+		String nationality_MEANTRANSP_TRANSP_String = ExcelPoi.getString(row, nationality_MEANTRANSP_TRANSP);
 
 		DepartureArrivalInformation dai = new DepartureArrivalInformation();
-		dai.setIdentity(identity_BORDERINFO_MEANTRANSP_TRANSP_String);
-		dai.setNationality(nationality_BORDERINFO_MEANTRANSP_TRANSP_String);
+		dai.setIdentity(identity_MEANTRANSP_TRANSP_String);
+		dai.setNationality(nationality_MEANTRANSP_TRANSP_String);
 
 		genInfoValid.validCellValDepartureArrivalInformation(dai, hmGenInfoColsNameAndPosit);
 

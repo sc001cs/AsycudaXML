@@ -276,16 +276,16 @@ public class GeneralInfoValidation {
 				dai.getIdentity().equals("")) {
 
 			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: identity_BORDERINFO_MEANTRANSP_TRANSP -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "identity_BORDERINFO_MEANTRANSP_TRANSP"));
+					+ "Please fill out: identity_MEANTRANSP_TRANSP -- Sheet1 Cell " + 
+					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "identity_MEANTRANSP_TRANSP"));
 		}
 		
 		if(dai.getNationality() == null || 
 				dai.getNationality().equals("")) {
 
 			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: nationality_BORDERINFO_MEANTRANSP_TRANSP -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "nationality_BORDERINFO_MEANTRANSP_TRANSP"));
+					+ "Please fill out: nationality_MEANTRANSP_TRANSP -- Sheet1 Cell " + 
+					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "nationality_MEANTRANSP_TRANSP"));
 		}
 		
 	}

@@ -373,7 +373,7 @@ public class GeneralInfoExcel {
 
 		fin.setTerms(terms);
 
-		// mund te jete e njete me Consignee_code
+		// i njete me Consignee_code
 		if(ASYCUDA.getTraders() != null
 				&& ASYCUDA.getTraders().getConsignee() != null
 				&& ASYCUDA.getTraders().getConsignee().getConsignee_code() != null)
