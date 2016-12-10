@@ -108,7 +108,7 @@ public class GeneralInfoPositionCell {
 		listGenInfoColsName.add("countrFirstDest_COUNTR_GENERINFO");
 		listGenInfoColsName.add("tradingCountr_COUNTR_GENERINFO");
 		
-		listGenInfoColsName.add("valueDetails_GENERINFO");
+	//	listGenInfoColsName.add("valueDetails_GENERINFO");
 		
 		listGenInfoColsName.add("");
 		

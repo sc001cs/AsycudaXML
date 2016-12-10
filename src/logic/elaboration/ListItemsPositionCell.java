@@ -103,6 +103,9 @@ public class ListItemsPositionCell {
 		listItemsColsName.add("Attached_doc_item");
 		listItemsColsName.add("prevDocRef_PREVDOC_ITEM");
 		
+		listItemsColsName.add("Suppplementary_unit_code");
+		listItemsColsName.add("Suppplementary_unit_quantity");
+		
 		HashMap<Integer, String> hmCollectionCosName = new HashMap<Integer, String>();
 		
 		int count = 0;

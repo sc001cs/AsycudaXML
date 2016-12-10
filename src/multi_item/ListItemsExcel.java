@@ -45,6 +45,8 @@ import enitity.asycuda.valuationItem_childs.WeightItm;
 
 public class ListItemsExcel {
 
+	ConfigFileExcel confFileExcel = new ConfigFileExcel();
+	
 	/**
 	 * FUSHA PA SPECIFIKIM TE QARTE NE XML DHE EXCEL
 	 * PER VERIFIKIM
@@ -147,13 +149,24 @@ public class ListItemsExcel {
 
 			tar.setQuota(q);
 
+			int Suppplementary_unit_code = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Suppplementary_unit_code");
+			String Suppplementary_unit_code_String = ExcelPoi.getString(row, Suppplementary_unit_code);
+			
+			int Suppplementary_unit_quantity = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Suppplementary_unit_quantity");
+			String Suppplementary_unit_quantity_String = ExcelPoi.getString(row, Suppplementary_unit_quantity);
+			
+			SupplementaryUnit suppUnit = new SupplementaryUnit();
+			suppUnit.setSuppplementary_unit_code(Suppplementary_unit_code_String);
+			suppUnit.setSuppplementary_unit_quantity(Suppplementary_unit_quantity_String);
+			
 			List<SupplementaryUnit> listSuppUn = new ArrayList<SupplementaryUnit>();
-			for (int i = 0; i < 3; i++) {
+			listSuppUn.add(suppUnit);
+			for (int i = 0; i < 2; i++) {
 
-				SupplementaryUnit suppUnit = new SupplementaryUnit();
-				suppUnit.setSuppplementary_unit_code("null");
+				SupplementaryUnit suppUnit1 = new SupplementaryUnit();
+				suppUnit1.setSuppplementary_unit_code("null");
 
-				listSuppUn.add(suppUnit);
+				listSuppUn.add(suppUnit1);
 			}
 			tar.setSupplementary_unit(listSuppUn);
 

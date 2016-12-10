@@ -282,8 +282,10 @@ public class GeneralInfoExcel {
 		 * SHEET: GENERAL INFO
 		 * COLUMNS: 17
 		 * - valueDetails_GENERINFO (mandatory)
+		 * 
+		 * E PLOTESON VETE SISTEMI
 		 * */
-		genInfo.setValue_details(genInfoElab.getValueDetailGeneralInfo(row, hmGenInfoColsNameAndPosit));
+	//	genInfo.setValue_details(genInfoElab.getValueDetailGeneralInfo(row, hmGenInfoColsNameAndPosit));
 
 		genInfo.setAdditional_information("null");
 		genInfo.setComments_free_text("null");
