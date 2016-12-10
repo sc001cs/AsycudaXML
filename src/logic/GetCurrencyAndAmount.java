@@ -33,7 +33,7 @@ public class GetCurrencyAndAmount {
 	}
 	*/
 
-	public String getCurrencyExchange() {
+	public String getCurrencyExchangeBSH() {
 
 		// Declaration of variables
 		String urlBankaShqip = "https://www.bankofalbania.org/web/kursi_i_kembimit_2014_1.php";
@@ -99,7 +99,7 @@ public class GetCurrencyAndAmount {
 		}
 	}
 	
-	public BigDecimal calcAmountNationalCurr(String amountForegCurr, String currCode) {
+	public BigDecimal calcAmountNationalCurr(String amountForegCurr, String currCode, String currencyExchangeRoot) {
 
 		String currString = "";
 		BigDecimal amountNationalCurr = null;
@@ -123,7 +123,7 @@ public class GetCurrencyAndAmount {
 		if(currCode.equalsIgnoreCase("EUR")) {
 
 			GetCurrencyAndAmount currency = new GetCurrencyAndAmount();
-			String currencyExchange = currency.getCurrencyExchange();
+			String currencyExchange = currencyExchangeRoot;
 			
 			currString = currency.getCurrency(currCode, currencyExchange);
 		}

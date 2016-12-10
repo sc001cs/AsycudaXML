@@ -56,12 +56,11 @@ public class ListItemsExcel {
 
 	private int ROW = 3;
 
-	public Asycuda writeValueListItems(byte[] byteExcel, Asycuda ASYCUDA, HashMap<Integer, String> hmListItemColsNameAndPosit) {
+	public Asycuda writeValueListItems(byte[] byteExcel, Asycuda ASYCUDA, String currencyExchangeRoot, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
 		ListItemElaborate itemElab = new ListItemElaborate();
 		ListItemElabGS itemElabGS = new ListItemElabGS();
-		GetCurrencyAndAmount currency = new GetCurrencyAndAmount();
-		String currencyExchange = currency.getCurrencyExchange();
+		String currencyExchange = currencyExchangeRoot;
 
 		Sheet sheet = null;
 		try {
@@ -223,22 +222,22 @@ public class ListItemsExcel {
 
 			vItem.setWeight_itm(wItm);
 
-			ItemInvoice itmInv = itemElabGS.getItemInvoiceValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
+			ItemInvoice itmInv = itemElabGS.getItemInvoiceValChilds(row, ASYCUDA, currencyExchangeRoot, hmListItemColsNameAndPosit);
 			vItem.setItem_Invoice(itmInv);
 
-			ItemExternalFreight itmFreig = itemElabGS.getItemItemExternalFreightValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
+			ItemExternalFreight itmFreig = itemElabGS.getItemItemExternalFreightValChilds(row, ASYCUDA, currencyExchangeRoot, hmListItemColsNameAndPosit);
 			vItem.setItem_external_freight(itmFreig);
 
-			ItemInternalFreight itmInternalFreig = itemElabGS.getItemItemInternalFreightValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
+			ItemInternalFreight itmInternalFreig = itemElabGS.getItemItemInternalFreightValChilds(row, ASYCUDA, currencyExchangeRoot, hmListItemColsNameAndPosit);
 			vItem.setItem_internal_freight(itmInternalFreig);
 
-			ItemInsurance itmInsur = itemElabGS.getItemItemInsuranceValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
+			ItemInsurance itmInsur = itemElabGS.getItemItemInsuranceValChilds(row, ASYCUDA, currencyExchangeRoot, hmListItemColsNameAndPosit);
 			vItem.setItem_insurance(itmInsur);
 
-			ItemOtherCost itmOthCost = itemElabGS.getItemOtherCostValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
+			ItemOtherCost itmOthCost = itemElabGS.getItemOtherCostValChilds(row, ASYCUDA, currencyExchangeRoot, hmListItemColsNameAndPosit);
 			vItem.setItem_other_cost(itmOthCost);
 
-			ItemDeduction itmDeduc = itemElabGS.getItemDeductionValChilds(row, ASYCUDA, hmListItemColsNameAndPosit);
+			ItemDeduction itmDeduc = itemElabGS.getItemDeductionValChilds(row, ASYCUDA, currencyExchangeRoot, hmListItemColsNameAndPosit);
 			vItem.setItem_deduction(itmDeduc);
 
 			MarketValuer mValue = new MarketValuer();

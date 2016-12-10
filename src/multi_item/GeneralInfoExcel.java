@@ -93,12 +93,11 @@ public class GeneralInfoExcel {
 	 * @param byteExcel
 	 * @return Asycuda populated first sheet
 	 */
-	public Asycuda writeValueFromGeneralInfoExcel(byte[] byteExcel, HashMap<Integer, String> hmGenInfoColsNameAndPosit, HashMap<Integer, String> hmListItemsColsNameAndPosit) {
+	public Asycuda writeValueFromGeneralInfoExcel(byte[] byteExcel, String currencyExchangeRoot, HashMap<Integer, String> hmGenInfoColsNameAndPosit, HashMap<Integer, String> hmListItemsColsNameAndPosit) {
 
 		GeneralInfoElabGS genInfoElabGS = new GeneralInfoElabGS();
 		GeneralInfoElaborate genInfoElab = new GeneralInfoElaborate();
-		GetCurrencyAndAmount currency = new GetCurrencyAndAmount();
-		String currencyExchange = currency.getCurrencyExchange();
+		String currencyExchange = currencyExchangeRoot;
 
 		Sheet sheet = null;
 		try {
@@ -456,7 +455,7 @@ public class GeneralInfoExcel {
 		  |------------------------------------------|*/
 		ListItemsExcel listItemsExcel = new ListItemsExcel();
 		
-		ASYCUDA = listItemsExcel.writeValueListItems(byteExcel, ASYCUDA, hmListItemsColsNameAndPosit);
+		ASYCUDA = listItemsExcel.writeValueListItems(byteExcel, ASYCUDA, currencyExchange, hmListItemsColsNameAndPosit);
 		
 		/**
 		 * SHEET: GENERAL INFO

@@ -13,6 +13,7 @@ import java.util.*;
 import configuration.ConfigFileExcel;
 import configuration.ConvertObjectToXMLString;
 import enitity.Asycuda;
+import logic.GetCurrencyAndAmount;
 import logic.elaboration.GeneralInfoPositionCell;
 import logic.elaboration.ListItemsPositionCell;
 import multi_item.GeneralInfoExcel;
@@ -21,11 +22,13 @@ public class GenerateXMLFINAL {
 
 	public static void main(String[] args) {
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_mm-ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_hh_mm-ss");
 		String sCertDate = dateFormat.format(new Date());
 		
 		ConfigFileExcel configFileExcel = new ConfigFileExcel();
 		GeneralInfoExcel genInfoExcel = new GeneralInfoExcel();
+		GetCurrencyAndAmount currAndAmount = new GetCurrencyAndAmount();
+		String currencyExchange = currAndAmount.getCurrencyExchangeBSH();
 		
 		ConvertObjectToXMLString objToXMLString = new ConvertObjectToXMLString();
 		GeneralInfoPositionCell genInfoPosCell = new GeneralInfoPositionCell();
@@ -44,7 +47,7 @@ public class GenerateXMLFINAL {
 		 * ASYCUDA: THE FIRST SHEET  -> GENERAL INFO
 		 *  		THE SECOND SHEET -> LIST ITEMS
 		 * -----------------------------------------*/
-		ASYCUDA = genInfoExcel.writeValueFromGeneralInfoExcel(byteExcel, hmGenInfoColsNameAndPosit, hmListItemsColsNameAndPosit);
+		ASYCUDA = genInfoExcel.writeValueFromGeneralInfoExcel(byteExcel, currencyExchange, hmGenInfoColsNameAndPosit, hmListItemsColsNameAndPosit);
 
 
 		/* --------------------------------------

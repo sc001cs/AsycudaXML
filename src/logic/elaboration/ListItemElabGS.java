@@ -21,13 +21,12 @@ public class ListItemElabGS {
 	ListItemValidation itemValid = new ListItemValidation();
 	ConfigFileExcel confFileExcel = new ConfigFileExcel();
 	GetCurrencyAndAmount currency = new GetCurrencyAndAmount();
-	String currencyExchange = currency.getCurrencyExchange();
 	
 	/**
 	 * @param row
 	 * @return ItemInvoice Valutation Childs 
 	 */
-	public ItemInvoice getItemInvoiceValChilds(Row row, Asycuda asycuda, HashMap<Integer, String> hmListItemColsNameAndPosit) {
+	public ItemInvoice getItemInvoiceValChilds(Row row, Asycuda asycuda, String currencyExchange, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
 		int Amount_foreign_currency_Invoice = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Amount_foreign_currency_Invoice");
 		int Currency_code_Invoice = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Currency_code_Invoice");
@@ -54,7 +53,7 @@ public class ListItemElabGS {
 
 		itmInv.setCurrency_code(Currency_code_Invoice_String);	
 		
-		itmInv.setAmount_national_currency(currency.calcAmountNationalCurr(Amount_foreign_currency_Invoice_String, Currency_code_Invoice_String));
+		itmInv.setAmount_national_currency(currency.calcAmountNationalCurr(Amount_foreign_currency_Invoice_String, Currency_code_Invoice_String, currencyExchange));
 		itmInv.setCurrency_rate(currency.getCurrency(Currency_code_Invoice_String, currencyExchange));	
 
 		itemValid.validItemInvoiceValChilds(itmInv, hmListItemColsNameAndPosit);
@@ -66,7 +65,7 @@ public class ListItemElabGS {
 	 * @param row
 	 * @return ItemExternalFreight Valutation Childs 
 	 */
-	public ItemExternalFreight getItemItemExternalFreightValChilds(Row row, Asycuda asycuda, HashMap<Integer, String> hmListItemColsNameAndPosit) {
+	public ItemExternalFreight getItemItemExternalFreightValChilds(Row row, Asycuda asycuda, String currencyExchange, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
 		int Amount_foreign_currency_ext_frei = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Amount_foreign_currency_ext_frei");
 		int Currency_code_ext_frei = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Currency_code_ext_frei");
@@ -93,7 +92,7 @@ public class ListItemElabGS {
 			Currency_code_ext_frei_String = asycuda.getValuation().getGs_Invoice().getCurrency_code();
 		
 		itmFreig.setCurrency_code(Currency_code_ext_frei_String);	
-		itmFreig.setAmount_national_currency(currency.calcAmountNationalCurr(Amount_foreign_currency_ext_frei_String, Currency_code_ext_frei_String));
+		itmFreig.setAmount_national_currency(currency.calcAmountNationalCurr(Amount_foreign_currency_ext_frei_String, Currency_code_ext_frei_String, currencyExchange));
 
 		itmFreig.setCurrency_rate(currency.getCurrency(Currency_code_ext_frei_String, currencyExchange));	
 
@@ -107,7 +106,7 @@ public class ListItemElabGS {
 	 * @param row
 	 * @return ItemInternalFreight Valutation Childs 
 	 */
-	public ItemInternalFreight getItemItemInternalFreightValChilds(Row row, Asycuda asycuda, HashMap<Integer, String> hmListItemColsNameAndPosit) {
+	public ItemInternalFreight getItemItemInternalFreightValChilds(Row row, Asycuda asycuda, String currencyExchange, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
 		int Amount_foreign_currency_inter_frei = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Amount_foreign_currency_inter_frei");
 		int Currency_code_inter_frei = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Currency_code_inter_frei");
@@ -134,7 +133,7 @@ public class ListItemElabGS {
 			Currency_code_inter_frei_String = asycuda.getValuation().getGs_Invoice().getCurrency_code();
 		
 		itmInternalFreig.setCurrency_code(Currency_code_inter_frei_String);	
-		itmInternalFreig.setAmount_national_currency(currency.calcAmountNationalCurr(Amount_foreign_currency_inter_frei_String, Currency_code_inter_frei_String));
+		itmInternalFreig.setAmount_national_currency(currency.calcAmountNationalCurr(Amount_foreign_currency_inter_frei_String, Currency_code_inter_frei_String, currencyExchange));
 
 		itmInternalFreig.setCurrency_rate(currency.getCurrency(Currency_code_inter_frei_String, currencyExchange));	
 
@@ -147,7 +146,7 @@ public class ListItemElabGS {
 	 * @param row
 	 * @return ItemInsurance Valutation Childs 
 	 */
-	public ItemInsurance getItemItemInsuranceValChilds(Row row, Asycuda asycuda, HashMap<Integer, String> hmListItemColsNameAndPosit) {
+	public ItemInsurance getItemItemInsuranceValChilds(Row row, Asycuda asycuda, String currencyExchange, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
 		int Amount_foreign_currency_ins = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Amount_foreign_currency_ins");
 		int Currency_code_ins = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Currency_code_ins");
@@ -174,7 +173,7 @@ public class ListItemElabGS {
 			Currency_code_ins_String = asycuda.getValuation().getGs_Invoice().getCurrency_code();
 		
 		itmInsur.setCurrency_code(Currency_code_ins_String);	
-		itmInsur.setAmount_national_currency(currency.calcAmountNationalCurr(Amount_foreign_currency_ins_String, Currency_code_ins_String));
+		itmInsur.setAmount_national_currency(currency.calcAmountNationalCurr(Amount_foreign_currency_ins_String, Currency_code_ins_String, currencyExchange));
 
 		itmInsur.setCurrency_rate(currency.getCurrency(Currency_code_ins_String, currencyExchange));	
 
@@ -187,7 +186,7 @@ public class ListItemElabGS {
 	 * @param row
 	 * @return ItemInsurance Valutation Childs 
 	 */
-	public ItemOtherCost getItemOtherCostValChilds(Row row, Asycuda asycuda, HashMap<Integer, String> hmListItemColsNameAndPosit) {
+	public ItemOtherCost getItemOtherCostValChilds(Row row, Asycuda asycuda, String currencyExchange, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
 		int Amount_foreign_currency_other_cost = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Amount_foreign_currency_other_cost");
 		int Currency_code_other_cost = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Currency_code_other_cost");
@@ -214,7 +213,7 @@ public class ListItemElabGS {
 			Currency_code_other_cost_String = asycuda.getValuation().getGs_Invoice().getCurrency_code();
 		
 		itmOthCost.setCurrency_code(Currency_code_other_cost_String);	
-		itmOthCost.setAmount_national_currency(currency.calcAmountNationalCurr(Amount_foreign_currency_other_cost_String, Currency_code_other_cost_String));
+		itmOthCost.setAmount_national_currency(currency.calcAmountNationalCurr(Amount_foreign_currency_other_cost_String, Currency_code_other_cost_String, currencyExchange));
 
 		itmOthCost.setCurrency_rate(currency.getCurrency(Currency_code_other_cost_String, currencyExchange));	
 
@@ -227,7 +226,7 @@ public class ListItemElabGS {
 	 * @param row
 	 * @return ItemDeduction Valutation Childs 
 	 */
-	public ItemDeduction getItemDeductionValChilds(Row row, Asycuda asycuda, HashMap<Integer, String> hmListItemColsNameAndPosit) {
+	public ItemDeduction getItemDeductionValChilds(Row row, Asycuda asycuda, String currencyExchange, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
 		int Amount_foreign_currency_deduc = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Amount_foreign_currency_deduc");
 		int Currency_code_deduc = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Currency_code_deduc");
@@ -254,7 +253,7 @@ public class ListItemElabGS {
 			Currency_code_deduc_String = asycuda.getValuation().getGs_Invoice().getCurrency_code();
 		
 		itmDeduc.setCurrency_code(Amount_foreign_currency_deduc_String);	
-		itmDeduc.setAmount_national_currency(currency.calcAmountNationalCurr(Amount_foreign_currency_deduc_String, Currency_code_deduc_String));
+		itmDeduc.setAmount_national_currency(currency.calcAmountNationalCurr(Amount_foreign_currency_deduc_String, Currency_code_deduc_String, currencyExchange));
 
 		itmDeduc.setCurrency_rate(currency.getCurrency(Currency_code_deduc_String, currencyExchange));	
 
