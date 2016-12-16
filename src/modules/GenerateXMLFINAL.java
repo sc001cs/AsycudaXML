@@ -24,7 +24,7 @@ import multi_item.GeneralInfoExcel;
 
 public class GenerateXMLFINAL {
 
-	public void startGeneration(String nameFile, String pathFolder, MyNumber myNum) {
+	public void startGeneration(String nameFile, String pathFolder) {
 
 		ConfigFileExcel configFileExcel = new ConfigFileExcel();
 		ConfigXML configXML = configFileExcel.getConfigXML();
@@ -53,22 +53,19 @@ public class GenerateXMLFINAL {
 		HashMap<Integer, String> hmGenInfoColsNameAndPosit = genInfoPosCell.hmGenInfoColsName();
 		HashMap<Integer, String> hmListItemsColsNameAndPosit = listItemsPosCell.hmListItemsColsName();
 		
-		myNum.setNumber(0.2);
 		byte[] byteExcel = configFileExcel.getByteFromFile(nameFile);
 		
 		/* ------------------------------------------
 		 * ASYCUDA: THE FIRST SHEET  -> GENERAL INFO
 		 *  		THE SECOND SHEET -> LIST ITEMS
 		 * -----------------------------------------*/
-		ASYCUDA = genInfoExcel.writeValueFromGeneralInfoExcel(byteExcel, currencyExchange, hmGenInfoColsNameAndPosit, hmListItemsColsNameAndPosit, myNum);
+		ASYCUDA = genInfoExcel.writeValueFromGeneralInfoExcel(byteExcel, currencyExchange, hmGenInfoColsNameAndPosit, hmListItemsColsNameAndPosit);
 
 
 		/* --------------------------------------
 		 * CONSOLE: PRINT OUT THE ASYCUDA OBJECT
 		 * --------------------------------------*/
 		finalXML = objToXMLString.convertObjectXML(ASYCUDA);
-		
-		myNum.setNumber(0.7);
 		
 		// Create and write the XML file 
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
@@ -82,6 +79,5 @@ public class GenerateXMLFINAL {
 			e.printStackTrace();
 		}
 		
-		myNum.setNumber(0.8);
 	}
 }

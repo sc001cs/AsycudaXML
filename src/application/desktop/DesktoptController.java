@@ -9,30 +9,28 @@ import java.util.ResourceBundle;
 
 import configuration.ConfigFileExcel;
 import configuration.xml.ConfigXML;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
-import logic.MyNumber;
+import logic.MyString;
 import modules.GenerateXMLFINAL;
 
 public class DesktoptController implements Initializable {
 
 	@FXML private Button btnUploadExcel;
 	@FXML private ListView listXMLConverted;
-	@FXML private Label lblLoading;
-	@FXML private ProgressBar progBarLoading;
-	
-	final MyNumber myNum = new MyNumber();
-	private BooleanProperty visibleProgress = new SimpleBooleanProperty(false);
+	@FXML private Label lblConverting;
 	
 	GenerateXMLFINAL genXML = new GenerateXMLFINAL();
 	ConfigFileExcel configFileExcel = new ConfigFileExcel();
@@ -59,31 +57,14 @@ public class DesktoptController implements Initializable {
 		File fileExcel = fileChooser.showOpenDialog(null);
 		
 		if(fileExcel != null) {
-			
-			visibleProgress.set(true);
-			
-			myNum.setNumber(0);
-			myNum.numberProperty().addListener(new ChangeListener<Object>() {
-				@Override
-				public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
-					progBarLoading.progressProperty().bind(myNum.numberProperty());
-				}
-			});
-			
-			genXML.startGeneration(fileExcel.getAbsolutePath(), pathFolder, myNum);
 
-			myNum.setNumber(0.9);
-			
+			genXML.startGeneration(fileExcel.getAbsolutePath(), pathFolder);
+
 			addItemXMLToList(pathFolder);
-			
-			myNum.setNumber(1.0);
-			
-			visibleProgress.set(false);
 			
 		} else {
 			// the file is wrong
 		}
-		
 	}
 
 	private void addItemXMLToList(String pathFolder) {
@@ -115,9 +96,6 @@ public class DesktoptController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		visibleProgress.set(false);
-		progBarLoading.visibleProperty().bind(visibleProgress);
 		
 		/**
 		 * Create the Folder if not exist and add the file generated

@@ -12,34 +12,32 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import security.Encrypt;
+import security.SerialNumber;
 
 public class LoginController implements Initializable {
 
 	@FXML private TextField tfID;
 	@FXML private TextField tfPassword;
 	@FXML private Label lblWarning;
+	
+	SerialNumber sn = null;
 
 	public void login(ActionEvent event) {
 
 		// Reset 
 		lblWarning.setText("");
 
-		if(tfID.getText().trim().equals("") 
-				&& tfPassword.getText().trim().equals("")) {
-			lblWarning.setText("Vendosni ID dhe password-in");
-		} else if(tfID.getText().trim().equals("")) {
-			lblWarning.setText("Vendosni ID");
-		} else if(tfPassword.getText().trim().equals("")) {
+		if(tfPassword.getText().trim().equals("")) {
 			lblWarning.setText("Vendosni password-in");
-		} else if(tfID.getText().equals("1") 
-				&& tfPassword.getText().equals("1")) {
+		} else if(tfPassword.getText().equals(catchIt())) {
 
 			try {
 				
 				((Node)event.getSource()).getScene().getWindow().hide();
 				Stage desktop = new Stage();
 				Parent root = FXMLLoader.load(getClass().getResource("/application/desktop/Desktop.fxml"));
-				Scene scene = new Scene(root, 550, 400);
+				Scene scene = new Scene(root, 750, 500);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				desktop.setScene(scene);
 				desktop.setResizable(false);
@@ -59,8 +57,30 @@ public class LoginController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+
+		// Reset 
+		lblWarning.setText("");
 		
+		sn = new SerialNumber();
+		String sn = SerialNumber.getSerialNumber("C");
+		String snShort = sn;
+		if(sn.length() > 5)
+			snShort = sn.substring(0, 5);
+		
+		tfID.setText(snShort);
+		tfID.setEditable(false);
 	}
 
+	private String catchIt() {
+		
+		String id = tfID.getText();
+		if(id == null || id.trim().equals("")) {
+			id = "catchIt";
+		}
+		
+		Encrypt enc = new Encrypt();
+		
+		return enc.encrypt(id);
+	}
+	
 }

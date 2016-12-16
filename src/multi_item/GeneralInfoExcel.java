@@ -95,7 +95,7 @@ public class GeneralInfoExcel {
 	 * @param byteExcel
 	 * @return Asycuda populated first sheet
 	 */
-	public Asycuda writeValueFromGeneralInfoExcel(byte[] byteExcel, String currencyExchangeRoot, HashMap<Integer, String> hmGenInfoColsNameAndPosit, HashMap<Integer, String> hmListItemsColsNameAndPosit, MyNumber myNum) {
+	public Asycuda writeValueFromGeneralInfoExcel(byte[] byteExcel, String currencyExchangeRoot, HashMap<Integer, String> hmGenInfoColsNameAndPosit, HashMap<Integer, String> hmListItemsColsNameAndPosit) {
 
 		GeneralInfoElabGS genInfoElabGS = new GeneralInfoElabGS();
 		GeneralInfoElaborate genInfoElab = new GeneralInfoElaborate();
@@ -109,7 +109,6 @@ public class GeneralInfoExcel {
 			System.err.println("Can't create Workbook object");
 			e.printStackTrace();
 		}
-		myNum.setNumber(0.3);
 		
 		Row row = sheet.getRow(ROW);
 
@@ -458,7 +457,6 @@ public class GeneralInfoExcel {
 		  |------------------------------------------|*/
 		ListItemsExcel listItemsExcel = new ListItemsExcel();
 		
-		myNum.setNumber(0.4);
 		ASYCUDA = listItemsExcel.writeValueListItems(byteExcel, ASYCUDA, currencyExchange, hmListItemsColsNameAndPosit);
 		
 		/**
