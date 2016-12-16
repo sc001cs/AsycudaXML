@@ -8,6 +8,7 @@ import java.util.List;
 
 import logic.ExcelPoi;
 import logic.GetCurrencyAndAmount;
+import logic.MyNumber;
 import logic.elaboration.GeneralInfoElabGS;
 import logic.elaboration.GeneralInfoElaborate;
 
@@ -68,6 +69,7 @@ import enitity.asycuda.valuation_childs.GsInvoice;
 import enitity.asycuda.valuation_childs.GsOtherCost;
 import enitity.asycuda.valuation_childs.Total;
 import enitity.asycuda.valuation_childs.Weight;
+import javafx.scene.control.ProgressBar;
 
 
 public class GeneralInfoExcel {
@@ -93,7 +95,7 @@ public class GeneralInfoExcel {
 	 * @param byteExcel
 	 * @return Asycuda populated first sheet
 	 */
-	public Asycuda writeValueFromGeneralInfoExcel(byte[] byteExcel, String currencyExchangeRoot, HashMap<Integer, String> hmGenInfoColsNameAndPosit, HashMap<Integer, String> hmListItemsColsNameAndPosit) {
+	public Asycuda writeValueFromGeneralInfoExcel(byte[] byteExcel, String currencyExchangeRoot, HashMap<Integer, String> hmGenInfoColsNameAndPosit, HashMap<Integer, String> hmListItemsColsNameAndPosit, MyNumber myNum) {
 
 		GeneralInfoElabGS genInfoElabGS = new GeneralInfoElabGS();
 		GeneralInfoElaborate genInfoElab = new GeneralInfoElaborate();
@@ -107,7 +109,8 @@ public class GeneralInfoExcel {
 			System.err.println("Can't create Workbook object");
 			e.printStackTrace();
 		}
-
+		myNum.setNumber(0.3);
+		
 		Row row = sheet.getRow(ROW);
 
 		Asycuda ASYCUDA = new Asycuda();
@@ -455,6 +458,7 @@ public class GeneralInfoExcel {
 		  |------------------------------------------|*/
 		ListItemsExcel listItemsExcel = new ListItemsExcel();
 		
+		myNum.setNumber(0.4);
 		ASYCUDA = listItemsExcel.writeValueListItems(byteExcel, ASYCUDA, currencyExchange, hmListItemsColsNameAndPosit);
 		
 		/**

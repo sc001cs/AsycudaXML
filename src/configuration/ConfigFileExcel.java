@@ -70,11 +70,11 @@ public class ConfigFileExcel {
 		return index;
 	}
 	
-	public ConfigXML getConfigXML(String rootLoc) {
+	public ConfigXML getConfigXML() {
 
 		try {  
 			
-			String configLoc = rootLoc + "configuration/xml/config.xml";
+			String configLoc = "C:\\config.xml";
 			
 			File file = new File(configLoc);  
 			JAXBContext jaxbContext = JAXBContext.newInstance(ConfigXML.class);  

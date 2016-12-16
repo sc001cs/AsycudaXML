@@ -7,12 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import logic.ExcelPoi;
-import logic.GetCurrencyAndAmount;
 import logic.elaboration.ListItemElabGS;
 import logic.elaboration.ListItemElaborate;
 
-import org.apache.commons.codec.binary.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -275,7 +272,6 @@ public class ListItemsExcel {
 		String Amount_foreign_currency_Invoice_String = ExcelPoi.getString(row, Amount_foreign_currency_Invoice);
 		
 		if(Amount_foreign_currency_Invoice_String == null 
-				&& !NumberUtils.isNumber(Amount_foreign_currency_Invoice_String)
 				|| Amount_foreign_currency_Invoice_String.equals("0") 
 				|| Amount_foreign_currency_Invoice_String.equals("0.0")) {
 			return false;

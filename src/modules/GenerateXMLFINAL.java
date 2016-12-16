@@ -1,6 +1,7 @@
 package modules;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,19 +15,19 @@ import configuration.ConfigFileExcel;
 import configuration.ConvertObjectToXMLString;
 import configuration.xml.ConfigXML;
 import enitity.Asycuda;
+import javafx.scene.control.ProgressBar;
 import logic.GetCurrencyAndAmount;
+import logic.MyNumber;
 import logic.elaboration.GeneralInfoPositionCell;
 import logic.elaboration.ListItemsPositionCell;
 import multi_item.GeneralInfoExcel;
 
 public class GenerateXMLFINAL {
 
-	public static void main(String[] args) {
+	public void startGeneration(String nameFile, String pathFolder, MyNumber myNum) {
 
-		String rootLoc = ConfigFileExcel.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-		
 		ConfigFileExcel configFileExcel = new ConfigFileExcel();
-		ConfigXML configXML = configFileExcel.getConfigXML(rootLoc);
+		ConfigXML configXML = configFileExcel.getConfigXML();
 		
 		if(configXML == null) {
 			System.err.println("File config xml not found!");
@@ -46,19 +47,20 @@ public class GenerateXMLFINAL {
 		ListItemsPositionCell listItemsPosCell = new ListItemsPositionCell();
 		Asycuda ASYCUDA = new Asycuda();
 		String utf8 = configXML.getGeneral().getUtf8();
-		String nameFile = configXML.getGeneral().getName_file_excel();
+	//	String nameFile = configXML.getGeneral().getName_file_excel();
 		String fileOutput = configXML.getGeneral().getName_file_output() + sCertDate +".xml";
 		String finalXML = "";
 		HashMap<Integer, String> hmGenInfoColsNameAndPosit = genInfoPosCell.hmGenInfoColsName();
 		HashMap<Integer, String> hmListItemsColsNameAndPosit = listItemsPosCell.hmListItemsColsName();
 		
+		myNum.setNumber(0.2);
 		byte[] byteExcel = configFileExcel.getByteFromFile(nameFile);
 		
 		/* ------------------------------------------
 		 * ASYCUDA: THE FIRST SHEET  -> GENERAL INFO
 		 *  		THE SECOND SHEET -> LIST ITEMS
 		 * -----------------------------------------*/
-		ASYCUDA = genInfoExcel.writeValueFromGeneralInfoExcel(byteExcel, currencyExchange, hmGenInfoColsNameAndPosit, hmListItemsColsNameAndPosit);
+		ASYCUDA = genInfoExcel.writeValueFromGeneralInfoExcel(byteExcel, currencyExchange, hmGenInfoColsNameAndPosit, hmListItemsColsNameAndPosit, myNum);
 
 
 		/* --------------------------------------
@@ -66,9 +68,11 @@ public class GenerateXMLFINAL {
 		 * --------------------------------------*/
 		finalXML = objToXMLString.convertObjectXML(ASYCUDA);
 		
+		myNum.setNumber(0.7);
+		
 		// Create and write the XML file 
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-				new FileOutputStream(fileOutput), utf8))) {
+				new FileOutputStream(pathFolder + "\\" +fileOutput), utf8))) {
 			writer.write(finalXML);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -78,5 +82,6 @@ public class GenerateXMLFINAL {
 			e.printStackTrace();
 		}
 		
+		myNum.setNumber(0.8);
 	}
 }

@@ -6,6 +6,7 @@ public class GeneralConfig {
 	private String utf8;
 	private String name_file_excel;
 	private String name_file_output;
+	private String path_folder;
 	
 	public String getData_format_file() {
 		return data_format_file;
@@ -30,6 +31,12 @@ public class GeneralConfig {
 	}
 	public void setName_file_output(String name_file_output) {
 		this.name_file_output = name_file_output;
+	}
+	public String getPath_folder() {
+		return path_folder;
+	}
+	public void setPath_folder(String path_folder) {
+		this.path_folder = path_folder;
 	}
 	
 
