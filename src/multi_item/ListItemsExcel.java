@@ -265,7 +265,7 @@ public class ListItemsExcel {
 			rowDescrListItem = sheet.getRow((ROW_NO_CHANGE-1));
 		}
 		ASYCUDA.setItem(items);
-
+		ROW = ROW_NO_CHANGE;
 		return ASYCUDA;
 
 	}
