@@ -67,7 +67,7 @@ public class GeneralInfoElabGS {
 		gsInv.setAmount_foreign_currency(sumAmountForeignCurr);
 		gsInv.setAmount_national_currency( sumAmounNationalCurr );
 		
-		genInfoValid.validCellValGsInvoiceValuationChilds(gsInv, hmGenInfoColsNameAndPosit);
+		genInfoValid.validCellValGsInvoiceValuationChilds(gsInv);
 
 		return gsInv;
 	}

@@ -56,7 +56,7 @@ public class GeneralInfoElaborate {
 		type.setDeclaration_gen_procedure_code(declarGenProcCode_TYPE_IDENT_String);
 		type.setType_of_transit_document(typeTransDoc_TYPE_IDENT_String);
 
-		genInfoValid.validationCellsTypeIdentificationChilds(type, hmGenInfoColsNameAndPosit);
+		genInfoValid.validationCellsTypeIdentificationChilds(type);
 
 		return type;
 	}
@@ -77,7 +77,7 @@ public class GeneralInfoElaborate {
 		offSegm.setCustoms_clearance_office_code(costumTransDoc_OFFICESEGM_IDENT_String);
 		offSegm.setCustoms_Clearance_office_name(costumClearaOffName_OFFICESEGM_IDENT_String);
 
-		genInfoValid.validationCellsOfficeSegmentIdentificationChilds(offSegm, hmGenInfoColsNameAndPosit);
+		genInfoValid.validationCellsOfficeSegmentIdentificationChilds(offSegm);
 
 		return offSegm;
 	}
@@ -95,7 +95,7 @@ public class GeneralInfoElaborate {
 		Exporter expo = new Exporter();
 		expo.setExporter_name(expoName_EXPO_TRADERS_String);
 
-		genInfoValid.validationCellsExporterTradersChilds(expo, hmGenInfoColsNameAndPosit);
+		genInfoValid.validationCellsExporterTradersChilds(expo);
 
 		return expo;
 	}
@@ -116,7 +116,7 @@ public class GeneralInfoElaborate {
 		formsProp.setNumber_of_the_form(numbForm_FORMS_PROPERT_String);
 		formsProp.setTotal_number_of_forms(totNumbForm_FORMS_PROPERT_String);
 
-		genInfoValid.validationCellsFormsPropertyChilds(formsProp, hmGenInfoColsNameAndPosit);
+		genInfoValid.validationCellsFormsPropertyChilds(formsProp);
 
 		return formsProp;
 	}
@@ -137,7 +137,7 @@ public class GeneralInfoElaborate {
 		Reference ref = new Reference();
 		ref.setNumber(number_REFER_DECLAR_String);
 
-		genInfoValid.validationCellsReferenceDeclarantChilds(ref, hmGenInfoColsNameAndPosit);
+		genInfoValid.validationCellsReferenceDeclarantChilds(ref);
 
 		return ref;
 	}
@@ -158,7 +158,7 @@ public class GeneralInfoElaborate {
 		cons.setConsignee_code(consignCode_CONSI_TRADERS_String);
 		cons.setConsignee_name(consignName_CONSI_TRADERS_String);
 
-		genInfoValid.validationCellsConsigneeTradersChilds(cons, hmGenInfoColsNameAndPosit);
+		genInfoValid.validationCellsConsigneeTradersChilds(cons);
 
 		return cons;
 	}
@@ -179,7 +179,7 @@ public class GeneralInfoElaborate {
 		count.setCountry_first_destination(countrFirstDest_COUNTR_GENERINFO_String);
 		count.setTrading_country(tradingCountr_COUNTR_GENERINFO_String);
 
-		genInfoValid.validationCellsCountryGeneralInfoChilds(count, hmGenInfoColsNameAndPosit);
+		genInfoValid.validationCellsCountryGeneralInfoChilds(count);
 
 		return count;
 	}
@@ -194,7 +194,7 @@ public class GeneralInfoElaborate {
 
 		String valueDetails_GENERINFO_String = ExcelPoi.getString(row, valueDetails_GENERINFO);
 
-		genInfoValid.validCellValDetailGeneralInfo(valueDetails_GENERINFO_String, hmGenInfoColsNameAndPosit);
+		genInfoValid.validCellValDetailGeneralInfo(valueDetails_GENERINFO_String);
 
 		return valueDetails_GENERINFO_String;
 	}
@@ -218,7 +218,7 @@ public class GeneralInfoElaborate {
 		decl.setDeclarant_name(declarName_DECLAR_String);
 		decl.setDeclarant_representative(declarReprestative_DECLAR_String);
 
-		genInfoValid.validationCellsDeclarant(decl, hmGenInfoColsNameAndPosit);
+		genInfoValid.validationCellsDeclarant(decl);
 
 		return decl;
 	}
@@ -239,7 +239,7 @@ public class GeneralInfoElaborate {
 		export.setExport_country_code(expoCountrCode_EXPO_COUNTR_GENERINFO_String);
 		export.setExport_country_name(expoCountrName_EXPO_COUNTR_GENERINFO_String);
 
-		genInfoValid.validationCellsExportGeneralInnfo(export, hmGenInfoColsNameAndPosit);
+		genInfoValid.validationCellsExportGeneralInnfo(export);
 
 		return export;
 	}
@@ -254,7 +254,7 @@ public class GeneralInfoElaborate {
 
 		String countrOrigName_COUNTR_GENERINFO_String = ExcelPoi.getString(row, countrOrigName_COUNTR_GENERINFO);
 
-		genInfoValid.validCellValCountrOrigNameGeneralInfo(countrOrigName_COUNTR_GENERINFO_String, hmGenInfoColsNameAndPosit);
+		genInfoValid.validCellValCountrOrigNameGeneralInfo(countrOrigName_COUNTR_GENERINFO_String);
 
 		return countrOrigName_COUNTR_GENERINFO_String;
 	}
@@ -282,7 +282,7 @@ public class GeneralInfoElaborate {
 		
 		dest.setDestination_country_name(destCountrName_DEST_COUNTR_GENERINFO_String);
 
-		genInfoValid.validCellValDestinationGeneralInfo(dest, hmGenInfoColsNameAndPosit);
+		genInfoValid.validCellValDestinationGeneralInfo(dest);
 
 		return dest;
 	}
@@ -303,7 +303,7 @@ public class GeneralInfoElaborate {
 		delTerm.setCode(code_DELIVTERMS_TRANSP_String);
 		delTerm.setPlace(place_DELIVTERMS_TRANSP_String);
 
-		genInfoValid.validCellValDeliveryTermsTransportChilds(delTerm, hmGenInfoColsNameAndPosit);
+		genInfoValid.validCellValDeliveryTermsTransportChilds(delTerm);
 
 		return delTerm;
 	}
@@ -325,7 +325,7 @@ public class GeneralInfoElaborate {
 		dai.setIdentity(identity_MEANTRANSP_TRANSP_String);
 		dai.setNationality(nationality_MEANTRANSP_TRANSP_String);
 
-		genInfoValid.validCellValDepartureArrivalInformation(dai, hmGenInfoColsNameAndPosit);
+		genInfoValid.validCellValDepartureArrivalInformation(dai);
 
 		return dai;
 	}
@@ -349,7 +349,7 @@ public class GeneralInfoElaborate {
 		bi.setNationality(nationality_BORDERINFO_MEANTRANSP_TRANSP_String);
 		bi.setMode(mode_BORDERINFO_MEANTRANSP_TRANSP_String);
 
-		genInfoValid.validCellValBorderInformation(bi, hmGenInfoColsNameAndPosit);
+		genInfoValid.validCellValBorderInformation(bi);
 
 		return bi;
 	}
@@ -370,7 +370,7 @@ public class GeneralInfoElaborate {
 		val.setCalculation_working_mode(calcWorkMode_VAL_String);
 		
 		
-		genInfoValid.validCellValValuation(val, hmGenInfoColsNameAndPosit);
+		genInfoValid.validCellValValuation(val);
 
 		return val;
 	}
@@ -385,7 +385,7 @@ public class GeneralInfoElaborate {
 
 		String inlandModeTransp_MEANTRANSP_TRANSP_String = ExcelPoi.getString(row, inlandModeTransp_MEANTRANSP_TRANSP);
 
-		genInfoValid.validCellValInlandModeTransp(inlandModeTransp_MEANTRANSP_TRANSP_String, hmGenInfoColsNameAndPosit);
+		genInfoValid.validCellValInlandModeTransp(inlandModeTransp_MEANTRANSP_TRANSP_String);
 
 		return inlandModeTransp_MEANTRANSP_TRANSP_String;
 	}
@@ -403,13 +403,13 @@ public class GeneralInfoElaborate {
 		BorderOffice bordOff = new BorderOffice();
 		bordOff.setCode(code_BORDEROFFIC_TRANSP_String);
 
-		if(code_BORDEROFFIC_TRANSP_String.equals("AL190000"))
+		if(code_BORDEROFFIC_TRANSP_String != null && code_BORDEROFFIC_TRANSP_String.equals("AL190000"))
 			bordOff.setName("Kapshtica");
 		else
 			bordOff.setName("Durresi");	// vete
 		
 		
-		genInfoValid.validCellValBorderOfficeTransChilds(bordOff, hmGenInfoColsNameAndPosit);
+		genInfoValid.validCellValBorderOfficeTransChilds(bordOff);
 
 		return bordOff;
 	}
@@ -424,7 +424,7 @@ public class GeneralInfoElaborate {
 
 		String modePaym_FINANC_String = ExcelPoi.getString(row, modePaym_FINANC);
 
-		genInfoValid.validCellValModePaymFINANC(modePaym_FINANC_String, hmGenInfoColsNameAndPosit);
+		genInfoValid.validCellValModePaymFINANC(modePaym_FINANC_String);
 
 		return modePaym_FINANC_String;
 	}
@@ -520,7 +520,7 @@ public class GeneralInfoElaborate {
 		
 		nbers.setTotal_number_of_packages(sumTotalNumbPackages_NBERS_PROPERT);
 
-		genInfoValid.validationCellsNbersPropertyChilds(nbers, hmGenInfoColsNameAndPosit);
+		genInfoValid.validationCellsNbersPropertyChilds(nbers);
 
 		return nbers;
 	}

@@ -1,9 +1,12 @@
 <configXML>
     <general>
-        <data_format_file>dd-MM-yyyy_hh_mm-ss</data_format_file>
+        <data_format_file>dd-MM-yyyy_kk_mm-ss</data_format_file>
         <utf8>UTF-8</utf8>
         <name_file_excel>E:\MultiItems.xlsx</name_file_excel>
         <name_file_output>asycudaXML_</name_file_output>
         <path_folder>C:\AsycudaConvertedFilesXML</path_folder>
+        <sheet1> -- Faqja e informacioneve te pergjithshme, posizioni i qelizes: </sheet1>
+        <sheet2> -- Faqja e procedurave, posizioni i qelizes: </sheet2>
+        <alertFillOutCell>Ju lutem plotesoni qelizen e lene bosh: </alertFillOutCell>
     </general>
 </configXML>

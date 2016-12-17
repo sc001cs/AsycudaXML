@@ -1,7 +1,6 @@
 package enitity.asycuda.property_childs;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 

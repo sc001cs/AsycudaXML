@@ -1,22 +1,20 @@
 package multi_item;
 
 import java.io.ByteArrayInputStream;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import logic.ExcelPoi;
-import logic.GetCurrencyAndAmount;
-import logic.MyNumber;
 import logic.elaboration.GeneralInfoElabGS;
 import logic.elaboration.GeneralInfoElaborate;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import configuration.AlertMsg;
 import enitity.Asycuda;
 import enitity.asycuda.AssessmentNotice;
 import enitity.asycuda.Declarant;
@@ -67,9 +65,8 @@ import enitity.asycuda.valuation_childs.GsInsurance;
 import enitity.asycuda.valuation_childs.GsInternalFreight;
 import enitity.asycuda.valuation_childs.GsInvoice;
 import enitity.asycuda.valuation_childs.GsOtherCost;
-import enitity.asycuda.valuation_childs.Total;
 import enitity.asycuda.valuation_childs.Weight;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Alert.AlertType;
 
 
 public class GeneralInfoExcel {
@@ -89,7 +86,9 @@ public class GeneralInfoExcel {
 	private static int statisVal_VALITEM_ITEM = 43;
 	 */
 
-	private static int ROW = 3;
+	AlertMsg alertMsg = new AlertMsg();
+	public static int ROW = 3;
+	public static Row rowDescrGenInfo = null;
 
 	/**
 	 * @param byteExcel
@@ -106,10 +105,11 @@ public class GeneralInfoExcel {
 			Workbook wb = WorkbookFactory.create(new ByteArrayInputStream(byteExcel));
 			sheet = wb.getSheetAt(0);
 		} catch (Exception e) {
-			System.err.println("Can't create Workbook object");
-			e.printStackTrace();
+			
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "Nuk mund te konvertohet workbook ne object \n" + ExceptionUtils.getStackTrace(e), null);
 		}
 		
+		rowDescrGenInfo = sheet.getRow((ROW-1));
 		Row row = sheet.getRow(ROW);
 
 		Asycuda ASYCUDA = new Asycuda();

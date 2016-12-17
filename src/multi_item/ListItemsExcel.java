@@ -10,11 +10,13 @@ import logic.ExcelPoi;
 import logic.elaboration.ListItemElabGS;
 import logic.elaboration.ListItemElaborate;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import configuration.AlertMsg;
 import configuration.ConfigFileExcel;
 import enitity.Asycuda;
 import enitity.asycuda.GoodsDescription;
@@ -39,6 +41,7 @@ import enitity.asycuda.valuationItem_childs.ItemInvoice;
 import enitity.asycuda.valuationItem_childs.ItemOtherCost;
 import enitity.asycuda.valuationItem_childs.MarketValuer;
 import enitity.asycuda.valuationItem_childs.WeightItm;
+import javafx.scene.control.Alert.AlertType;
 
 public class ListItemsExcel {
 
@@ -51,7 +54,10 @@ public class ListItemsExcel {
 		private static int totNumbItems_NBERS_PROP = 48;  
 	 */
 
-	private int ROW = 3;
+	AlertMsg alertMsg = new AlertMsg();
+	public static int ROW_NO_CHANGE = 3;
+	public static int ROW = 3;
+	public static Row rowDescrListItem = null;
 
 	public Asycuda writeValueListItems(byte[] byteExcel, Asycuda ASYCUDA, String currencyExchangeRoot, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
@@ -64,8 +70,7 @@ public class ListItemsExcel {
 			Workbook wb = WorkbookFactory.create(new ByteArrayInputStream(byteExcel));
 			sheet = wb.getSheetAt(1);
 		} catch (Exception e) {
-			System.err.println("Can't create Workbook object");
-			e.printStackTrace();
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "Nuk mund te konvertohet workbook ne object \n" + ExceptionUtils.getStackTrace(e), null);
 		}
 
 		List<Item> items = new ArrayList<Item>();
@@ -257,6 +262,7 @@ public class ListItemsExcel {
 
 			ROW++;
 			row = sheet.getRow(ROW);
+			rowDescrListItem = sheet.getRow((ROW_NO_CHANGE-1));
 		}
 		ASYCUDA.setItem(items);
 

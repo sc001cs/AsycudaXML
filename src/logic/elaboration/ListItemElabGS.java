@@ -56,7 +56,7 @@ public class ListItemElabGS {
 		itmInv.setAmount_national_currency(currency.calcAmountNationalCurr(Amount_foreign_currency_Invoice_String, Currency_code_Invoice_String, currencyExchange));
 		itmInv.setCurrency_rate(currency.getCurrency(Currency_code_Invoice_String, currencyExchange));	
 
-		itemValid.validItemInvoiceValChilds(itmInv, hmListItemColsNameAndPosit);
+		itemValid.validItemInvoiceValChilds(itmInv);
 
 		return itmInv;
 	}
@@ -96,7 +96,7 @@ public class ListItemElabGS {
 
 		itmFreig.setCurrency_rate(currency.getCurrency(Currency_code_ext_frei_String, currencyExchange));	
 
-		itemValid.validItemItemExternalFreightValChilds(itmFreig, hmListItemColsNameAndPosit);
+		itemValid.validItemItemExternalFreightValChilds(itmFreig);
 
 		return itmFreig;
 	}
@@ -137,7 +137,7 @@ public class ListItemElabGS {
 
 		itmInternalFreig.setCurrency_rate(currency.getCurrency(Currency_code_inter_frei_String, currencyExchange));	
 
-		itemValid.validItemItemInternalFreightValChilds(itmInternalFreig, hmListItemColsNameAndPosit);
+		itemValid.validItemItemInternalFreightValChilds(itmInternalFreig);
 
 		return itmInternalFreig;
 	}
@@ -177,7 +177,7 @@ public class ListItemElabGS {
 
 		itmInsur.setCurrency_rate(currency.getCurrency(Currency_code_ins_String, currencyExchange));	
 
-		itemValid.validItemInsuranceValChilds(itmInsur, hmListItemColsNameAndPosit);
+		itemValid.validItemInsuranceValChilds(itmInsur);
 
 		return itmInsur;
 	}
@@ -217,7 +217,7 @@ public class ListItemElabGS {
 
 		itmOthCost.setCurrency_rate(currency.getCurrency(Currency_code_other_cost_String, currencyExchange));	
 
-		itemValid.validItemOtherCostValChilds(itmOthCost, hmListItemColsNameAndPosit);
+		itemValid.validItemOtherCostValChilds(itmOthCost);
 
 		return itmOthCost;
 	}
@@ -257,7 +257,7 @@ public class ListItemElabGS {
 
 		itmDeduc.setCurrency_rate(currency.getCurrency(Currency_code_deduc_String, currencyExchange));	
 
-		itemValid.validItemOtherCostValChilds(itmDeduc, hmListItemColsNameAndPosit);
+		itemValid.validItemOtherCostValChilds(itmDeduc);
 
 		return itmDeduc;
 	}

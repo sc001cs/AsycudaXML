@@ -1,8 +1,13 @@
 package logic.elaboration;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import application.desktop.DesktopController;
+import configuration.AlertMsg;
 import configuration.ConfigFileExcel;
+import configuration.xml.ConfigXML;
 import enitity.asycuda.Declarant;
 import enitity.asycuda.Valuation;
 import enitity.asycuda.declarant_childs.Reference;
@@ -20,374 +25,345 @@ import enitity.asycuda.transport_childs.DeliveryTerms;
 import enitity.asycuda.transport_childs.meansOfTransport_childs.BorderInformation;
 import enitity.asycuda.transport_childs.meansOfTransport_childs.DepartureArrivalInformation;
 import enitity.asycuda.valuation_childs.GsInvoice;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import logic.ConvertIntToLetter;
+import logic.ExcelPoi;
+import modules.GenerateXMLFINAL;
+import multi_item.GeneralInfoExcel;
 
 public class GeneralInfoValidation {
 
 	public ConfigFileExcel confFileExcel = new ConfigFileExcel();
+	ConfigXML confXML = confFileExcel.getConfigXML();
+	ConvertIntToLetter intToLetter = new ConvertIntToLetter();
+	
+	GeneralInfoPositionCell genInfoPosCellClass = new GeneralInfoPositionCell();
+	HashMap<Integer, String> hmGenInfoColsNameAndPositClass = genInfoPosCellClass.hmGenInfoColsName();
 
-	public void validationCellsTypeIdentificationChilds(Type type, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validationCellsTypeIdentificationChilds(Type type) {
 
 		if(type.getType_of_declaration() == null || 
 				type.getType_of_declaration().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: typeDeclaration_TYPE_IDENT -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "typeDeclaration_TYPE_IDENT"));
+			addNotifMsg(AlertMsg.WARNING, "typeDeclaration_TYPE_IDENT");
 		}
 
 		if(type.getDeclaration_gen_procedure_code() == null ||
 				type.getDeclaration_gen_procedure_code().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: declarGenProcCode_TYPE_IDENT -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "declarGenProcCode_TYPE_IDENT"));
+			addNotifMsg(AlertMsg.WARNING, "declarGenProcCode_TYPE_IDENT");
 		}
 
 	}
 
-	public void validationCellsOfficeSegmentIdentificationChilds(OfficeSegment offSegm, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validationCellsOfficeSegmentIdentificationChilds(OfficeSegment offSegm) {
 
 		if(offSegm.getCustoms_clearance_office_code() == null || 
 				offSegm.getCustoms_clearance_office_code().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: costumTransDoc_OFFICESEGM_IDENT -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "costumTransDoc_OFFICESEGM_IDENT"));
+			addNotifMsg(AlertMsg.WARNING, "costumTransDoc_OFFICESEGM_IDENT");
+			
+			
 		}
 
 		if(offSegm.getCustoms_Clearance_office_name() == null ||
 				offSegm.getCustoms_Clearance_office_name().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: costumClearaOffName_OFFICESEGM_IDENT -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "costumClearaOffName_OFFICESEGM_IDENT"));
+			addNotifMsg(AlertMsg.WARNING, "costumClearaOffName_OFFICESEGM_IDENT");
+			
 		}
 
 	}
 
-	public void validationCellsExporterTradersChilds(Exporter expo, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validationCellsExporterTradersChilds(Exporter expo) {
 
 		if(expo.getExporter_name() == null || 
 				expo.getExporter_name().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: expoName_EXPO_TRADERS -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "expoName_EXPO_TRADERS"));
+			addNotifMsg(AlertMsg.WARNING, "expoName_EXPO_TRADERS");
+			
 		}
 	}
 
-	public void validationCellsFormsPropertyChilds(Forms formsProp, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validationCellsFormsPropertyChilds(Forms formsProp) {
 
 		if(formsProp.getNumber_of_the_form() == null || 
 				formsProp.getNumber_of_the_form().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: numbForm_FORMS_PROPERT -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "numbForm_FORMS_PROPERT"));
+			addNotifMsg(AlertMsg.WARNING, "numbForm_FORMS_PROPERT");
+			
 		}
 
 		if(formsProp.getTotal_number_of_forms() == null || 
 				formsProp.getTotal_number_of_forms().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: totNumbForm_FORMS_PROPERT -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "totNumbForm_FORMS_PROPERT"));
+			addNotifMsg(AlertMsg.WARNING, "totNumbForm_FORMS_PROPERT");
+			
 		}
 	}
 	
-	public void validationCellsNbersPropertyChilds(Nbers nbers, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validationCellsNbersPropertyChilds(Nbers nbers) {
 
 		if(nbers.getTotal_number_of_items() == null || 
 				nbers.getTotal_number_of_items().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: totNumbItems_NBERS_PROPERT -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "totNumbItems_NBERS_PROPERT"));
+			addNotifMsg(AlertMsg.WARNING, "totNumbItems_NBERS_PROPERT");
+			
 		}
 		
 		if(nbers.getTotal_number_of_packages() == null || 
 				nbers.getTotal_number_of_packages().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: totNumbPackages_NBERS_PROPERT -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "totNumbPackages_NBERS_PROPERT"));
+			addNotifMsg(AlertMsg.WARNING, "totNumbPackages_NBERS_PROPERT");
+			
 		}
 	}
 
-	public void validationCellsReferenceDeclarantChilds(Reference ref, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validationCellsReferenceDeclarantChilds(Reference ref) {
 
 		if(ref.getNumber() == null || 
 				ref.getNumber().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: number_REFER_DECLAR -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "number_REFER_DECLAR"));
+			addNotifMsg(AlertMsg.WARNING, "number_REFER_DECLAR");
+			
 		}
-		
 	}
 	
-	public void validationCellsConsigneeTradersChilds(Consignee cons, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validationCellsConsigneeTradersChilds(Consignee cons) {
 
 		if(cons.getConsignee_name() == null || 
 				cons.getConsignee_name().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: consignName_CONSI_TRADERS -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "consignName_CONSI_TRADERS"));
+			addNotifMsg(AlertMsg.WARNING, "consignName_CONSI_TRADERS");
+			
 		}
 		
 		if(cons.getConsignee_code() == null || 
 				cons.getConsignee_code().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: consignCode_CONSI_TRADERS -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "consignCode_CONSI_TRADERS"));
+			addNotifMsg(AlertMsg.WARNING, "consignCode_CONSI_TRADERS");
+			
 		}
 		
 	}
 	
-	public void validationCellsCountryGeneralInfoChilds(Country count, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validationCellsCountryGeneralInfoChilds(Country count) {
 
 		if(count.getCountry_first_destination() == null || 
 				count.getCountry_first_destination().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: countrFirstDest_COUNTR_GENERINFO -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "countrFirstDest_COUNTR_GENERINFO"));
+			addNotifMsg(AlertMsg.WARNING, "countrFirstDest_COUNTR_GENERINFO");
+			
 		}
 		
 		if(count.getTrading_country() == null || 
 				count.getTrading_country().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: tradingCountr_COUNTR_GENERINFO -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "tradingCountr_COUNTR_GENERINFO"));
+			addNotifMsg(AlertMsg.WARNING, "tradingCountr_COUNTR_GENERINFO");
+			
 		}
 		
 	}
 	
-	public void validCellValDetailGeneralInfo(String valueDetails_GENERINFO_String, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validCellValDetailGeneralInfo(String valueDetails_GENERINFO_String) {
 
 		if(valueDetails_GENERINFO_String == null || 
 				valueDetails_GENERINFO_String.equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: valueDetails_GENERINFO -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "valueDetails_GENERINFO"));
+			addNotifMsg(AlertMsg.WARNING, "valueDetails_GENERINFO");
+			
 		}
 
 	}
 	
-	public void validationCellsDeclarant(Declarant decl, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validationCellsDeclarant(Declarant decl) {
 
 		if(decl.getDeclarant_name() == null || 
 				decl.getDeclarant_name().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: declarName_DECLAR -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "declarName_DECLAR"));
+			addNotifMsg(AlertMsg.WARNING, "declarName_DECLAR");
+			
 		}
 		
 		if(decl.getDeclarant_code() == null || 
 				decl.getDeclarant_code().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: declarCode_DECLAR -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "declarCode_DECLAR"));
+			addNotifMsg(AlertMsg.WARNING, "declarCode_DECLAR");
+			
 		}
 		
 		if(decl.getDeclarant_representative() == null || 
 				decl.getDeclarant_representative().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: declarReprestative_DECLAR -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "declarReprestative_DECLAR"));
+			addNotifMsg(AlertMsg.WARNING, "declarReprestative_DECLAR");
+			
 		}
 		
 	}
 	
-	public void validationCellsExportGeneralInnfo(Export export, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validationCellsExportGeneralInnfo(Export export) {
 
 		if(export.getExport_country_name() == null || 
 				export.getExport_country_name().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: expoCountrName_EXPO_COUNTR_GENERINFO -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "expoCountrName_EXPO_COUNTR_GENERINFO"));
+			addNotifMsg(AlertMsg.WARNING, "expoCountrName_EXPO_COUNTR_GENERINFO");
+			
 		}
 		
 		if(export.getExport_country_code() == null || 
 				export.getExport_country_code().equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: expoCountrCode_EXPO_COUNTR_GENERINFO -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "expoCountrCode_EXPO_COUNTR_GENERINFO"));
+			addNotifMsg(AlertMsg.WARNING, "expoCountrCode_EXPO_COUNTR_GENERINFO");
+			
 		}
 		
 	}
 	
-	public void validCellValCountrOrigNameGeneralInfo(String countrOrigName_COUNTR_GENERINFO_String, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validCellValCountrOrigNameGeneralInfo(String countrOrigName_COUNTR_GENERINFO_String) {
 
 		if(countrOrigName_COUNTR_GENERINFO_String == null || 
 				countrOrigName_COUNTR_GENERINFO_String.equals("")) {
 
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: countrOrigName_COUNTR_GENERINFO -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "countrOrigName_COUNTR_GENERINFO"));
+			addNotifMsg(AlertMsg.WARNING, "countrOrigName_COUNTR_GENERINFO");
+			
 		}
 
 	}
 	
-	public void validCellValDestinationGeneralInfo(Destination dest, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validCellValDestinationGeneralInfo(Destination dest) {
 
 		if(dest.getDestination_country_name() == null || 
 				dest.getDestination_country_name().equals("")) {
-
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: codeCountrName_DEST_COUNTR_GENERINFO -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "codeCountrName_DEST_COUNTR_GENERINFO"));
+			addNotifMsg(AlertMsg.WARNING, "codeCountrName_DEST_COUNTR_GENERINFO");
+			
 		}
 
 	}
 	
-	public void validCellValDeliveryTermsTransportChilds(DeliveryTerms delTerm, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validCellValDeliveryTermsTransportChilds(DeliveryTerms delTerm) {
 
 		if(delTerm.getCode() == null || 
 				delTerm.getCode().equals("")) {
-
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: code_DELIVTERMS_TRANSP -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "code_DELIVTERMS_TRANSP"));
+			addNotifMsg(AlertMsg.WARNING, "code_DELIVTERMS_TRANSP");
+			
 		}
 		
 		if(delTerm.getPlace() == null || 
 				delTerm.getPlace().equals("")) {
-
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: place_DELIVTERMS_TRANSP -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "place_DELIVTERMS_TRANSP"));
+			addNotifMsg(AlertMsg.WARNING, "place_DELIVTERMS_TRANSP");
+			
 		}
 		
 	}
 	
-	public void validCellValDepartureArrivalInformation(DepartureArrivalInformation dai, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validCellValDepartureArrivalInformation(DepartureArrivalInformation dai) {
 
 		if(dai.getIdentity() == null || 
 				dai.getIdentity().equals("")) {
-
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: identity_MEANTRANSP_TRANSP -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "identity_MEANTRANSP_TRANSP"));
+			addNotifMsg(AlertMsg.WARNING, "identity_MEANTRANSP_TRANSP");
+			
 		}
 		
 		if(dai.getNationality() == null || 
 				dai.getNationality().equals("")) {
-
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: nationality_MEANTRANSP_TRANSP -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "nationality_MEANTRANSP_TRANSP"));
+			addNotifMsg(AlertMsg.WARNING, "nationality_MEANTRANSP_TRANSP");
+			
 		}
 		
 	}
 	
-	public void validCellValBorderInformation(BorderInformation bi, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validCellValBorderInformation(BorderInformation bi) {
 
 		if(bi.getIdentity() == null || 
 				bi.getIdentity().equals("")) {
-
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: identity_BORDERINFO_MEANTRANSP_TRANSP -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "identity_BORDERINFO_MEANTRANSP_TRANSP"));
+			addNotifMsg(AlertMsg.WARNING, "identity_BORDERINFO_MEANTRANSP_TRANSP");
+			
 		}
 		
 		if(bi.getNationality() == null || 
 				bi.getNationality().equals("")) {
-
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: nationality_BORDERINFO_MEANTRANSP_TRANSP -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "nationality_BORDERINFO_MEANTRANSP_TRANSP"));
+			addNotifMsg(AlertMsg.WARNING, "nationality_BORDERINFO_MEANTRANSP_TRANSP");
+			
 		}
 		
 		if(bi.getMode() == null || 
 				bi.getMode().equals("")) {
-
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: mode_BORDERINFO_MEANTRANSP_TRANSP -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "mode_BORDERINFO_MEANTRANSP_TRANSP"));
+			addNotifMsg(AlertMsg.WARNING, "mode_BORDERINFO_MEANTRANSP_TRANSP");
+			
 		}
 	}
 	
-	public void validCellValGsInvoiceValuationChilds(GsInvoice gsInv, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validCellValGsInvoiceValuationChilds(GsInvoice gsInv) {
 
 		if(gsInv.getCurrency_code() == null || 
 				gsInv.getCurrency_code().equals("")) {
-
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: currCode_GSINVOICE_VALU -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "currCode_GSINVOICE_VALU"));
+			addNotifMsg(AlertMsg.WARNING, "currCode_GSINVOICE_VALU");
+			
 		}
 		
 		if(gsInv.getAmount_foreign_currency() == null || 
 				gsInv.getAmount_foreign_currency().equals("")) {
-
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: amountForegCurr_GSINVOICE_VALU -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "amountForegCurr_GSINVOICE_VALU"));
+			addNotifMsg(AlertMsg.WARNING, "amountForegCurr_GSINVOICE_VALU");
+			
 		}
 	
 	}
 	
-	public void validCellValValuation(Valuation val, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validCellValValuation(Valuation val) {
 
 		if(val.getCalculation_working_mode() == null || 
 				val.getCalculation_working_mode().equals("")) {
-
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: calcWorkMode_VAL -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "calcWorkMode_VAL"));
+			addNotifMsg(AlertMsg.WARNING, "calcWorkMode_VAL");
+			
 		}
 	
 	}
 	
-	public void validCellValInlandModeTransp(String inlandModeTransp_MEANTRANSP_TRANSP_String, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validCellValInlandModeTransp(String inlandModeTransp_MEANTRANSP_TRANSP_String) {
 
 		if(inlandModeTransp_MEANTRANSP_TRANSP_String == null || 
 				inlandModeTransp_MEANTRANSP_TRANSP_String.equals("")) {
-
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: inlandModeTransp_MEANTRANSP_TRANSP -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "inlandModeTransp_MEANTRANSP_TRANSP"));
+			addNotifMsg(AlertMsg.WARNING, "inlandModeTransp_MEANTRANSP_TRANSP");
+			
 		}
 	
 	}
 	
-	public void validCellValBorderOfficeTransChilds(BorderOffice bordOff, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validCellValBorderOfficeTransChilds(BorderOffice bordOff) {
 
 		if(bordOff.getCode() == null || 
 				bordOff.getCode().equals("")) {
-
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: code_BORDEROFFIC_TRANSP -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "code_BORDEROFFIC_TRANSP"));
+			addNotifMsg(AlertMsg.WARNING, "code_BORDEROFFIC_TRANSP");
+			
 		}
-	
 	}
 	
-	public void validCellValModePaymFINANC(String modePaym_FINANC_String, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
+	public void validCellValModePaymFINANC(String modePaym_FINANC_String) {
 
 		if(modePaym_FINANC_String == null || 
 				modePaym_FINANC_String.equals("")) {
-
-			System.err.println("***** ERROR *****\n "
-					+ "Please fill out: modePaym_FINANC -- Sheet1 Cell " + 
-					confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "modePaym_FINANC"));
+			addNotifMsg(AlertMsg.WARNING, "modePaym_FINANC");
+			
 		}
 	
 	}
 	
-	
-	
-	
-	
+	public void addNotifMsg(String typeAlert, String code) {
+
+		int pos = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPositClass, code);
+		String descr = ExcelPoi.getString(GeneralInfoExcel.rowDescrGenInfo, pos);
+
+		String msg = confXML.getGeneral().getAlertFillOutCell() + descr + confXML.getGeneral().getSheet1() + 
+				intToLetter.toAlphabetic(confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPositClass, code)) + (GeneralInfoExcel.ROW+1);
+
+		if(DesktopController.alerts.containsKey(typeAlert)) {
+			DesktopController.alerts.get(typeAlert).add(msg);
+		} else {
+			List<String> listWarning = new ArrayList<String>();
+			listWarning.add(msg);
+			DesktopController.alerts.put(typeAlert, listWarning);
+		}
+	}
 	
 }

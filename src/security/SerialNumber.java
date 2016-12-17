@@ -5,9 +5,15 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import configuration.AlertMsg;
+import javafx.scene.control.Alert.AlertType;
+
 public class SerialNumber {
 
 	public static String getSerialNumber(String drive) {
+		  AlertMsg alertMsg = new AlertMsg();
 		  String result = "";
 		    try {
 		      File file = File.createTempFile("realhowto",".vbs");
@@ -31,7 +37,7 @@ public class SerialNumber {
 		      input.close();
 		    }
 		    catch(Exception e){
-		        e.printStackTrace();
+		    	alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
 		    }
 		    return result.trim();
 		  }

@@ -6,16 +6,12 @@ import java.util.HashMap;
 import org.apache.poi.ss.usermodel.Row;
 
 import configuration.ConfigFileExcel;
-import enitity.Asycuda;
 import enitity.asycuda.GoodsDescription;
-import enitity.asycuda.Item;
 import enitity.asycuda.PreviousDoc;
 import enitity.asycuda.ValuationItem;
-import enitity.asycuda.identification_childs.Type;
 import enitity.asycuda.item_childs.Packages;
 import enitity.asycuda.item_childs.Tarification;
 import enitity.asycuda.item_childs.tarification_childs.HScode;
-import enitity.asycuda.valuationItem_childs.ItemInvoice;
 import enitity.asycuda.valuationItem_childs.WeightItm;
 import logic.ExcelPoi;
 import logic.GetCurrencyAndAmount;
@@ -53,7 +49,7 @@ public class ListItemElaborate {
 		pack.setMarks1_of_packages("null");
 		pack.setMarks2_of_packages("null");
 
-		itemValid.validTypeIdentificationChilds(pack, hmListItemColsNameAndPosit);
+		itemValid.validTypeIdentificationChilds(pack);
 
 		return pack;
 	}
@@ -77,7 +73,7 @@ public class ListItemElaborate {
 		gDescr.setDescription_of_goods(descrGoods_GOODDESCR_TARIF_ITEM_String);
 		gDescr.setCommercial_Description(commDescr_GOODDESCR_TARIF_ITEM_String);
 
-		itemValid.validGoodsDescription(gDescr, hmListItemColsNameAndPosit);
+		itemValid.validGoodsDescription(gDescr);
 
 		return gDescr;
 	}
@@ -100,7 +96,7 @@ public class ListItemElaborate {
 		hsCode.setPrecision_2("null");
 		hsCode.setPrecision_3("null");
 
-		itemValid.validHScodeTarificItemChilds(hsCode, hmListItemColsNameAndPosit);
+		itemValid.validHScodeTarificItemChilds(hsCode);
 
 		return hsCode;
 	}
@@ -121,7 +117,7 @@ public class ListItemElaborate {
 		wItm.setGross_weight_itm(grossWeightItm_WEIGHTITM_VALITEM_ITEM_String);
 		wItm.setNet_weight_itm(netWeightItm_WEIGHTITM_VALITEM_ITEM_String);
 
-		itemValid.validWeightItmItemChilds(wItm, hmListItemColsNameAndPosit);
+		itemValid.validWeightItmItemChilds(wItm);
 
 		return wItm;
 	}
@@ -156,7 +152,7 @@ public class ListItemElaborate {
 		tar.setAttached_doc_item(Attached_doc_item_String);
 		tar.setAI_code("null");
 		
-		itemValid.validTarification(tar, hmListItemColsNameAndPosit);
+		itemValid.validTarification(tar);
 
 		return tar;
 	}
@@ -177,7 +173,7 @@ public class ListItemElaborate {
 		pDoc.setPrevious_document_reference(prevDocRef_PREVDOC_ITEM_String);
 		pDoc.setPrevious_warehouse_code("null");
 
-		itemValid.validPreviousDoc(pDoc, hmListItemColsNameAndPosit);
+		itemValid.validPreviousDoc(pDoc);
 
 		return pDoc;
 	}
@@ -231,7 +227,7 @@ public class ListItemElaborate {
 		vItem.setStatistical_value(statistValue);
 		vItem.setTotal_CIF_itm(totCIFitm);
 		
-		itemValid.validSetTotals(vItem, hmListItemColsNameAndPosit);
+		itemValid.validSetTotals(vItem);
 
 		return vItem;
 	}

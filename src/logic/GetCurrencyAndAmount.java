@@ -9,29 +9,18 @@ import java.math.RoundingMode;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import configuration.AlertMsg;
+import javafx.scene.control.Alert.AlertType;
+
 public class GetCurrencyAndAmount {
 
+	AlertMsg alertMsg = new AlertMsg();
 	private static List<String> listCurrencies = (List<String>) Arrays.asList("USD", "EUR", "GBP", "CHF", "XAU", "TEST");
-	
-	/*
-	public static void main(String[] args) throws IOException  {
-
-		GetCurrencyAndAmount currency = new GetCurrencyAndAmount();
-
-		String currencyExchange = currency.getCurrencyExchange();
-		
-		for(String currencyString : listCurrencies) {
-			
-			String currString = currency.getCurrency(currencyString, currencyExchange);
-			System.out.println("LEK to " + currencyString + ": " + currString);
-			
-		}
-	}
-	*/
 
 	public String getCurrencyExchangeBSH() {
 
@@ -48,26 +37,22 @@ public class GetCurrencyAndAmount {
 			bankaShqipURL = new URL(urlBankaShqip);
 		} catch (MalformedURLException e) {
 			
-			System.err.println("Can't find the website: " + urlBankaShqip);
-			e.printStackTrace();
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "Website " + urlBankaShqip + " nuk mund te gjendet\n" + ExceptionUtils.getStackTrace(e), null);
 		}
 		
 		try {
 			yc = bankaShqipURL.openConnection();
 		} catch (IOException e) {
 			
-			System.err.println("Can't connect with the website: " + urlBankaShqip);
-			e.printStackTrace();
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "Website " + urlBankaShqip + " nuk mund te gjendet\n" + ExceptionUtils.getStackTrace(e), null);
 		}
 		
 		try {
 			in = new BufferedReader(new InputStreamReader( yc.getInputStream(), utf8));
 		} catch (UnsupportedEncodingException e) {
-			
-			System.err.println("UnsupportedEncodingException: " + utf8);
-			e.printStackTrace();
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "UnsupportedEncodingException " + utf8 + " \n" + ExceptionUtils.getStackTrace(e), null);
 		} catch (IOException e) {
-			e.printStackTrace();
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
 		}
 		
 		try {
@@ -77,7 +62,7 @@ public class GetCurrencyAndAmount {
 			in.close();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
 		}
 
 		return a.toString();

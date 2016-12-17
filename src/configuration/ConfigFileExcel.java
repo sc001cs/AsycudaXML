@@ -12,11 +12,15 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 import configuration.xml.ConfigXML;
+import javafx.scene.control.Alert.AlertType;
 import modules.GenerateXMLFINAL;
 
 public class ConfigFileExcel {
 
+	AlertMsg alertMsg = new AlertMsg();
 
 	/**
 	 * Convert the file Excel to byte array
@@ -34,13 +38,8 @@ public class ConfigFileExcel {
 		try {
 			data = Files.readAllBytes(path);
 		} catch (IOException e) {
-			System.out.println("SYSTEM EXIT");
-
-			System.err.println("***ERROR**** \n " + 
-					"Template Excel with name: " + pathExcel + 
-					"\n Not found!");
-
-			System.exit(0);
+			
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "Template Excel me emer: " + pathExcel + " nuk u gjen!", null);
 		}
 
 		return data;
@@ -63,8 +62,8 @@ public class ConfigFileExcel {
         }
 		
 		if(index == 999) {
-			System.err.println("**** ERROR ****\n "
-					+ " Cos Name: " + value + " not found!");
+			
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", " Posizionimi i vleres: " + value + " nuk u gjen!", null);
 		}
 		
 		return index;
@@ -84,7 +83,9 @@ public class ConfigFileExcel {
 
 			return configXML;
 		} catch (JAXBException e) {  
-			e.printStackTrace();  
+			
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
+			
 			return null;
 		}  
 

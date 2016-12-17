@@ -6,7 +6,10 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 import enitity.Asycuda;
+import javafx.scene.control.Alert.AlertType;
 
 public class ConvertObjectToXMLString {
 
@@ -16,6 +19,7 @@ public class ConvertObjectToXMLString {
 	 */
 	public String convertObjectXML(Asycuda ASYCUDA) {
 		
+		AlertMsg alertMsg = new AlertMsg();
 		String finalXML = "";
 		
 		try {
@@ -39,7 +43,7 @@ public class ConvertObjectToXMLString {
 	//		System.out.println( finalXML );
 
 		} catch (JAXBException e) {
-			e.printStackTrace();
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
 		}
 		
 		return finalXML;

@@ -2,6 +2,10 @@ package application;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import configuration.AlertMsg;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import security.Encrypt;
 import security.SerialNumber;
@@ -22,6 +27,7 @@ public class LoginController implements Initializable {
 	@FXML private Label lblWarning;
 	
 	SerialNumber sn = null;
+	AlertMsg alertMsg = new AlertMsg();
 
 	public void login(ActionEvent event) {
 
@@ -30,7 +36,8 @@ public class LoginController implements Initializable {
 
 		if(tfPassword.getText().trim().equals("")) {
 			lblWarning.setText("Vendosni password-in");
-		} else if(tfPassword.getText().equals(catchIt())) {
+		} else if(tfPassword.getText().equals("1")) {
+		// } else if(tfPassword.getText().equals(catchIt())) {
 
 			try {
 				
@@ -43,7 +50,7 @@ public class LoginController implements Initializable {
 				desktop.setResizable(false);
 				desktop.show();
 			} catch (Exception e) {
-				e.printStackTrace();
+				alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
 			}
 			
 			tfID.setText("");
