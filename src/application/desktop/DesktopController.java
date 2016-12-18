@@ -35,10 +35,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -50,7 +52,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import modules.GenerateXMLFINAL;
 import test.DeleteRow.Person;
@@ -59,6 +63,7 @@ public class DesktopController implements Initializable {
 
 	@FXML private Button btnUploadExcel;
 	@FXML private Label lblConverting;
+	@FXML private Button btnSignOut;
 	
 	@FXML private TableView<FileXML> listXMLTable;
 	@FXML private TableColumn<FileXML, String> pathCol;
@@ -270,7 +275,7 @@ public class DesktopController implements Initializable {
 								
 								try {
 								    //moves mouse to the middle of the screen
-								    new Robot().mouseMove((int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 1.9), (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2.5));
+								    new Robot().mouseMove((int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 1.9), (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2.53));
 								    //remember to use try-catch block (always, and remember to delete this)
 								} catch (AWTException e) {
 								    e.printStackTrace();
@@ -311,6 +316,25 @@ public class DesktopController implements Initializable {
 		};
 
 		return cellFactory;
+	}
+	
+	public void signOut(ActionEvent event) {
+
+		try {
+			((Node)event.getSource()).getScene().getWindow().hide();
+			Stage primaryStage = new Stage();
+			FXMLLoader loader = new FXMLLoader();
+			Pane root = loader.load(getClass().getResource("/application/Login.fxml").openStream());
+
+			Scene scene = new Scene(root);
+	//		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
+			primaryStage.show();
+			
+		} catch (Exception e) {
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
+		}
 	}
 	
 }
