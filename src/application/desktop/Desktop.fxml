@@ -27,8 +27,8 @@
                         <TableView fx:id="listXMLTable" layoutX="5.0" layoutY="70.0" prefHeight="353.0" prefWidth="742.0">
                           <columns>
                             <TableColumn fx:id="pathCol" prefWidth="431.0" text="Emri i file XML" />
-                            <TableColumn fx:id="dateCol" minWidth="0.0" prefWidth="284.0" text="Data e krijimit" />
-                              <TableColumn fx:id="absPathCol" minWidth="0.0" prefWidth="0.0" text="Column X" />
+                            <TableColumn fx:id="dateCol" minWidth="0.0" prefWidth="221.0" text="Data e krijimit" />
+                              <TableColumn fx:id="deleteRowCol" editable="false" minWidth="0.0" prefWidth="72.0" sortable="false" text="Fshij file" />
                           </columns>
                         </TableView>
                      </children>

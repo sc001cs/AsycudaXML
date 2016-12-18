@@ -1,9 +1,14 @@
 package application.desktop;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -14,28 +19,41 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import com.graphbuilder.curve.Point;
 
 import configuration.AlertMsg;
 import configuration.ConfigFileExcel;
 import configuration.FileXML;
 import configuration.xml.ConfigXML;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
 import modules.GenerateXMLFINAL;
+import test.DeleteRow.Person;
 
 public class DesktopController implements Initializable {
 
@@ -45,7 +63,8 @@ public class DesktopController implements Initializable {
 	@FXML private TableView<FileXML> listXMLTable;
 	@FXML private TableColumn<FileXML, String> pathCol;
 	@FXML private TableColumn<FileXML, String> dateCol;
-	@FXML private TableColumn<FileXML, String> absPathCol;
+//	@FXML private TableColumn<FileXML, String> absPathCol;
+	@FXML private TableColumn<FileXML, String> deleteRowCol;
 	
 	GenerateXMLFINAL genXML = new GenerateXMLFINAL();
 	ConfigFileExcel configFileExcel = new ConfigFileExcel();
@@ -81,7 +100,7 @@ public class DesktopController implements Initializable {
 				
 				genXML.startGeneration(fileExcel.getAbsolutePath(), pathFolder);
 				
-				addItemXMLToList(pathFolder);
+				addItemXMLToListAndRefresh(pathFolder);
 				
 				validationProcessCovert();
 				
@@ -93,7 +112,7 @@ public class DesktopController implements Initializable {
 		}
 	}
 
-	private void addItemXMLToList(String pathFolder) {
+	private void addItemXMLToListAndRefresh(String pathFolder) {
 
 		// Absolute path and Path
 		HashMap<String, String> listXMLFilesPath = new HashMap<String, String>();
@@ -144,7 +163,27 @@ public class DesktopController implements Initializable {
 			ObservableList<FileXML> listTableFileXML = FXCollections.observableArrayList(listXML);
 			pathCol.setCellValueFactory(new PropertyValueFactory<FileXML, String>("path"));
 			dateCol.setCellValueFactory(new PropertyValueFactory<FileXML, String>("createdDate"));
-			absPathCol.setCellValueFactory(new PropertyValueFactory<FileXML, String>("absPathCol"));
+		//	absPathCol.setCellValueFactory(new PropertyValueFactory<FileXML, String>("absPathCol"));
+			deleteRowCol.setCellValueFactory(new PropertyValueFactory<FileXML, String>("deleteRowCol"));
+			deleteRowCol.setCellFactory( renderDeleteFile() );
+
+			//Add click listener
+			listXMLTable.setRowFactory( tv -> {
+			    TableRow<FileXML> row = new TableRow<>();
+			    row.setOnMouseClicked(event -> {
+			        if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+			        	FileXML rowData = row.getItem();
+			            Path path = Paths.get(rowData.getAbsolutePath());
+						try {
+							Runtime.getRuntime().exec("explorer.exe /select," + path);
+						} catch (IOException e) {
+							alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "File " + rowData.getPath() + "nuk gjendet ne folder", null);
+						}
+			        }
+			    });
+			    return row ;
+			});
+			
 			listXMLTable.setItems(listTableFileXML);
 		}
 		
@@ -174,7 +213,7 @@ public class DesktopController implements Initializable {
         	pathFolder = pathTemp;
         }
 		
-        addItemXMLToList(pathFolder);
+        addItemXMLToListAndRefresh(pathFolder);
 	}
 
 	private String convertFiletimeToDate(FileTime fileTime) {
@@ -197,6 +236,81 @@ public class DesktopController implements Initializable {
 			}
 			alertMsg.alertMsg(AlertType.INFORMATION, "Asycuda Converter", alertMessage, null);
 		}
+	}
+	
+	private Callback<TableColumn<FileXML, String>, TableCell<FileXML, String>> renderDeleteFile() {
+
+		Callback<TableColumn<FileXML, String>, TableCell<FileXML, String>> cellFactory = 
+				new Callback<TableColumn<FileXML, String>, TableCell<FileXML, String>>() {
+			@Override
+			public TableCell call( final TableColumn<FileXML, String> param ) {
+				final TableCell<FileXML, String> cell = new TableCell<FileXML, String>() {
+
+					final Button btnDeleteFile = new Button( "X Fshij" );
+
+					@Override
+					public void updateItem( String item, boolean empty )
+					{
+						super.updateItem( item, empty );
+						if ( empty )
+						{
+							setGraphic( null );
+							setText( null );
+						}
+						else
+						{
+							btnDeleteFile.setOnAction( ( ActionEvent event ) ->
+							{
+								FileXML fileXML = getTableView().getItems().get( getIndex() );
+								Path pathXML = Paths.get(fileXML.getAbsolutePath());
+
+								Alert alertDelete = new Alert(AlertType.CONFIRMATION);
+								alertDelete.setTitle("Deshironi te fshini kete file?");
+								alertDelete.setHeaderText("Emri i file: " + pathXML.getFileName());
+								
+								try {
+								    //moves mouse to the middle of the screen
+								    new Robot().mouseMove((int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 1.9), (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2.5));
+								    //remember to use try-catch block (always, and remember to delete this)
+								} catch (AWTException e) {
+								    e.printStackTrace();
+								}
+								
+								Optional<ButtonType> result = alertDelete.showAndWait();
+								if (result.get() == ButtonType.OK){
+									// ... user chose OK
+								
+									try {
+									    Files.delete(pathXML);
+									} catch (NoSuchFileException x) {
+										alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "File: " + pathXML.getFileName() + " nuk ekziston\n" +
+														ExceptionUtils.getStackTrace(x), null);
+									} catch (DirectoryNotEmptyException x) {
+										alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "Folderi nuk ekziston\n" +
+												ExceptionUtils.getStackTrace(x), null);
+									} catch (IOException x) {
+									    // File permission problems are caught here.
+										alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "Nuk keni te drejtat per te fshire kete file: " 
+									    + pathXML.getFileName() +"\n" +
+												ExceptionUtils.getStackTrace(x), null);
+									}
+									// Refresh the list
+									addItemXMLToListAndRefresh(pathFolder);
+									
+								} else {}
+
+							} );
+							setGraphic( btnDeleteFile );
+							setAlignment(getAlignment().CENTER);
+							setText( null );
+						}
+					}
+				};
+				return cell;
+			}
+		};
+
+		return cellFactory;
 	}
 	
 }
