@@ -190,6 +190,9 @@ public class DesktopController implements Initializable {
 			});
 			
 			listXMLTable.setItems(listTableFileXML);
+		} else if(listXML != null && listXML.size() == 0) {
+			ObservableList<FileXML> listTableFileXML = FXCollections.observableArrayList(listXML);
+			listXMLTable.setItems(listTableFileXML);
 		}
 		
 	}
