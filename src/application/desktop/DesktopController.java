@@ -28,8 +28,11 @@ import configuration.AlertMsg;
 import configuration.ConfigFileExcel;
 import configuration.FileXML;
 import configuration.xml.ConfigXML;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,6 +48,8 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
@@ -55,13 +60,15 @@ import modules.GenerateXMLFINAL;
 public class DesktopController implements Initializable {
 
 	@FXML private Button btnUploadExcel;
-	@FXML private Label lblConverting;
 	@FXML private Button btnSignOut;
+	@FXML private TextField tfFilter;
+	@FXML private Button btnClearFilter;
 	
 	@FXML private TableView<FileXML> listXMLTable;
 	@FXML private TableColumn<FileXML, String> pathCol;
 	@FXML private TableColumn<FileXML, String> dateCol;
 //	@FXML private TableColumn<FileXML, String> absPathCol;
+	@FXML private TableColumn<FileXML, String> editRowCol;
 	@FXML private TableColumn<FileXML, String> deleteRowCol;
 	
 	GenerateXMLFINAL genXML = new GenerateXMLFINAL();
@@ -159,12 +166,20 @@ public class DesktopController implements Initializable {
 			});
 			
 			ObservableList<FileXML> listTableFileXML = FXCollections.observableArrayList(listXML);
+			
+			initFilter(listTableFileXML);
+			btnClearFilter.setOnAction(e -> tfFilter.setText(""));
+			
 			pathCol.setCellValueFactory(new PropertyValueFactory<FileXML, String>("path"));
 			dateCol.setCellValueFactory(new PropertyValueFactory<FileXML, String>("createdDate"));
 		//	absPathCol.setCellValueFactory(new PropertyValueFactory<FileXML, String>("absPathCol"));
+			editRowCol.setCellValueFactory(new PropertyValueFactory<FileXML, String>("deleteRowCol"));
+			editRowCol.setCellFactory( renderEditFile() );
+			
 			deleteRowCol.setCellValueFactory(new PropertyValueFactory<FileXML, String>("deleteRowCol"));
 			deleteRowCol.setCellFactory( renderDeleteFile() );
 
+			
 			//Add click listener
 			listXMLTable.setRowFactory( tv -> {
 			    TableRow<FileXML> row = new TableRow<>();
@@ -237,6 +252,89 @@ public class DesktopController implements Initializable {
 			}
 			alertMsg.alertMsg(AlertType.INFORMATION, "Asycuda Converter", alertMessage, null);
 		}
+	}
+	
+	private Callback<TableColumn<FileXML, String>, TableCell<FileXML, String>> renderEditFile() {
+
+		Callback<TableColumn<FileXML, String>, TableCell<FileXML, String>> cellFactory = 
+				new Callback<TableColumn<FileXML, String>, TableCell<FileXML, String>>() {
+			@Override
+			public TableCell call( final TableColumn<FileXML, String> param ) {
+				final TableCell<FileXML, String> cell = new TableCell<FileXML, String>() {
+
+					final Button btnEditFile = new Button( "Modifiko" );
+
+					@Override
+					public void updateItem( String item, boolean empty )
+					{
+						super.updateItem( item, empty );
+						if ( empty )
+						{
+							setGraphic( null );
+							setText( null );
+						}
+						else
+						{
+							btnEditFile.setOnAction( ( ActionEvent event ) ->
+							{
+								FileXML fileXML = getTableView().getItems().get( getIndex() );
+								Path pathXML = Paths.get(fileXML.getAbsolutePath());
+
+//								Alert alertDelete = new Alert(AlertType.CONFIRMATION);
+//								alertDelete.setTitle("Deshironi te modifikoni kete file?");
+//								alertDelete.setHeaderText("Emri i file: " + pathXML.getFileName());
+								
+								String[] xmlNameSplit = (pathXML.getFileName().toString()).split("\\.");
+								String xmlNameWithoutExtesion = "";
+								String xmlExtesion = "";
+								if(xmlNameSplit.length == 2) {
+									xmlNameWithoutExtesion = xmlNameSplit[0];
+									xmlExtesion = xmlNameSplit[1];
+								}
+								
+								TextInputDialog dialog = new TextInputDialog(xmlNameWithoutExtesion);
+								dialog.getDialogPane().setPrefSize(450, 250);
+								dialog.setTitle("Asycuda Converter");
+								dialog.setHeaderText("Deshironi te modifikoni kete file?");
+								dialog.setContentText("Modifiko: ");
+
+								// Traditional way to get the response value.
+								Optional<String> result = dialog.showAndWait();
+								if (result.isPresent()){
+									
+									File oldfile = new File(fileXML.getAbsolutePath());
+									File newfile = new File(configXML.getGeneral().getPath_folder_xml() + "\\" + result.get() + "." + xmlExtesion);
+									
+									if(oldfile.renameTo(newfile)){
+										System.out.println("Rename succesful");
+									}else{
+										System.out.println("Rename failed");
+									}
+									
+									alertMsg.alertMsg(AlertType.INFORMATION, "Asycuda Converter", "Emri i file u modifikua me sukses", "Emri i file: " + pathXML.getFileName());
+									try {
+									    //moves mouse to the middle of the screen
+									    new Robot().mouseMove((int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 1.9), (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2.53));
+									    //remember to use try-catch block (always, and remember to delete this)
+									} catch (AWTException e) {
+										alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
+									}
+									
+									// Refresh the list
+									addItemXMLToListAndRefresh(pathFolder);
+								}
+							});
+							setGraphic( btnEditFile );
+							setAlignment(getAlignment().CENTER);
+							setText( null );
+						}
+					}
+				};
+				return cell;
+			}
+		};
+
+		return cellFactory;
 	}
 	
 	private Callback<TableColumn<FileXML, String>, TableCell<FileXML, String>> renderDeleteFile() {
@@ -332,5 +430,35 @@ public class DesktopController implements Initializable {
 			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
 		}
 	}
+	
+	private void initFilter(ObservableList<FileXML> listTableFileXML) {
+        tfFilter.textProperty().addListener(new InvalidationListener() {
+
+            @Override
+            public void invalidated(Observable o) {
+                if(tfFilter.textProperty().get().isEmpty()) {
+                	listXMLTable.setItems(listTableFileXML);
+                    return;
+                }
+                ObservableList<FileXML> tableItems = FXCollections.observableArrayList();
+                ObservableList<TableColumn<FileXML, ?>> cols = listXMLTable.getColumns();
+                for(int i=0; i<listTableFileXML.size(); i++) {
+                    
+                	//for(int j=0; j<cols.size(); j++) {
+                    for(int j=0; j<1; j++) {
+                        TableColumn col = cols.get(j);
+                        String cellValue = col.getCellData(listTableFileXML.get(i)).toString();
+                        cellValue = cellValue.toLowerCase();
+                        if(cellValue.contains(tfFilter.textProperty().get().toLowerCase())) {
+                            tableItems.add(listTableFileXML.get(i));
+                            break;
+                        }                        
+                    }
+
+                }
+                listXMLTable.setItems(tableItems);
+            }
+        });
+    }
 	
 }

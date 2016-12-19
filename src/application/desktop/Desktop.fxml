@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -17,20 +18,27 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="btnUploadExcel" layoutX="9.0" layoutY="7.0" mnemonicParsing="false" onAction="#uploadExcel" prefHeight="34.0" prefWidth="236.0" text="Upload Excel">
+                        <Button fx:id="btnUploadExcel" layoutX="5.0" layoutY="7.0" mnemonicParsing="false" onAction="#uploadExcel" prefHeight="34.0" prefWidth="236.0" text="Upload Excel">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
                         <Label layoutX="6.0" layoutY="45.0" prefHeight="17.0" prefWidth="185.0" text="Lista e file-ve XML te konvertuar" />
-                        <Label fx:id="lblConverting" alignment="CENTER" layoutX="286.0" layoutY="45.0" prefHeight="17.0" prefWidth="161.0" />
                         <TableView fx:id="listXMLTable" layoutX="5.0" layoutY="70.0" prefHeight="353.0" prefWidth="742.0">
                           <columns>
                             <TableColumn fx:id="pathCol" prefWidth="431.0" text="Emri i file XML" />
-                            <TableColumn fx:id="dateCol" minWidth="0.0" prefWidth="221.0" text="Data e krijimit" />
-                              <TableColumn fx:id="deleteRowCol" editable="false" minWidth="0.0" prefWidth="72.0" sortable="false" text="Fshij file" />
+                            <TableColumn fx:id="dateCol" minWidth="0.0" prefWidth="145.0" text="Data e krijimit" />
+                              <TableColumn fx:id="editRowCol" editable="false" minWidth="0.0" prefWidth="83.0" sortable="false" text="Modifiko file" />
+                              <TableColumn fx:id="deleteRowCol" editable="false" minWidth="0.0" prefWidth="60.0" sortable="false" text="Fshij file" />
                           </columns>
                         </TableView>
+                        <Label layoutX="286.0" layoutY="45.0" prefHeight="17.0" prefWidth="152.0" text="Filtro sipas emrit te file: " />
+			            <TextField fx:id="tfFilter" layoutX="420.0" layoutY="40.0" prefHeight="25.0" prefWidth="304.0" />
+						<Button fx:id="btnClearFilter" graphicTextGap="0.0" layoutX="699.0" layoutY="43.0" minHeight="10.0" minWidth="13.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="21.0" style="-fx-background-color: black;&#10;-fx-background-radius: 30;&#10;-fx-background-insets: 0;" text="X" textFill="WHITE" AnchorPane.bottomAnchor="360.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="43.0">
+							<font>
+								<Font size="9.0" />
+							</font>
+						</Button>
                      </children>
                   </AnchorPane>
             </content>
