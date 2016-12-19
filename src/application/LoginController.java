@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import configuration.AlertMsg;
+import configuration.SetUpFolders;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,6 +45,12 @@ public class LoginController implements Initializable {
 		// } else if(tfPassword.getText().equals(catchIt())) {
 
 			try {
+				
+				/**
+				 * Set up all the folders and file if not exist
+				 * */
+				SetUpFolders suf = new SetUpFolders();
+				suf.setUpTheFolders();
 				
 				((Node)event.getSource()).getScene().getWindow().hide();
 				Stage desktop = new Stage();

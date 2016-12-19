@@ -7,6 +7,7 @@ public class GeneralConfig {
 	private String name_file_excel;
 	private String name_file_output;
 	private String path_folder;
+	private String path_folder_xml;
 	private String sheet1;
 	private String sheet2;
 	private String alertFillOutCell;
@@ -35,11 +36,11 @@ public class GeneralConfig {
 	public void setName_file_output(String name_file_output) {
 		this.name_file_output = name_file_output;
 	}
-	public String getPath_folder() {
-		return path_folder;
+	public String getPath_folder_xml() {
+		return path_folder_xml;
 	}
-	public void setPath_folder(String path_folder) {
-		this.path_folder = path_folder;
+	public void setPath_folder_xml(String path_folder_xml) {
+		this.path_folder_xml = path_folder_xml;
 	}
 	public String getSheet1() {
 		return sheet1;
@@ -58,6 +59,12 @@ public class GeneralConfig {
 	}
 	public void setAlertFillOutCell(String alertFillOutCell) {
 		this.alertFillOutCell = alertFillOutCell;
+	}
+	public String getPath_folder() {
+		return path_folder;
+	}
+	public void setPath_folder(String path_folder) {
+		this.path_folder = path_folder;
 	}
 	
 }
