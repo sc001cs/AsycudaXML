@@ -74,11 +74,11 @@ public class GenerateXMLFINAL {
 				new FileOutputStream(pathFolder + "\\" +fileOutput), utf8))) {
 			writer.write(finalXML);
 		} catch (UnsupportedEncodingException e) {
-			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", null, ExceptionUtils.getStackTrace(e));
 		} catch (FileNotFoundException e) {
-			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", null, ExceptionUtils.getStackTrace(e));
 		} catch (IOException e) {
-			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", null, ExceptionUtils.getStackTrace(e));
 		}
 		
 		return null;

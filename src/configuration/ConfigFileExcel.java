@@ -84,7 +84,7 @@ public class ConfigFileExcel {
 			return configXML;
 		} catch (JAXBException e) {  
 			
-			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", null, ExceptionUtils.getStackTrace(e));
 			
 			return null;
 		}  

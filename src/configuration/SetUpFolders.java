@@ -54,7 +54,7 @@ public class SetUpFolders {
 			StreamResult result =  new StreamResult(new File(ConfigXML.configFolder + "\\" + "config.xml"));
 			transformer.transform(source, result);
 		} catch(Exception e) {
-			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", null, ExceptionUtils.getStackTrace(e));
 		}
 		
 	}

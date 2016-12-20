@@ -106,7 +106,7 @@ public class GeneralInfoExcel {
 			sheet = wb.getSheetAt(0);
 		} catch (Exception e) {
 			
-			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "Nuk mund te konvertohet workbook ne object \n" + ExceptionUtils.getStackTrace(e), null);
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "Nuk mund te konvertohet workbook ne object \n" + null, ExceptionUtils.getStackTrace(e));
 		}
 		
 		rowDescrGenInfo = sheet.getRow((ROW-1));

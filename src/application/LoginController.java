@@ -61,7 +61,7 @@ public class LoginController implements Initializable {
 				desktop.setResizable(false);
 				desktop.show();
 			} catch (Exception e) {
-				alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
+				alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", null, ExceptionUtils.getStackTrace(e));
 			}
 			
 			tfID.setText("");

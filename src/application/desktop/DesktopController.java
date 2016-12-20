@@ -110,7 +110,7 @@ public class DesktopController implements Initializable {
 				validationProcessCovert();
 				
 			} catch(Exception e) {
-				alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
+				alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", null, ExceptionUtils.getStackTrace(e));
 			}
 		} else {
 			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "File nuk u aksesua!", null);
@@ -151,7 +151,7 @@ public class DesktopController implements Initializable {
 				listXML.add(xml);
 				
 			} catch (IOException e) {
-				alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
+				alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", null, ExceptionUtils.getStackTrace(e));
 			}
 			
 		}
@@ -311,13 +311,13 @@ public class DesktopController implements Initializable {
 										System.out.println("Rename failed");
 									}
 									
-									alertMsg.alertMsg(AlertType.INFORMATION, "Asycuda Converter", "Emri i file u modifikua me sukses", "Emri i file: " + pathXML.getFileName());
+									alertMsg.alertMsg(AlertType.INFORMATION, "Asycuda Converter", "Emri i file u modifikua me sukses", "Emri i file: " + newfile.getName());
 									try {
 									    //moves mouse to the middle of the screen
 									    new Robot().mouseMove((int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 1.9), (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2.53));
 									    //remember to use try-catch block (always, and remember to delete this)
 									} catch (AWTException e) {
-										alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
+										alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", null, ExceptionUtils.getStackTrace(e));
 									}
 									
 									// Refresh the list
@@ -427,7 +427,7 @@ public class DesktopController implements Initializable {
 			primaryStage.show();
 			
 		} catch (Exception e) {
-			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", null, ExceptionUtils.getStackTrace(e));
 		}
 	}
 	

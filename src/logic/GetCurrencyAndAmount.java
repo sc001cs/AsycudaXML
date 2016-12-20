@@ -37,22 +37,22 @@ public class GetCurrencyAndAmount {
 			bankaShqipURL = new URL(urlBankaShqip);
 		} catch (MalformedURLException e) {
 			
-			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "Website " + urlBankaShqip + " nuk mund te gjendet\n" + ExceptionUtils.getStackTrace(e), null);
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "Website " + urlBankaShqip + " nuk mund te gjendet\n" + null, ExceptionUtils.getStackTrace(e));
 		}
 		
 		try {
 			yc = bankaShqipURL.openConnection();
 		} catch (IOException e) {
 			
-			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "Website " + urlBankaShqip + " nuk mund te gjendet\n" + ExceptionUtils.getStackTrace(e), null);
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "Website " + urlBankaShqip + " nuk mund te gjendet\n" + null, ExceptionUtils.getStackTrace(e));
 		}
 		
 		try {
 			in = new BufferedReader(new InputStreamReader( yc.getInputStream(), utf8));
 		} catch (UnsupportedEncodingException e) {
-			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "UnsupportedEncodingException " + utf8 + " \n" + ExceptionUtils.getStackTrace(e), null);
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "UnsupportedEncodingException " + utf8 + " \n" + null, ExceptionUtils.getStackTrace(e));
 		} catch (IOException e) {
-			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", null, ExceptionUtils.getStackTrace(e));
 		}
 		
 		try {
@@ -62,7 +62,7 @@ public class GetCurrencyAndAmount {
 			in.close();
 			
 		} catch (IOException e) {
-			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", ExceptionUtils.getStackTrace(e), null);
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", null, ExceptionUtils.getStackTrace(e));
 		}
 
 		return a.toString();

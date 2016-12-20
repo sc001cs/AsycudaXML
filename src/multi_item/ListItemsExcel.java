@@ -70,7 +70,7 @@ public class ListItemsExcel {
 			Workbook wb = WorkbookFactory.create(new ByteArrayInputStream(byteExcel));
 			sheet = wb.getSheetAt(1);
 		} catch (Exception e) {
-			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "Nuk mund te konvertohet workbook ne object \n" + ExceptionUtils.getStackTrace(e), null);
+			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", "Nuk mund te konvertohet workbook ne object \n" + null, ExceptionUtils.getStackTrace(e));
 		}
 
 		List<Item> items = new ArrayList<Item>();
