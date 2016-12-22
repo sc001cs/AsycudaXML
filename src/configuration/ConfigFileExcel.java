@@ -73,7 +73,7 @@ public class ConfigFileExcel {
 
 		try {  
 			
-			String configLoc = "C:\\config.xml";
+			String configLoc = "C:\\AsycudaConverter\\config\\config.xml";
 			
 			File file = new File(configLoc);  
 			JAXBContext jaxbContext = JAXBContext.newInstance(ConfigXML.class);  

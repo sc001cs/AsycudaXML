@@ -27,7 +27,7 @@ public class GenerateXMLFINAL {
 
 	AlertMsg alertMsg = new AlertMsg();
 	
-	public HashMap<String, List<String>> startGeneration(String nameFile, String pathFolder) {
+	public HashMap<String, List<String>> startGeneration(String nameFile) {
 
 		
 		
@@ -71,7 +71,7 @@ public class GenerateXMLFINAL {
 		
 		// Create and write the XML file 
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-				new FileOutputStream(pathFolder + "\\" +fileOutput), utf8))) {
+				new FileOutputStream(configXML.getGeneral().getPath_folder_xml() + "\\" +fileOutput), utf8))) {
 			writer.write(finalXML);
 		} catch (UnsupportedEncodingException e) {
 			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", null, ExceptionUtils.getStackTrace(e));

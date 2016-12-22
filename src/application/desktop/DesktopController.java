@@ -103,7 +103,7 @@ public class DesktopController implements Initializable {
 			try {
 				alerts = new HashMap<String, List<String>>();
 				
-				genXML.startGeneration(fileExcel.getAbsolutePath(), pathFolder);
+				genXML.startGeneration(fileExcel.getAbsolutePath());
 				
 				addItemXMLToListAndRefresh(pathFolder);
 				
