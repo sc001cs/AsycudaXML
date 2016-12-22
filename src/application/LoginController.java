@@ -54,13 +54,14 @@ public class LoginController implements Initializable {
 				
 				((Node)event.getSource()).getScene().getWindow().hide();
 				Stage desktop = new Stage();
-				Parent root = FXMLLoader.load(getClass().getResource("/application/desktop/Desktop.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource("/view/Desktop.fxml"));
 				Scene scene = new Scene(root, 750, 500);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				desktop.setScene(scene);
 				desktop.setResizable(false);
 				desktop.show();
 			} catch (Exception e) {
+				e.printStackTrace();
 				alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", null, ExceptionUtils.getStackTrace(e));
 			}
 			

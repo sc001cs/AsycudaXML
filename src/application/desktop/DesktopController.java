@@ -126,9 +126,11 @@ public class DesktopController implements Initializable {
 			File folder = new File(pathFolder);
 			File[] listOfFiles = folder.listFiles();
 
-			for (int i = 0; i < listOfFiles.length; i++) {
-				if (listOfFiles[i].isFile()) {
-					listXMLFilesPath.put(listOfFiles[i].getAbsolutePath(), listOfFiles[i].getName());
+			if(listOfFiles != null) {
+				for (int i = 0; i < listOfFiles.length; i++) {
+					if (listOfFiles[i].isFile()) {
+						listXMLFilesPath.put(listOfFiles[i].getAbsolutePath(), listOfFiles[i].getName());
+					}
 				}
 			}
 
