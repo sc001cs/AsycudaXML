@@ -443,8 +443,6 @@ public class DesktopController implements Initializable {
                 	
                 	addItemXMLToListAndRefresh(pathFolder);
                  	
-                	listXMLTable.setItems(listTableFileXML);
-                    return;
                 }
                 ObservableList<FileXML> tableItems = FXCollections.observableArrayList();
                 ObservableList<TableColumn<FileXML, ?>> cols = listXMLTable.getColumns();
