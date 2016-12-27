@@ -442,7 +442,7 @@ public class DesktopController implements Initializable {
                 if(tfFilter.textProperty().get().isEmpty()) {
                 	
                 	addItemXMLToListAndRefresh(pathFolder);
-                	
+                 	
                 	listXMLTable.setItems(listTableFileXML);
                     return;
                 }
