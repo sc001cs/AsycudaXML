@@ -169,8 +169,8 @@ public class DesktopController implements Initializable {
 			
 			ObservableList<FileXML> listTableFileXML = FXCollections.observableArrayList(listXML);
 			
-			initFilter(listTableFileXML);
 			btnClearFilter.setOnAction(e -> tfFilter.setText(""));
+			initFilter(listTableFileXML);
 			
 			pathCol.setCellValueFactory(new PropertyValueFactory<FileXML, String>("path"));
 			dateCol.setCellValueFactory(new PropertyValueFactory<FileXML, String>("createdDate"));
@@ -203,6 +203,7 @@ public class DesktopController implements Initializable {
 		} else if(listXML != null && listXML.size() == 0) {
 			ObservableList<FileXML> listTableFileXML = FXCollections.observableArrayList(listXML);
 			listXMLTable.setItems(listTableFileXML);
+			initFilter(listTableFileXML);
 		}
 		
 	}
@@ -439,6 +440,9 @@ public class DesktopController implements Initializable {
             @Override
             public void invalidated(Observable o) {
                 if(tfFilter.textProperty().get().isEmpty()) {
+                	
+                	addItemXMLToListAndRefresh(pathFolder);
+                	
                 	listXMLTable.setItems(listTableFileXML);
                     return;
                 }
@@ -461,6 +465,9 @@ public class DesktopController implements Initializable {
                 listXMLTable.setItems(tableItems);
             }
         });
+        
+        listXMLTable.setItems(listTableFileXML);
+        return;
     }
 	
 }
