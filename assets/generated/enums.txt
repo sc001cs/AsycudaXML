@@ -1,0 +1,91 @@
+** 24 **
+
+1 Shitje/Blerje
+2 Ridergim pas regjistrimit me kod 1
+3 Transferim pasurie pa kompesim
+4 Operacion per perpunimin ose riparimin
+5 Operac pas perpunimit ose riparimit
+6 Transaksion pa transferim pasurie
+7 Dergesa te kryera
+8 Furniz mater dhe paj per ndertim
+9 Lloje te tjera transaksionesh
+
+5-1 Pune per te tretet
+5-2 Riparime dhe mirembajtje garancie
+5-3 Riparime dhe mirembajtje falas
+
+** 25 **
+ 
+10 Detare
+11 Detar rifuxho
+12 Detar gabaljere
+13 Detar kamion i hapur
+14 Detar trajler i hapur
+15 Detar cdo mjet tjeter i hapur
+20 Hekurudhe
+31 Trailer
+32 Kamion
+33 Furgon
+34 Veture
+35 Transport rrugor i hapur
+36 Transport rrugor me cisterna
+40 Ajrore
+50 Poste
+60 Multimodale
+70 Instalime te fiksuara
+75 Me tubacione
+80 Liqen
+90 Me vetelevizje
+
+** 29 **
+
+343 Berati
+3511 Kakavija
+352 Saranda
+3521 Qafe Bota
+353 Tre Urat
+900 TVSH Kompesim
+AL010000 Shkodra
+AL020000 Hani i Hotit
+
+** 31 **
+
+00 Rifuxho
+09 Agregate, konstruksione
+100 Amb plastik ne paketa
+11 Fuci metalike
+110 Amb qelqi me paleta
+12 Bidona ose fuxi plastike
+13 Bombola presioni te larte
+14 Bombola gazi te djegshem >=3 ltr
+15 Bombola te bogla me nje perdorim
+18 Kanoce
+21 Kartona
+31 Lidhje
+32 Rrotulla
+41 Thase
+42 Dengje
+51 Arka plastike
+52 Arka derrase
+
+** 36 **
+
+MSABE Marreveshja e perkohshme AL-BE
+MTLBA Marreveshja CEFTA-Bosnje Hercegovine 
+MTLEFTA Marreveshja AL-EFTA
+MTLMD Marreveshja MD-CEFTA 26/07/2002
+MTLME Marreveshja CEFTA-Mal i Zi
+MTLMK Marreveshja CEFTA-Maqedoni
+MTLTR Marreveshja Tregetare me Turqine
+MTLXK Marreveshja XK-CEFTA 26/07/2007
+
+** 43 **
+1 METODA E TRANSAKSIONIT
+2 METODA E MALLRAVE TE
+3 METODA E MALLRAVE TE
+4 METODA DEDUKTIVE
+5 METODAE LLOGARITJEVE
+6 METODA E CMIMEVE RE
+
+
+
