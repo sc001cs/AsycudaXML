@@ -72,27 +72,23 @@ public class ListItemsPositionCell {
 		listItemsColsName.add("Amount_foreign_currency_ext_frei");
 		listItemsColsName.add("Currency_code_ext_frei");
 		// Gs_internal_freight
-		listItemsColsName.add("Amount_foreign_currency_inter_frei");
-		listItemsColsName.add("Currency_code_inter_frei");
-		// Gs_insurance
-		listItemsColsName.add("Amount_foreign_currency_ins");
-		listItemsColsName.add("Currency_code_ins");
-		// Gs_other_cost
-		listItemsColsName.add("Amount_foreign_currency_other_cost");
-		listItemsColsName.add("Currency_code_other_cost");
-		// Gs_deduction
-		listItemsColsName.add("Amount_foreign_currency_deduc");
-		listItemsColsName.add("Currency_code_deduc");
+//		listItemsColsName.add("Amount_foreign_currency_inter_frei");
+//		listItemsColsName.add("Currency_code_inter_frei");
+//		// Gs_insurance
+//		listItemsColsName.add("Amount_foreign_currency_ins");
+//		listItemsColsName.add("Currency_code_ins");
+//		// Gs_other_cost
+//		listItemsColsName.add("Amount_foreign_currency_other_cost");
+//		listItemsColsName.add("Currency_code_other_cost");
+//		// Gs_deduction
+//		listItemsColsName.add("Amount_foreign_currency_deduc");
+//		listItemsColsName.add("Currency_code_deduc");
 		
-		listItemsColsName.add("code_PREF_TARIF_ITEM");
+//		listItemsColsName.add("code_PREF_TARIF_ITEM");
 		
 		listItemsColsName.add("msProc_EXTCUSTOM_TARIF_ITEM");
 		
 		listItemsColsName.add("natCustomProc_TARIF_ITEM");
-		
-		listItemsColsName.add("");
-		listItemsColsName.add("");
-		listItemsColsName.add("");
 		
 		listItemsColsName.add("itemPrice_TARIF_ITEM");
 		

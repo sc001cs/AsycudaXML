@@ -127,7 +127,7 @@ public class GeneralInfoElaborate {
 	 */
 	public Reference getReferenceDeclarantChilds(Row row, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
-		int number_REFER_DECLAR = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "number_REFER_DECLAR");
+		int number_REFER_DECLAR = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "number_REFER_DECLAR", true);
 
 		String number_REFER_DECLAR_String = ExcelPoi.getString(row, number_REFER_DECLAR);
 
@@ -137,7 +137,7 @@ public class GeneralInfoElaborate {
 		Reference ref = new Reference();
 		ref.setNumber(number_REFER_DECLAR_String);
 
-		genInfoValid.validationCellsReferenceDeclarantChilds(ref);
+	//	genInfoValid.validationCellsReferenceDeclarantChilds(ref);
 
 		return ref;
 	}
@@ -488,7 +488,7 @@ public class GeneralInfoElaborate {
 	 */
 	public Nbers getNbersPropertyChilds(Row row, Asycuda asycuda, HashMap<Integer, String> hmGenInfoColsNameAndPosit) {
 
-		int numbLoadLists_NBERS_PROPERT = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "numbLoadLists_NBERS_PROPERT");
+		int numbLoadLists_NBERS_PROPERT = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "numbLoadLists_NBERS_PROPERT", true);
 		int totNumbPackages_NBERS_PROPERT = confFileExcel.getKeyByValueHashMap(hmGenInfoColsNameAndPosit, "totNumbPackages_NBERS_PROPERT");
 
 		String numbLoadLists_NBERS_PROPERT_String = ExcelPoi.getString(row, numbLoadLists_NBERS_PROPERT);

@@ -226,10 +226,15 @@ public class ListItemsExcel {
 
 			ItemInvoice itmInv = itemElabGS.getItemInvoiceValChilds(row, ASYCUDA, currencyExchangeRoot, hmListItemColsNameAndPosit);
 			vItem.setItem_Invoice(itmInv);
-
+			 
 			ItemExternalFreight itmFreig = itemElabGS.getItemItemExternalFreightValChilds(row, ASYCUDA, currencyExchangeRoot, hmListItemColsNameAndPosit);
 			vItem.setItem_external_freight(itmFreig);
 
+			/**
+			 * Mandi's notes
+			 * Delete those rows
+			 * 
+			 * */
 			ItemInternalFreight itmInternalFreig = itemElabGS.getItemItemInternalFreightValChilds(row, ASYCUDA, currencyExchangeRoot, hmListItemColsNameAndPosit);
 			vItem.setItem_internal_freight(itmInternalFreig);
 
@@ -241,7 +246,8 @@ public class ListItemsExcel {
 
 			ItemDeduction itmDeduc = itemElabGS.getItemDeductionValChilds(row, ASYCUDA, currencyExchangeRoot, hmListItemColsNameAndPosit);
 			vItem.setItem_deduction(itmDeduc);
-
+			
+			
 			MarketValuer mValue = new MarketValuer();
 			mValue.setCurrency_code("null");
 			mValue.setBasis_description("null");

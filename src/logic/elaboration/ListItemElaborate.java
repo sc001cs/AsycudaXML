@@ -128,7 +128,7 @@ public class ListItemElaborate {
 	 */
 	public Tarification getTarification(Row row, Tarification tar, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
-		int code_PREF_TARIF_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "code_PREF_TARIF_ITEM");
+		int code_PREF_TARIF_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "code_PREF_TARIF_ITEM", true);
 		int msProc_EXTCUSTOM_TARIF_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "msProc_EXTCUSTOM_TARIF_ITEM");
 		int natCustomProc_TARIF_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "natCustomProc_TARIF_ITEM");
 		int itemPrice_TARIF_ITEM = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "itemPrice_TARIF_ITEM");

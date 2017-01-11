@@ -99,10 +99,10 @@ public class ListItemValidation {
 
 	public void validTarification(Tarification tar) {
 
-		if(tar.getPreference_code() == null || 
-				tar.getPreference_code().equals("")) {
-			addNotifMsg(AlertMsg.WARNING, "code_PREF_TARIF_ITEM");
-		}
+//		if(tar.getPreference_code() == null || 
+//				tar.getPreference_code().equals("")) {
+//			addNotifMsg(AlertMsg.WARNING, "code_PREF_TARIF_ITEM");
+//		}
 
 		if(tar.getExtended_customs_procedure() == null || 
 				tar.getExtended_customs_procedure().equals("")) {

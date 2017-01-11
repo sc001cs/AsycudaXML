@@ -22,11 +22,11 @@ public class GeneralInfoPositionCell {
 		listGenInfoColsName.add("numbForm_FORMS_PROPERT");
 		listGenInfoColsName.add("totNumbForm_FORMS_PROPERT");
 		
-		listGenInfoColsName.add("numbLoadLists_NBERS_PROPERT");
+//		listGenInfoColsName.add("numbLoadLists_NBERS_PROPERT");
 		listGenInfoColsName.add("totNumbItems_NBERS_PROPERT");
 		listGenInfoColsName.add("totNumbPackages_NBERS_PROPERT");
 		
-		listGenInfoColsName.add("number_REFER_DECLAR");
+//		listGenInfoColsName.add("number_REFER_DECLAR");
 		
 		listGenInfoColsName.add("consignName_CONSI_TRADERS");
 		listGenInfoColsName.add("consignCode_CONSI_TRADERS");
@@ -67,22 +67,22 @@ public class GeneralInfoPositionCell {
 		
 		listGenInfoColsName.add("inlandModeTransp_MEANTRANSP_TRANSP");
 		
-		listGenInfoColsName.add("");
-		listGenInfoColsName.add("");
+//		listGenInfoColsName.add("");
+//		listGenInfoColsName.add("");
 		
 		listGenInfoColsName.add("code_BORDEROFFIC_TRANSP");
 		
-		listGenInfoColsName.add("");
-		listGenInfoColsName.add("");
-		listGenInfoColsName.add("");
-		listGenInfoColsName.add("");
+//		listGenInfoColsName.add("");
+//		listGenInfoColsName.add("");
+//		listGenInfoColsName.add("");
+//		listGenInfoColsName.add("");
 		
 		listGenInfoColsName.add("modePaym_FINANC");
 		
-		listGenInfoColsName.add("");
-		listGenInfoColsName.add("");
-		listGenInfoColsName.add("");
-		listGenInfoColsName.add("");
+//		listGenInfoColsName.add("");
+//		listGenInfoColsName.add("");
+//		listGenInfoColsName.add("");
+//		listGenInfoColsName.add("");
 		
 		listGenInfoColsName.add("declarReprestative_DECLAR");
 		

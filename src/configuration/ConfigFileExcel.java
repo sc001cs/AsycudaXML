@@ -51,7 +51,7 @@ public class ConfigFileExcel {
 	 * @param value
 	 * @return get key by value
 	 */
-	public int getKeyByValueHashMap(HashMap<Integer, String> hmGenInfoColsNameAndPosit, String value) {
+	public int getKeyByValueHashMap(HashMap<Integer, String> hmGenInfoColsNameAndPosit, String value, Boolean... optionalDontSearchField) {
 		hmGenInfoColsNameAndPosit.get(1);
 		int index = 999;
 		for (Entry<Integer, String> entry : hmGenInfoColsNameAndPosit.entrySet()) {
@@ -61,7 +61,7 @@ public class ConfigFileExcel {
             }
         }
 		
-		if(index == 999) {
+		if(index == 999 && (optionalDontSearchField.length == 0 || (optionalDontSearchField.length > 0 && optionalDontSearchField[0] != true)) ) {
 			
 			alertMsg.alertMsg(AlertType.ERROR, "Asycuda Converter", " Posizionimi i vleres: " + value + " nuk u gjen!", null);
 		}

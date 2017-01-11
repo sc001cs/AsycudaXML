@@ -108,8 +108,8 @@ public class ListItemElabGS {
 	 */
 	public ItemInternalFreight getItemItemInternalFreightValChilds(Row row, Asycuda asycuda, String currencyExchange, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
-		int Amount_foreign_currency_inter_frei = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Amount_foreign_currency_inter_frei");
-		int Currency_code_inter_frei = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Currency_code_inter_frei");
+		int Amount_foreign_currency_inter_frei = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Amount_foreign_currency_inter_frei", true);
+		int Currency_code_inter_frei = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Currency_code_inter_frei", true);
 
 		String Amount_foreign_currency_inter_frei_String = ExcelPoi.getString(row, Amount_foreign_currency_inter_frei);
 		String Currency_code_inter_frei_String = ExcelPoi.getString(row, Currency_code_inter_frei);
@@ -118,10 +118,11 @@ public class ListItemElabGS {
 		itmInternalFreig.setCurrency_name("Ska monedhe te huaj");
 		
 		if(Amount_foreign_currency_inter_frei_String == null || Amount_foreign_currency_inter_frei_String.equals("")) {
-			Amount_foreign_currency_inter_frei_String = "0"; 
+			Amount_foreign_currency_inter_frei_String = "0.0"; 
 			itmInternalFreig.setAmount_foreign_currency(Amount_foreign_currency_inter_frei_String);
 			
 			itmInternalFreig.setAmount_national_currency(BigDecimal.ZERO);
+			itmInternalFreig.setCurrency_rate("0.0");
 			
 			return itmInternalFreig;
 		} else
@@ -148,8 +149,8 @@ public class ListItemElabGS {
 	 */
 	public ItemInsurance getItemItemInsuranceValChilds(Row row, Asycuda asycuda, String currencyExchange, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
-		int Amount_foreign_currency_ins = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Amount_foreign_currency_ins");
-		int Currency_code_ins = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Currency_code_ins");
+		int Amount_foreign_currency_ins = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Amount_foreign_currency_ins", true);
+		int Currency_code_ins = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Currency_code_ins", true);
 
 		String Amount_foreign_currency_ins_String = ExcelPoi.getString(row, Amount_foreign_currency_ins);
 		String Currency_code_ins_String = ExcelPoi.getString(row, Currency_code_ins);
@@ -158,10 +159,11 @@ public class ListItemElabGS {
 		itmInsur.setCurrency_name("Ska monedhe te huaj");
 		
 		if(Amount_foreign_currency_ins_String == null || Amount_foreign_currency_ins_String.equals("")) {
-			Amount_foreign_currency_ins_String = "0"; 
+			Amount_foreign_currency_ins_String = "0.0"; 
 			itmInsur.setAmount_foreign_currency(Amount_foreign_currency_ins_String);
 			
 			itmInsur.setAmount_national_currency(BigDecimal.ZERO);
+			itmInsur.setCurrency_rate("0.0");
 			
 			return itmInsur;
 		} else
@@ -188,8 +190,8 @@ public class ListItemElabGS {
 	 */
 	public ItemOtherCost getItemOtherCostValChilds(Row row, Asycuda asycuda, String currencyExchange, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
-		int Amount_foreign_currency_other_cost = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Amount_foreign_currency_other_cost");
-		int Currency_code_other_cost = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Currency_code_other_cost");
+		int Amount_foreign_currency_other_cost = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Amount_foreign_currency_other_cost", true);
+		int Currency_code_other_cost = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Currency_code_other_cost", true);
 
 		String Amount_foreign_currency_other_cost_String = ExcelPoi.getString(row, Amount_foreign_currency_other_cost);
 		String Currency_code_other_cost_String = ExcelPoi.getString(row, Currency_code_other_cost);
@@ -198,10 +200,11 @@ public class ListItemElabGS {
 		itmOthCost.setCurrency_name("Ska monedhe te huaj");
 		
 		if(Amount_foreign_currency_other_cost_String == null || Amount_foreign_currency_other_cost_String.equals("")) {
-			Amount_foreign_currency_other_cost_String = "0"; 
+			Amount_foreign_currency_other_cost_String = "0.0"; 
 			itmOthCost.setAmount_foreign_currency(Amount_foreign_currency_other_cost_String);
 			
 			itmOthCost.setAmount_national_currency(BigDecimal.ZERO);
+			itmOthCost.setCurrency_rate("0.0");
 			
 			return itmOthCost;
 		} else
@@ -228,8 +231,8 @@ public class ListItemElabGS {
 	 */
 	public ItemDeduction getItemDeductionValChilds(Row row, Asycuda asycuda, String currencyExchange, HashMap<Integer, String> hmListItemColsNameAndPosit) {
 
-		int Amount_foreign_currency_deduc = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Amount_foreign_currency_deduc");
-		int Currency_code_deduc = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Currency_code_deduc");
+		int Amount_foreign_currency_deduc = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Amount_foreign_currency_deduc", true);
+		int Currency_code_deduc = confFileExcel.getKeyByValueHashMap(hmListItemColsNameAndPosit, "Currency_code_deduc", true);
 
 		String Amount_foreign_currency_deduc_String = ExcelPoi.getString(row, Amount_foreign_currency_deduc);
 		String Currency_code_deduc_String = ExcelPoi.getString(row, Currency_code_deduc);
@@ -238,10 +241,11 @@ public class ListItemElabGS {
 		itmDeduc.setCurrency_name("Ska monedhe te huaj");
 		
 		if(Amount_foreign_currency_deduc_String == null || Amount_foreign_currency_deduc_String.equals("")) {
-			Amount_foreign_currency_deduc_String = "0"; 
+			Amount_foreign_currency_deduc_String = "0.0"; 
 			itmDeduc.setAmount_foreign_currency(Amount_foreign_currency_deduc_String);
 			
 			itmDeduc.setAmount_national_currency(BigDecimal.ZERO);
+			itmDeduc.setCurrency_rate("0.0");
 			
 			return itmDeduc;
 		} else
